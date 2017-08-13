@@ -21,7 +21,8 @@ const todoList = function todoList()
             address: 'http://finance.debenhams.com/travel-money/exchange-rates/',
             exchangeId: "",
             numberOfTable : 0,
-            parameters: {
+            parameters:
+            {
                 currency: 'Currency',
                 buy: 'Standard Buy Rate',
                 sell: 'Standard Sell Rate'
@@ -52,8 +53,10 @@ const todoList = function todoList()
     };
 
     //Running
+    
     for (var i = 0; i < Object.keys(list_Of_Urls).length; i++ )
     {
+        console.log("Start scraping => "+ list_Of_Urls[i].address);
         scraping(list_Of_Urls[i])
     }
 
