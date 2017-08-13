@@ -12,12 +12,9 @@ const NOKlist = ['NOK', 'GBP/NOK','Norwegian Krone','Kroner - Norway'];
 const currenciesList = {0:'GBP',1:'EUR',2:'USD',3:'AUD',4:'CAD',5:'JPY',6:'CNY',7:'HKD',8:'ILS',9:'NOK'};
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
 const id = '03365315d1ca59368bc7b3b633bb801d';
-const   apigClientFactory = require('aws-api-gateway-client'),
-        tabletojson = require('tabletojson'),
-        Q = require("q"),
-        client = require("twilio")(acc,id),
-        fs = require("fs"),
-        timestamp = require('time-stamp');
+const client = require("twilio")(acc,id);
+const fs = require("fs");
+var timestamp = require('time-stamp');
 ///report vars
 var Report =
 {
@@ -85,13 +82,14 @@ function isoFix(currencyName) {
 }
 
 //Scraping function
-
 exports.Scraping = function scraping(url)
 {
     var sync = require('synchronize');
     //include libraries
-
-     
+    const apigClientFactory = require('aws-api-gateway-client'),
+          tabletojson = require('tabletojson'),
+          Q = require("q");
+         
     //Convert Html tables to Json object
     tabletojson.convertUrl(url.address, function(tablesAsJson)
     {
@@ -107,79 +105,63 @@ exports.Scraping = function scraping(url)
                 if (isoCurrency !== -2)
                 {
                     jsonOutput[j++] =
-                    {
-                        id: url.exchangeId,
-                        buy: rate[url.parameters.buy],
-                        sell: rate[url.parameters.sell],
-                        currency: isoCurrency
-                    };
-                }
+                        {
+                            id: url.exchangeId,
+                            buy: rate[url.parameters.buy],
+                            sell: rate[url.parameters.sell],
+                            currency: isoCurrency
+                        };
+                    }
             }
         })
-            var counter = 0;
-            var objMapToArr = require('object-map-to-array');
-                function runArray ()
-                {
-                    var promises = objMapToArr(jsonOutput,asyncFunc);
-                    return Promise.all(promises);
-                }
-            runArray().then(function(result) {
-                sendReport();
-            })
-            .catch(function(error) {
-                console.log(Report);
-            });
-    })
-}
 
-
-var asyncFunc = function(item) {
-    
-    var apigClient = apigClientFactory.default.newClient({
-                accessKey: process.env.ACCESS_KEY,
-                secretKey: process.env.SECRET_KEY,
-                invokeUrl: process.env.INVOKE_URL
+            
+            var apigClient = apigClientFactory.default.newClient({
+                accessKey: 'AKIAIY6K5IKEXG7EGC6A',
+                secretKey: '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',
+                invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
-            var pathTemplate = process.env.STAGING;
+             
+            var pathTemplate = '/staging/rates';
             var method = 'POST';
             
-            var body =
+            for (var i = 0; i < Object.keys(jsonOutput).length; i++)
             {
-                    currency: item.currency,
-                    chain: 'Debenhams',
-                    buy: parseFloat(item.buy),
-                    sell: parseFloat(item.sell)
-            };
-    return new Promise(function(resolve, reject) {
-        apigClient.invokeApi({}, pathTemplate, method, {}, body)
-        .then(function (result) {
-            Report.numberOfSuccess++;
-            console.log(JSON.stringify(result.data));
-            resolve('ok');
-        }).catch(function (result) {
-            Report.numberOfFailed++;
-            Report.reportList.push([body.chain,body.currency]);
-            resolve('error');
-        });
-       
+            var body = {
+                                currency: jsonOutput[i].currency,
+                                chain: 'Debenhams',
+                                buy: parseFloat(jsonOutput[i].buy),
+                                sell: parseFloat(jsonOutput[i].sell)
+                            };
+            apigClient.invokeApi({}, pathTemplate, method, {}, body)
+            .then(function (result) {
+                Report.numberOfSuccess++;
+                console.log(JSON.stringify(result.data));
+            }).catch(function (result) {
+                Report.numberOfFailed++;
+                //Report.reportList.push([jsonOutput[i].id,jsonOutput[i].currency]);
+            });
+
+            }
+        /////finally
+        console.log(Report);
     })
 }
-function sendReport()
-{
-    ///sending a report
-    console.log("Sending a message to +972549325932");
-    client.messages.create
-    ({ 
-        to: "+972549325932", 
-        from: "+17868863180", 
-        body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-    });
-    if (Report.numberOfFailed > 0)
-    {
-        fs.writeFile('Report.txt', timestamp('DD/MM/YYYY HH:mm:ss \r\n') + Report.reportList.map(function(v){ return v.join(', ') }).join('\n'), function (err) {
-        if (err) 
-            throw err;
-        console.log('Report created');
-        });
-    }
-}
+
+//https://blog.risingstack.com/node-hero-async-programming-in-node-js/
+// ///sending a report
+// console.log("Sending a message to +972549325932");
+// client.messages.create
+// ({ 
+//     to: "+972549325932", 
+//     from: "+17868863180", 
+//     body: '\r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + numberOfSuccess  + '\r\nNumber of failed: ' + numberOfFailed
+// });
+// if (numberOfFailed > 0)
+// {
+//     fs.writeFile('Report.txt', timestamp('DD/MM/YYYY HH:mm:ss') + reportList, function (err) {
+//     if (err) 
+//         throw err;
+//     console.log('Report created');
+//     });
+// }

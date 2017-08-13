@@ -8,7 +8,10 @@
   "dependencies": {
     "async": "~0.2.8",
     "express": "~3.2.4",
+    "node-async-loop": "^1.2.2",
+    "object.map": "^1.0.0",
     "promise": "^8.0.1",
+    "q-promise": "^1.0.0",
     "socket.io": "~0.9.14"
   }
 }

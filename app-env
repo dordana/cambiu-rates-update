@@ -1,0 +1,4 @@
+export ACCESS_KEY='AKIAIY6K5IKEXG7EGC6A',
+export SECRET_KEY='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',
+export INVOKE_URL='https://cz471val2d.execute-api.us-west-2.amazonaws.com'
+export STAGING='/staging/rates'

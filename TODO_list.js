@@ -29,7 +29,7 @@ const todoList = function todoList()
         },
         2:
         {
-         address: ' https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',
+         address: 'https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',
             exchangeId: "",
             numberOfTable : 5,
             parameters: {
@@ -37,14 +37,26 @@ const todoList = function todoList()
                 buy: '2',
                 sell: '3'
             }
+        },
+        3:
+        {
+         address: 'https://www.pottchange.com/en/exchange-rates/',
+            exchangeId: "",
+            numberOfTable : 0,
+            parameters: {
+                currency: '0',
+                buy: 'BUYper Euro',
+                sell: 'SELLper Euro'
+            }
         }
     };
 
     //Running
     for (var i = 0; i < Object.keys(list_Of_Urls).length; i++ )
     {
-        scraping(list_Of_Urls[i]);
+        scraping(list_Of_Urls[i])
     }
+
 }
 
 exports.todoList = todoList;
