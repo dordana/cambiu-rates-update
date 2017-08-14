@@ -19,7 +19,7 @@
     "fs": "latest",
     "time-stamp": "latest",
     "mailgun-js": "latest",
-    "object-map-to-array": "latest",
+    "object-map-to-array": "latest"
     
   }
 }
