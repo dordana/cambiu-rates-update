@@ -1,72 +1,37 @@
 var async1 = require("async");
+function UrlClass(address,exchangeId,chain,name,numberOfTable,currency,buy,sell)
+{
+    this.address = address;
+    this.exchangeId = exchangeId;
+    this.chain = chain;
+    this.name = name;
+    this.numberOfTable = numberOfTable;
+    this.currency = currency
+    this.sell = sell;
+    this.buy = buy;
+}
+
+
+
 const todoList = function todoList()
 {
     //Including the scrafing function
     var scraping = require("./scraping.js").Scraping;
-    
-    //List of all the url to scrape
-    var list_Of_Urls = {
-        0:
-        {
-            address: 'http://bestexchange.co.uk/?q=exchange-rates',
-            exchangeId: "",
-            chain:"Debenhams",
-            name: "",
-            numberOfTable : 0,
-            parameters: {
-                currency: '1',
-                buy: 'We Buy',
-                sell: 'We Sell'
-            }
-        },
-        1:
-        {
-            address: 'http://finance.debenhams.com/travel-money/exchange-rates/',
-            exchangeId: "",
-            chain: 'Debenhams',
-            name: "",
-            numberOfTable : 0,
-            parameters:
-            {
-                currency: 'Currency',
-                buy: 'Standard Buy Rate',
-                sell: 'Standard Sell Rate'
-            }
-        },
-        2:
-        {
-         address: 'https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',
-            exchangeId: "",
-            chain: "Debenhams",
-            name: "",
-            numberOfTable : 5,
-            parameters: {
-                currency: '1',
-                buy: '2',
-                sell: '3'
-            }
-        },
-        3:
-        {
-            address: 'https://www.pottchange.com/en/exchange-rates/',
-            exchangeId: "",
-            chain: "",
-            name: "pott change",
-            numberOfTable : 0,
-            parameters: {
-                currency: '0',
-                buy: 'BUYper Euro',
-                sell: 'SELLper Euro'
-            }
-        }
-    };
+    var urlsToScrape = [];
+    urlsToScrape.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"","Debenhams","",0,'1','We Buy','We Sell'));
+    urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"","Debenhams","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
+    urlsToScrape.push(new UrlClass('https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',"","Debenhams","",5,'1','2','3'));
+    urlsToScrape.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"","","pott change",0,'0','BUYper Euro','SELLper Euro'));
+    urlsToScrape.push(new UrlClass('http://interafrica.webalytics.co.za/customcontent/Rates.php',"","inter africa","",0,'Currency','Buy Rate','Sell Rate'));
+    urlsToScrape.push(new UrlClass('http://www.mastercurrency.co.za/rates.aspx',"","","master currency",0,'Code','We Buy','We Sell'));
+    urlsToScrape.push(new UrlClass('http://www.towerfx.co.za/index.php/rate-board',"","Tower Bureau de Change","",0,'2','3','4'));
+    urlsToScrape.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"","JC Money Change","",0,'0','2','3'));
+    //urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/iban-express/4',"","Iban Express","",0,'0','WE BUY','WE SELL'));
+
 
     //Running
-    var Promise = require('promise');
-    
-
         var objMapToArr = require('object-map-to-array');
-        objMapToArr(list_Of_Urls,scraping);
+        objMapToArr(urlsToScrape,scraping);
 
         
 

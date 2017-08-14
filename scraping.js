@@ -1,13 +1,13 @@
 //Global vars
-const GBPlist = ['GBP/GBP','GBP','British Pound'];
-const USDlist = ['US Dollar', 'USD', 'GBP/USD','Dollars - USA'];
+const GBPlist = ['GBP/GBP','GBP','British Pound',"GBP British Pound"];
+const USDlist = ['US Dollar', 'USD', 'GBP/USD','Dollars - USA',"USD US Dollars"];
 const ILSlist = ['ILS','New Israeli Sheqel','GBP/ILS','Sheqel - Israel'];
-const EURlist = ['EUR', 'GBP/EUR','Euro','EURO','Euro - Europe'];
-const AUDlist = ['AUD','Australian Dollar','GBP/AUD','Dollars - Australia'];
-const CADlist = ['CAD', 'GBP/CAD', 'Canadian Dollar','Dollars - Canada'];
-const JPYlist = ['JPY', 'GBP/JPY','Japanese Yen','Yen - Japan'];
-const CNYlist = ['CNY', 'Chinese Yuan Renminbi','GBP/CNY','Yuan - China'];
-const HKDlist = ['HKD', 'GBP/HKD','Hong Kong Dollar','Dollars - Hongkong'];
+const EURlist = ['EUR', 'GBP/EUR','Euro','EURO','Euro - Europe',"EUR Euro"];
+const AUDlist = ['AUD','Australian Dollar','GBP/AUD','Dollars - Australia','AUS',"AUD Australian Dollar"];
+const CADlist = ['CAD', 'GBP/CAD', 'Canadian Dollar','Dollars - Canada','CAN'];
+const JPYlist = ['JPY', 'GBP/JPY','Japanese Yen','Yen - Japan',"JPY Japanese Yen"];
+const CNYlist = ['CNY', 'Chinese Yuan Renminbi','GBP/CNY','Yuan - China','CHN',"CNY Chinese Yuan (RMB)"];
+const HKDlist = ['HKD', 'GBP/HKD','Hong Kong Dollar','Dollars - Hongkong','HKG',"HKD Hong Kong Dollar"];
 const NOKlist = ['NOK', 'GBP/NOK','Norwegian Krone','Kroner - Norway'];
 const currenciesList = {0:'GBP',1:'EUR',2:'USD',3:'AUD',4:'CAD',5:'JPY',6:'CNY',7:'HKD',8:'ILS',9:'NOK'};
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
@@ -39,9 +39,28 @@ function isFloat(val) {
     return true;
 }
 
+function checkRates(rate)
+{
+    if(isFloat(rate))
+    {
+        return rate;
+    }else if (rate !== ""){
+        console.log("hey"); //// here
+        rate = rate.split(" ");
+        console.log(rate);
+        if(isFloat(rate))
+        {
+            console.log(rate);
+            return rate;
+        }
+        return rate;
+    }
+    
+}
+
 //convert the full name to iso name
 function isoFix(currencyName) {
-    if(GBPlist.indexOf(currencyName.incl) > -1)
+    if(GBPlist.indexOf(currencyName) > -1)
     {
         return'GBP';
     }
@@ -102,22 +121,27 @@ exports.Scraping = function scraping(url)
         var j = 0;
         console.log("Start scraping => "+ url.address);
         console.log("Converting web Html to Json object");
+        
         exchangeJson.forEach(function(rate)
         {
-
-            if(isFloat(rate[url.parameters.buy]) && isFloat(rate[url.parameters.sell]))
+            //rate[url.buy] = checkRates(rate[url.buy]);
+            //rate[url.sell] = checkRates(rate[url.sell]);
+            if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
             {
-                var isoCurrency = isoFix(rate[url.parameters.currency]);
+                
+                var isoCurrency = isoFix(rate[url.currency]);
+                
                 if (isoCurrency !== -2)
                 {
-                    
+                   
                     jsonOutput[j++] =
                     {
+                        address: url.address,
                         name: url.name,
                         id: url.exchangeId,
                         chain: url.chain,
-                        buy: rate[url.parameters.buy],
-                        sell: rate[url.parameters.sell],
+                        buy: rate[url.buy],
+                        sell: rate[url.sell],
                         currency: isoCurrency
                     };
                 }
@@ -188,9 +212,11 @@ var asyncFunc = function(item) {
     return new Promise(function(resolve, reject) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
-            console.log("Success: Updating => " + body.currency +"\r\n"+ body.name);
+            console.log('\r\n--------------------------------------------');
+            console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
             Report.numberOfSuccess++;
             console.log(JSON.stringify(result.data));
+            console.log('--------------------------------------------');
             resolve('ok');
         }).catch(function (result) {
             console.log("Error: Updating => " + body.currency);
@@ -242,3 +268,4 @@ function sendEmailReport()
 
 }
 ////run => source app-env
+////commits => heroku releases --app cambiu-update | grep -om 1 "[0-9a-f]\{7\}" | xargs git show
