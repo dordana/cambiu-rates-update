@@ -1,3 +1,4 @@
+var async1 = require("async");
 const todoList = function todoList()
 {
     //Including the scrafing function
@@ -48,17 +49,18 @@ const todoList = function todoList()
                 currency: '0',
                 buy: 'BUYper Euro',
                 sell: 'SELLper Euro'
-            }
+            },
         }
     };
 
     //Running
-    
-    for (var i = 0; i < Object.keys(list_Of_Urls).length; i++ )
-    {
-        console.log("Start scraping => "+ list_Of_Urls[i].address);
-        scraping(list_Of_Urls[i])
-    }
+var Promise = require('promise');
+
+        var promise = new Promise(function (resolve, reject) {
+        var objMapToArr = require('object-map-to-array');
+        objMapToArr(list_Of_Urls,scraping);
+        })
+        console.log("check123");
 
 }
 

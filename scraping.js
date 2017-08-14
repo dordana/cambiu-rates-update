@@ -20,6 +20,7 @@ const   apigClientFactory = require('aws-api-gateway-client'),
         fs = require("fs"),
         timestamp = require('time-stamp'),
         clientemail = require('mandrill-mail');
+        
 ///report vars
 var Report =
 {
@@ -101,6 +102,7 @@ exports.Scraping = function scraping(url)
 
         var jsonOutput = {};
         var j = 0;
+        console.log("Start scraping => "+ url.address);
         console.log("Converting web Html to Json object");
         exchangeJson.forEach(function(rate)
         {
@@ -120,7 +122,7 @@ exports.Scraping = function scraping(url)
                 }
             }
         })
-            var counter = 0;
+           
             var objMapToArr = require('object-map-to-array');
                 function runArray ()
                 {
@@ -129,9 +131,13 @@ exports.Scraping = function scraping(url)
                     return Promise.all(promises);
                 }
             runArray().then(function(result) {
-                console.log("Start creating a report");
-                sendSMSReport();
-                sendEmailReport();
+                    new Promise(function(resolve, reject) {
+                      console.log("Start creating a report");
+                    // sendSMSReport();
+                    // sendEmailReport();
+                     resolve('ok');
+                    })
+                 
             })
             .catch(function(error) {
                 console.log(Report);
@@ -178,12 +184,12 @@ function sendSMSReport()
 {
     ///sending a report
     console.log("Sending a message to +972549325932");
-    client.messages.create
-    ({
-        to: "+972549325932",
-        from: "+17868863180",
-        body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-    });
+    // client.messages.create
+    // ({
+    //     to: "+972549325932",
+    //     from: "+17868863180",
+    //     body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+    // });
     if (Report.numberOfFailed > 0)
     {
         fs.writeFile('Report.txt', timestamp('DD/MM/YYYY HH:mm:ss \r\n') + Report.reportList.map(function(v){ return v.join(', ') }).join('\n'), function (err) {
@@ -209,9 +215,9 @@ function sendEmailReport()
 
   };
 
-  mailgun.messages().send(data, function (error, body) {
-    console.log(body);
-  });
+  //mailgun.messages().send(data, function (error, body) {
+    //console.log(body);
+  //});
 
 }
 ////run => source app-env
