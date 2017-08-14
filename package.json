@@ -12,6 +12,7 @@
     "object.map": "^1.0.0",
     "promise": "^8.0.1",
     "q-promise": "^1.0.0",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "aws-api-gateway-client": "latest"
   }
 }
