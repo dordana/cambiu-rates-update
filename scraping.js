@@ -110,9 +110,12 @@ exports.Scraping = function scraping(url)
                 var isoCurrency = isoFix(rate[url.parameters.currency]);
                 if (isoCurrency !== -2)
                 {
+                    
                     jsonOutput[j++] =
                     {
+                        name: url.name,
                         id: url.exchangeId,
+                        chain: url.chain,
                         buy: rate[url.parameters.buy],
                         sell: rate[url.parameters.sell],
                         currency: isoCurrency
@@ -145,7 +148,7 @@ exports.Scraping = function scraping(url)
 
 
 var asyncFunc = function(item) {
-
+    
     var apigClient = apigClientFactory.default.newClient({
                 accessKey: 'AKIAIY6K5IKEXG7EGC6A',
                 secretKey: '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',
@@ -154,18 +157,38 @@ var asyncFunc = function(item) {
 
             var pathTemplate = '/staging/rates';
             var method = 'POST';
-
-            var body =
+            if (item.name === "" && item.id === "")
             {
+                var body =
+                {
                     currency: item.currency,
-                    chain: 'Debenhams',
+                    chain: item.chain,
                     buy: parseFloat(item.buy),
                     sell: parseFloat(item.sell)
-            };
+                };
+            }else if (item.name === "" && item.chain === "")
+            {
+                var body =
+                {
+                    currency: item.currency,
+                    id: item.id,
+                    buy: parseFloat(item.buy),
+                    sell: parseFloat(item.sell)
+                };
+            }else
+            {
+                var body =
+                {
+                    currency: item.currency,
+                    name: item.name,
+                    buy: parseFloat(item.buy),
+                    sell: parseFloat(item.sell)
+                };
+            }
     return new Promise(function(resolve, reject) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
-            console.log("Success: Updating => " + body.currency);
+            console.log("Success: Updating => " + body.currency +"\r\n"+ body.name);
             Report.numberOfSuccess++;
             console.log(JSON.stringify(result.data));
             resolve('ok');

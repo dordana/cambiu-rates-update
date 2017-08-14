@@ -10,6 +10,8 @@ const todoList = function todoList()
         {
             address: 'http://bestexchange.co.uk/?q=exchange-rates',
             exchangeId: "",
+            chain:"Debenhams",
+            name: "",
             numberOfTable : 0,
             parameters: {
                 currency: '1',
@@ -21,6 +23,8 @@ const todoList = function todoList()
         {
             address: 'http://finance.debenhams.com/travel-money/exchange-rates/',
             exchangeId: "",
+            chain: 'Debenhams',
+            name: "",
             numberOfTable : 0,
             parameters:
             {
@@ -33,6 +37,8 @@ const todoList = function todoList()
         {
          address: 'https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',
             exchangeId: "",
+            chain: "Debenhams",
+            name: "",
             numberOfTable : 5,
             parameters: {
                 currency: '1',
@@ -42,25 +48,27 @@ const todoList = function todoList()
         },
         3:
         {
-         address: 'https://www.pottchange.com/en/exchange-rates/',
+            address: 'https://www.pottchange.com/en/exchange-rates/',
             exchangeId: "",
+            chain: "",
+            name: "pott change",
             numberOfTable : 0,
             parameters: {
                 currency: '0',
                 buy: 'BUYper Euro',
                 sell: 'SELLper Euro'
-            },
+            }
         }
     };
 
     //Running
-var Promise = require('promise');
+    var Promise = require('promise');
+    
 
-        var promise = new Promise(function (resolve, reject) {
         var objMapToArr = require('object-map-to-array');
         objMapToArr(list_Of_Urls,scraping);
-        })
-        console.log("check123");
+
+        
 
 }
 
