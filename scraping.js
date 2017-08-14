@@ -15,11 +15,9 @@ const id = '03365315d1ca59368bc7b3b633bb801d';
 
 const   apigClientFactory = require('aws-api-gateway-client'),
         tabletojson = require('tabletojson'),
-        Q = require("q"),
         client = require("twilio")(acc,id),
         fs = require("fs"),
-        timestamp = require('time-stamp'),
-        clientemail = require('mandrill-mail');
+        timestamp = require('time-stamp');
         
 ///report vars
 var Report =
@@ -91,7 +89,7 @@ function isoFix(currencyName) {
 
 exports.Scraping = function scraping(url)
 {
-    var sync = require('synchronize');
+    //var sync = require('synchronize');
     //include libraries
 
 

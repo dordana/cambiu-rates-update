@@ -13,6 +13,13 @@
     "promise": "^8.0.1",
     "q-promise": "^1.0.0",
     "socket.io": "~0.9.14",
-    "aws-api-gateway-client": "latest"
+    "aws-api-gateway-client": "latest",
+    "tabletojson": "latest",
+    "twilio": "latest",
+    "fs": "latest",
+    "time-stamp": "latest",
+    "mailgun-js": "latest",
+    "object-map-to-array": "latest",
+    
   }
 }
