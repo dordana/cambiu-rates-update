@@ -1,5 +1,5 @@
 const tabletojson = require('tabletojson');
-tabletojson.convertUrl('https://cashchanger.co/singapore/mc/iban-express/4', function(tablesAsJson) {
+tabletojson.convertUrl('http://www.valutare.ro/preluare-curs-valutar/curs-valutar-bnr-grafic.html?c=white&cc=EUR-USD-GBP-CHF&a=&s=sans-serif', function(tablesAsJson) {
         console.log(tablesAsJson[0]);
 })
 

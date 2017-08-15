@@ -1,14 +1,14 @@
 //Global vars
-const GBPlist = ['GBP/GBP','GBP','British Pound',"GBP British Pound"];
-const USDlist = ['US Dollar', 'USD', 'GBP/USD','Dollars - USA',"USD US Dollars"];
-const ILSlist = ['ILS','New Israeli Sheqel','GBP/ILS','Sheqel - Israel'];
-const EURlist = ['EUR', 'GBP/EUR','Euro','EURO','Euro - Europe',"EUR Euro"];
-const AUDlist = ['AUD','Australian Dollar','GBP/AUD','Dollars - Australia','AUS',"AUD Australian Dollar"];
-const CADlist = ['CAD', 'GBP/CAD', 'Canadian Dollar','Dollars - Canada','CAN'];
-const JPYlist = ['JPY', 'GBP/JPY','Japanese Yen','Yen - Japan',"JPY Japanese Yen"];
-const CNYlist = ['CNY', 'Chinese Yuan Renminbi','GBP/CNY','Yuan - China','CHN',"CNY Chinese Yuan (RMB)"];
-const HKDlist = ['HKD', 'GBP/HKD','Hong Kong Dollar','Dollars - Hongkong','HKG',"HKD Hong Kong Dollar"];
-const NOKlist = ['NOK', 'GBP/NOK','Norwegian Krone','Kroner - Norway'];
+const GBPlist = ['GBP/GBP','GBP','BritishPound',"GBPBritishPound"];
+const USDlist = ['USDollar', 'USD', 'GBP/USD','Dollars-USA',"USDUSDollars","US"];
+const ILSlist = ['ILS','NewIsraeliSheqel','GBP/ILS','Sheqel-Israel',"New"];
+const EURlist = ['EUR', 'GBP/EUR','Euro','EURO','Euro-Europe',"EUREuro"];
+const AUDlist = ['AUD','AustralianDollar','GBP/AUD','Dollars-Australia','AUS',"AUDAustralianDollar","Australian"];
+const CADlist = ['CAD', 'GBP/CAD', 'CanadianDollar','Dollars-Canada','CAN',"Canadian"];
+const JPYlist = ['JPY', 'GBP/JPY','JapaneseYen','Yen-Japan',"JPYJapaneseYen","Japanese"];
+const CNYlist = ['CNY', 'ChineseYuanRenminbi','GBP/CNY','Yuan-China','CHN',"CNYChineseYuan(RMB)","Chinese"];
+const HKDlist = ['HKD', 'GBP/HKD','HongKongDollar','Dollars-Hongkong','HKG',"HKDHongKongDollar","Hong"];
+const NOKlist = ['NOK', 'GBP/NOK','NorwegianKrone','Kroner-Norway',"Norwegian"];
 const currenciesList = {0:'GBP',1:'EUR',2:'USD',3:'AUD',4:'CAD',5:'JPY',6:'CNY',7:'HKD',8:'ILS',9:'NOK'};
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
 const id = '03365315d1ca59368bc7b3b633bb801d';
@@ -29,6 +29,10 @@ var Report =
 
 //check in string value is float
 function isFloat(val) {
+    if (typeof val == 'number')
+    {
+        return true;
+    }
     var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
     if (!floatRegex.test(val))
         return false;
@@ -45,12 +49,11 @@ function checkRates(rate)
     {
         return rate;
     }else{
-        rate = rate.split(" ",1);
-        console.log(rate[0]);
-        if(isFloat(rate[0]))
+        rate = parseFloat(rate.split(" ",1)[0]);
+
+        if(isFloat(rate))
         {
-            console.log("hey");
-            return rate[0];
+            return rate;
         }
         return rate;
     }
@@ -115,11 +118,13 @@ exports.Scraping = function scraping(url)
     tabletojson.convertUrl(url.address, function(tablesAsJson)
     {
         var exchangeJson = tablesAsJson[url.numberOfTable];
-
+        if (exchangeJson === undefined)
+        {
+            console.log("There is a problem to parse " + url.address);
+            return null;
+        }
         var jsonOutput = {};
         var j = 0;
-        console.log("Start scraping => "+ url.address);
-        console.log("Converting web Html to Json object");
         
         exchangeJson.forEach(function(rate)
         {
@@ -127,16 +132,12 @@ exports.Scraping = function scraping(url)
             {
                 rate[url.buy] = checkRates(rate[url.buy]);
                 rate[url.sell] = checkRates(rate[url.sell]);
-            
-                //console.log(rate[url.buy]);
                 if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                 {
-                    
-                    var isoCurrency = isoFix(rate[url.currency]);
+                    var isoCurrency = isoFix(rate[url.currency].replace(/(\r\n|\n|\r|\s)/gm,""));
                     
                     if (isoCurrency !== -2)
                     {
-                       
                         jsonOutput[j++] =
                         {
                             address: url.address,
@@ -156,12 +157,14 @@ exports.Scraping = function scraping(url)
                 function runArray ()
                 {
                     console.log("Updating API");
+                    console.log("URL: "+ url.address);
+                    console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
                     var promises = objMapToArr(jsonOutput,asyncFunc);
                     return Promise.all(promises);
                 }
             runArray().then(function(result) {
                     new Promise(function(resolve, reject) {
-                      console.log("Start creating a report");
+                    console.log("Start creating a report");
                     // sendSMSReport();
                     // sendEmailReport();
                      resolve('ok');
@@ -217,7 +220,7 @@ var asyncFunc = function(item) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
             console.log('\r\n--------------------------------------------');
-            console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
+            console.log("Success: Updating => " + body.currency + '\r\n'+ body.buy + '\r\n' + item.address );
             Report.numberOfSuccess++;
             console.log(JSON.stringify(result.data));
             console.log('--------------------------------------------');
@@ -235,12 +238,12 @@ function sendSMSReport()
 {
     ///sending a report
     console.log("Sending a message to +972549325932");
-    // client.messages.create
-    // ({
-    //     to: "+972549325932",
-    //     from: "+17868863180",
-    //     body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-    // });
+    client.messages.create
+    ({
+        to: "+972549325932",
+        from: "+17868863180",
+        body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+    });
     if (Report.numberOfFailed > 0)
     {
         fs.writeFile('Report.txt', timestamp('DD/MM/YYYY HH:mm:ss \r\n') + Report.reportList.map(function(v){ return v.join(', ') }).join('\n'), function (err) {
@@ -266,9 +269,9 @@ function sendEmailReport()
 
   };
 
-  //mailgun.messages().send(data, function (error, body) {
-    //console.log(body);
-  //});
+  mailgun.messages().send(data, function (error, body) {
+    console.log(body);
+  });
 
 }
 ////run => source app-env
