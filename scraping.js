@@ -44,14 +44,13 @@ function checkRates(rate)
     if(isFloat(rate))
     {
         return rate;
-    }else if (rate !== ""){
-        console.log("hey"); //// here
-        rate = rate.split(" ");
-        console.log(rate);
-        if(isFloat(rate))
+    }else{
+        rate = rate.split(" ",1);
+        console.log(rate[0]);
+        if(isFloat(rate[0]))
         {
-            console.log(rate);
-            return rate;
+            console.log("hey");
+            return rate[0];
         }
         return rate;
     }
@@ -124,26 +123,31 @@ exports.Scraping = function scraping(url)
         
         exchangeJson.forEach(function(rate)
         {
-            //rate[url.buy] = checkRates(rate[url.buy]);
-            //rate[url.sell] = checkRates(rate[url.sell]);
-            if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
+            if (rate[url.buy] !== undefined)
             {
-                
-                var isoCurrency = isoFix(rate[url.currency]);
-                
-                if (isoCurrency !== -2)
+                rate[url.buy] = checkRates(rate[url.buy]);
+                rate[url.sell] = checkRates(rate[url.sell]);
+            
+                //console.log(rate[url.buy]);
+                if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                 {
-                   
-                    jsonOutput[j++] =
+                    
+                    var isoCurrency = isoFix(rate[url.currency]);
+                    
+                    if (isoCurrency !== -2)
                     {
-                        address: url.address,
-                        name: url.name,
-                        id: url.exchangeId,
-                        chain: url.chain,
-                        buy: rate[url.buy],
-                        sell: rate[url.sell],
-                        currency: isoCurrency
-                    };
+                       
+                        jsonOutput[j++] =
+                        {
+                            address: url.address,
+                            name: url.name,
+                            id: url.exchangeId,
+                            chain: url.chain,
+                            buy: rate[url.buy],
+                            sell: rate[url.sell],
+                            currency: isoCurrency
+                        };
+                    }
                 }
             }
         })
