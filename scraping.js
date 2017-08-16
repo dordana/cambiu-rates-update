@@ -263,7 +263,7 @@ function sendEmailReport()
 
   var data = {
     from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-    to: 'dordanaa@gmail.com',
+    to: 'dordanaa@cambiu.com',
     subject: 'Cambiu - Update rates report',
     text: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
 

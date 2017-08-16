@@ -17,6 +17,7 @@ const todoList = function todoList()
 {
     //Including the scrafing function
     var scraping = require("./scraping.js").Scraping;
+    var tools = require("./functions.js");
     var urlsToScrape = [];
     // urlsToScrape.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"","Debenhams","",0,'1','We Buy','We Sell'));
     // urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"","Debenhams","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
@@ -34,12 +35,11 @@ const todoList = function todoList()
     // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/extract-money-changer/42',"","","Extract Money Changer",0,'0','WE BUY','WE SELL'));
     // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/changi-money-changer-s-pte-ltd/108',"","","Changi Money Changer",0,'0','WE BUY','WE SELL'));
     // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/million-dollar-exchange/97',"","","Million Dollar Exchange",0,'0','WE BUY','WE SELL'));
-    urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"","luxor","",0,'1','2','3'));
-
-
+    // urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"","luxor","",0,'1','2','3'));
+    console.log(global.returnFunc('https://lacurrency.com/'));
     //Running
-        var objMapToArr = require('object-map-to-array');
-        objMapToArr(urlsToScrape,scraping);
+    // var objMapToArr = require('object-map-to-array');
+    // objMapToArr(urlsToScrape,scraping);
 
         
 
