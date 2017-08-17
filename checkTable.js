@@ -1,5 +1,5 @@
 const tabletojson = require('tabletojson');
-tabletojson.convertUrl('https://news.ycombinator.com/', function(tablesAsJson) {
+tabletojson.convertUrl('http://www.luxor-exchange.ro/bucuresti', function(tablesAsJson) {
         console.log(tablesAsJson[0]);
 })
 

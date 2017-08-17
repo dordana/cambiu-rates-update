@@ -7,19 +7,22 @@
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "async": "~0.2.8",
+    "aws-api-gateway-client": "latest",
     "express": "~3.2.4",
+    "fs": "latest",
+    "mailgun-js": "latest",
     "node-async-loop": "^1.2.2",
+    "object-map-to-array": "latest",
     "object.map": "^1.0.0",
     "promise": "^8.0.1",
     "q-promise": "^1.0.0",
+    "script-tags": "^0.1.3",
     "socket.io": "~0.9.14",
-    "aws-api-gateway-client": "latest",
     "tabletojson": "latest",
-    "twilio": "latest",
-    "fs": "latest",
     "time-stamp": "latest",
-    "mailgun-js": "latest",
-    "object-map-to-array": "latest"
-    
+    "twilio": "latest"
+  },
+  "devDependencies": {
+    "oust": "^0.4.0"
   }
 }

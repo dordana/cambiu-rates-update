@@ -165,8 +165,8 @@ exports.Scraping = function scraping(url)
             runArray().then(function(result) {
                     new Promise(function(resolve, reject) {
                     console.log("Start creating a report");
-                    // sendSMSReport();
-                    // sendEmailReport();
+                    sendSMSReport();
+                    sendEmailReport();
                      resolve('ok');
                     })
                  
