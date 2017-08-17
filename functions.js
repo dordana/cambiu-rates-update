@@ -5,7 +5,6 @@ exports.returnFunc = function returnFunc(url)
 {
   if (url === 'https://lacurrency.com/')
   {
-    console.log("check");
     return lacurrency;
   }else if (url === 'https://buy.travelex.com/za/RateHistory?NoMobileRedirect=true?size=normal&referrerUrl=http://www.travelex.co.za/ZA/Foreign-Currency/Rates/Currency-Exchange-Rates/')
   {
@@ -37,7 +36,7 @@ var lacurrency = function()
       })
       
     }
-    return jsonData;
+    console.log(jsonData);
   });
 }
 
@@ -91,4 +90,3 @@ var xchangeofamerica = function()
     console.log(jsonData);
   });
 }
- travelex();
