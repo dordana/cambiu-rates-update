@@ -22,11 +22,12 @@ const   apigClientFactory = require('aws-api-gateway-client'),
         
         
 ///report vars
-var Report =
+global.Report =
 {
-    reportList: [],
+    failedReportList: [],
     numberOfSuccess: 0,
-    numberOfFailed: 0
+    numberOfFailed: 0,
+    date: ""
 }
 
 //check in string value is float
@@ -113,7 +114,17 @@ function isoFix(currencyName) {
 exports.Scraping = function scraping(url)
 {
     //Convert Html tables to Json object
-        tabletojson.convertUrl(url.address, function(tablesAsJson)
+        return new Promise((resolve, reject) =>{
+            tabletojson.convertUrl(url.address).then(function (tables)
+            {
+                    scrape(tables).then(function (data)
+                    {
+                        resolve(data);
+                    });
+            });
+        });
+        
+        function scrape (tablesAsJson)
         {
             
             var exchangeJson = tablesAsJson[url.numberOfTable];
@@ -132,8 +143,8 @@ exports.Scraping = function scraping(url)
                     rate[url.sell] = checkRates(rate[url.sell]);
                     if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                     {
-                        
-                        var isoCurrency = isoFix(rate[url.currency].trim());
+                        rate[url.currency] = rate[url.currency].replace(/\s|\r\n|\s\r\n|\r\n\s/g,'');
+                        var isoCurrency = isoFix(rate[url.currency]);
                         
                         if (isoCurrency !== -2)
                         {
@@ -164,13 +175,11 @@ exports.Scraping = function scraping(url)
                 return new Promise((resolve, reject) =>{
                         runArray().then(function(result) {
                         console.log("Done with " + url.address);
-                        // sendSMSReport();
-                        // sendEmailReport();
-                        resolve('ok');
+                        resolve(global.Report);
                         })
                     
                 });
-    });
+        }
 }
 
 
@@ -231,9 +240,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
             return new Promise((resolve, reject) =>{
                     runArray().then(function(result) {
                     console.log("Done with " + url.address);
-                    // sendSMSReport();
-                    // sendEmailReport();
-                    resolve('ok');
+                    resolve(global.Report);
                     })
                 
             });
@@ -248,8 +255,10 @@ var asyncFunc = function(item) {
 
             var pathTemplate = '/staging/rates';
             var method = 'POST';
+            var typeofexchange = "";
             if (item.name === "" && item.id === "")
             {
+                typeofexchange = "chain";
                 var body =
                 {
                     currency: item.currency,
@@ -259,6 +268,7 @@ var asyncFunc = function(item) {
                 };
             }else if (item.name === "" && item.chain === "")
             {
+                typeofexchange = "id";
                 var body =
                 {
                     currency: item.currency,
@@ -268,6 +278,7 @@ var asyncFunc = function(item) {
                 };
             }else
             {
+                typeofexchange = "name";
                 var body =
                 {
                     currency: item.currency,
@@ -276,55 +287,39 @@ var asyncFunc = function(item) {
                     sell: parseFloat(item.sell)
                 };
             }
+            
     return new Promise(function(resolve, reject) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
             console.log('\r\n--------------------------------------------');
-            console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
-            Report.numberOfSuccess++;
-            console.log(JSON.stringify(result.data));
-            console.log('--------------------------------------------');
-            resolve('ok');
+            var res = JSON.stringify(result.data);
+            if (res !== '{"status":"ok"}')
+            {
+                console.log("failed: Updating => " + body.currency + '\r\n' + item.address );
+                global.Report.numberOfFailed++;
+                console.log(JSON.stringify(result.data));
+                console.log('--------------------------------------------');
+                global.Report.failedReportList.push([body.chain , body.currency] + " reason ==> " + res);/// need to fix the chain name and id option.
+                resolve('error');
+            }
+            else
+            {
+                console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
+                global.Report.numberOfSuccess++;
+                console.log(JSON.stringify(result.data));
+                console.log('--------------------------------------------');
+                resolve('ok');
+            }
+           
         }).catch(function (result) {
-            console.log("Error: Updating => " + body.currency);
-            Report.numberOfFailed++;
-            Report.reportList.push([body.chain,body.currency]);
+            console.log("failed: Updating => " + body.currency + '\r\n' + item.address );
+            global.Report.numberOfFailed++;
+            global.Report.failedReportList.push([body.chain , body.currency] + " reason ==> " + result);/// need to fix the chain name and id option.
             resolve('error');
         });
 
     })
 }
-function sendSMSReport()
-{
-    ///sending a report
-    console.log("Sending a message to +972549325932");
-    client.messages.create
-    ({
-        to: "+972549325932",
-        from: "+17868863180",
-        body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-    });
-}
-function sendEmailReport()
-{
 
-  console.log("Sending a email to dordanaa@gmail.com");
-  var api_key = 'key-eef1b14f1229530c25fadbb64e12c8f6';
-  var domain = 'sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org';
-  var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-
-  var data = {
-    from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-    to: 'dordanaa@gmail.com',
-    subject: 'Cambiu - Update rates report',
-    text: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-
-  };
-
-  mailgun.messages().send(data, function (error, body) {
-    console.log(body);
-  });
-
-}
 ////run => source app-env
 ////commits => heroku releases --app cambiu-update | grep -om 1 "[0-9a-f]\{7\}" | xargs git show

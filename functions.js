@@ -8,9 +8,8 @@ exports.returnFunc = function returnFunc(url)
   {
     return new Promise((resolve, reject) =>{
         lacurrency().then(function (data){
-          
             scrapingNoTable(url,data).then(function (data){
-            resolve();
+              resolve(data);
             });
           });
     });
@@ -20,12 +19,42 @@ exports.returnFunc = function returnFunc(url)
         xchangeofamerica().then(function (data){
         
               scrapingNoTable(url,data).then(function (data){
-              resolve();
+              resolve(data);
+              });
+            });
+    });
+  }else if (url.address === 'https://www.exchange.cz/')
+  {
+    return new Promise((resolve, reject) =>{
+        exchangecz().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
               });
             });
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var lacurrency = function()
 {
@@ -41,6 +70,29 @@ var lacurrency = function()
                 {
                   currency: a.eq(0).text(),
                   buy: a.eq(4).text(),
+                  sell: a.eq(3).text()
+                };
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var exchangecz = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.exchange.cz/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            //console.log(html);
+            var jsonData = [];
+            var i = 0;
+            $('table#ratelist').children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children('td');
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text(),
+                  buy: a.eq(2).text(),
                   sell: a.eq(3).text()
                 };
             });
