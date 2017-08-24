@@ -1,92 +1,80 @@
 var request = require('request');
 var cheerio = require('cheerio');
-
+var Promise = require("promise");
+var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
 exports.returnFunc = function returnFunc(url)
 {
-  if (url === 'https://lacurrency.com/')
+  if (url.address === 'https://lacurrency.com/')
   {
-    return lacurrency;
-  }else if (url === 'https://buy.travelex.com/za/RateHistory?NoMobileRedirect=true?size=normal&referrerUrl=http://www.travelex.co.za/ZA/Foreign-Currency/Rates/Currency-Exchange-Rates/')
+    return new Promise((resolve, reject) =>{
+        lacurrency().then(function (data){
+          
+            scrapingNoTable(url,data).then(function (data){
+            resolve();
+            });
+          });
+    });
+  }else if (url.address === 'https://www.xchangeofamerica.com/home')
   {
-    return travelex;
-  }else if (url === 'https://www.xchangeofamerica.com/home')
-  {
-    return xchangeofamerica;
+    return new Promise((resolve, reject) =>{
+        xchangeofamerica().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve();
+              });
+            });
+    });
   }
 }
 
 var lacurrency = function()
 {
-  request('https://lacurrency.com/', function (error, response, html)
-  {
-    if (!error && response.statusCode == 200) {
-      var $ = cheerio.load(html);
-      
-      var jsonData = {};
-      var i = 0;
-      $('a.table-row').each(function(i, element){
-          var a = $(this).children('span');
-          jsonData[i++] = 
-          {
-            curreny: a.eq(0).text(),
-            buy: a.eq(4).text(),
-            sell: a.eq(3).text()
-          };
-          
-      })
-      
-    }
-    console.log(jsonData);
+  return new Promise((resolve, reject) => {
+    request('https://lacurrency.com/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('a.table-row').each(function(i, element){
+                var a = $(this).children('span');
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text(),
+                  buy: a.eq(4).text(),
+                  sell: a.eq(3).text()
+                };
+            });
+            resolve(jsonData);
+    });
   });
-}
+};
 
-var travelex = function()
-{
-   request('http://www.americanexpressforex.co.za/exchange-rates/', function (error, response, html)
-  {
-    if (!error && response.statusCode == 200) {
-      var $ = cheerio.load(html);
-      
-      var jsonData = {};
-      var i = 0;
-      $('div.row').each(function(i, element){
-          var a = $(this).children();
-          jsonData[i++] = 
-          {
-            curreny: a.eq(1).children().text(),
-            buy: a.eq(2).text().replace(/(\r\n|\n|\r|\s)/gm,""),
-            sell: a.eq(3).children().text()
-          };
-          
-      })
-      
-    }
-    console.log(jsonData);
-  });
-}
+
 
 var xchangeofamerica = function()
 {
-   request('https://www.xchangeofamerica.com/home', function (error, response, html)
-  {
-    if (!error && response.statusCode == 200) {
-      var $ = cheerio.load(html);
+  return new Promise((resolve, reject) => {
+    request('https://www.xchangeofamerica.com/home', function (error, response, html)
+    {
+      if (!error && response.statusCode == 200) {
+        var $ = cheerio.load(html);
+        
+        var jsonData = [];
+        var i = 0;
+        $('span.currency').parent().each(function(i, element){
+            var a = $(this).children();
+              jsonData[i++] = 
+              {
+                currency: a.eq(1).text().trim(),
+                buy: a.eq(2).text().trim(),
+                sell: a.eq(3).text().trim()
+              };
+        
+            
+        });
+        resolve(jsonData);
+      }
       
-      var jsonData = {};
-      var i = 0;
-      $('span.currency').parent().each(function(i, element){
-          var a = $(this).children();
-            jsonData[i++] = 
-            {
-              curreny: a.eq(1).text().replace(/(\r\n|\n|\r|\s)/gm,""),
-              buy: a.eq(2).text().replace(/(\r\n|\n|\r|\s)/gm,""),
-              sell: a.eq(3).text().replace(/(\r\n|\n|\r|\s)/gm,"")
-            };
-      
-          
-      })
-      
-    }
-    console.log(jsonData);
+    });
   });
-}
+};

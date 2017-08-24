@@ -6,7 +6,7 @@ function UrlClass(address,exchangeId,chain,name,numberOfTable,currency,buy,sell)
     this.chain = chain;
     this.name = name;
     this.numberOfTable = numberOfTable;
-    this.currency = currency
+    this.currency = currency;
     this.sell = sell;
     this.buy = buy;
 }
@@ -17,8 +17,14 @@ const todoList = function todoList()
 {
     //Including the scrafing function
     var scraping = require("./scraping.js").Scraping;
-    var functionFile = require("./functions.js").returnFunc;
-    // var urlsToScrape = [];
+    var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
+    var returnFunc = require("./functions.js").returnFunc;
+    var Promise = require("bluebird");
+    var urlsToScrape = [];
+    var urlsToScrapeNoTable = [];
+    
+    
+    //<----------------------Urls table---------------------->
     // urlsToScrape.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"","Debenhams","",0,'1','We Buy','We Sell'));
     // urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"","Debenhams","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
     // urlsToScrape.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"","","pott change",0,'0','BUYper Euro','SELLper Euro'));
@@ -36,14 +42,23 @@ const todoList = function todoList()
     // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/changi-money-changer-s-pte-ltd/108',"","","Changi Money Changer",0,'0','WE BUY','WE SELL'));
     // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/million-dollar-exchange/97',"","","Million Dollar Exchange",0,'0','WE BUY','WE SELL'));
     // urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"","luxor","",0,'1','2','3'));
+    // //Running
+    // Promise.map(urlsToScrape,scraping).then(function(data)
+    // {
+    //     console.log(data);
+    // });
+    
+    
+    //<----------------------Urls without table---------------------->
+    urlsToScrapeNoTable.push(new UrlClass('https://lacurrency.com/',"","","LA Currency",0,'currency','buy','sell'));
+    urlsToScrapeNoTable.push(new UrlClass('https://www.xchangeofamerica.com/home',"","XChange of America","",0,'currency','buy','sell'));
     //Running
-    // var objMapToArr = require('object-map-to-array');
-    // objMapToArr(urlsToScrape,scraping);
+    Promise.map(urlsToScrapeNoTable,returnFunc).then(function(data)
+    {
+        console.log("Done!");
+    });
     
     
-    functionFile('https://lacurrency.com/');
-        
-
+    var objMapToArr = require('object-map-to-array');
 }
-todoList();
 exports.todoList = todoList;

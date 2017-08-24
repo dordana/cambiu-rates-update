@@ -16,8 +16,10 @@ const id = '03365315d1ca59368bc7b3b633bb801d';
 const   apigClientFactory = require('aws-api-gateway-client'),
         tabletojson = require('tabletojson'),
         client = require("twilio")(acc,id),
-        fs = require("fs"),
-        timestamp = require('time-stamp');
+        timestamp = require('time-stamp'),
+        Promise = require("bluebird");
+        
+        
         
 ///report vars
 var Report =
@@ -110,14 +112,73 @@ function isoFix(currencyName) {
 
 exports.Scraping = function scraping(url)
 {
-    //var sync = require('synchronize');
-    //include libraries
-
-
     //Convert Html tables to Json object
-    tabletojson.convertUrl(url.address, function(tablesAsJson)
-    {
-        var exchangeJson = tablesAsJson[url.numberOfTable];
+        tabletojson.convertUrl(url.address, function(tablesAsJson)
+        {
+            
+            var exchangeJson = tablesAsJson[url.numberOfTable];
+            if (exchangeJson === undefined)
+            {
+                console.log("There is a problem to parse " + url.address);
+                return null;
+            }
+            var jsonOutput = {};
+            var j = 0;
+            exchangeJson.forEach(function(rate)
+            {
+                if (rate[url.buy] !== undefined)
+                {
+                    rate[url.buy] = checkRates(rate[url.buy]);
+                    rate[url.sell] = checkRates(rate[url.sell]);
+                    if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
+                    {
+                        
+                        var isoCurrency = isoFix(rate[url.currency].trim());
+                        
+                        if (isoCurrency !== -2)
+                        {
+                            jsonOutput[j++] =
+                            {
+                                address: url.address,
+                                name: url.name,
+                                id: url.exchangeId,
+                                chain: url.chain,
+                                buy: rate[url.buy],
+                                sell: rate[url.sell],
+                                currency: isoCurrency
+                            };
+                        }
+                    }
+                }
+            })
+               
+                var objMapToArr = require('object-map-to-array');
+                    function runArray ()
+                    {
+                        console.log("Updating API");
+                        console.log("URL: "+ url.address);
+                        console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
+                        var promises = objMapToArr(jsonOutput,asyncFunc);
+                        return Promise.all(promises);
+                    }
+                return new Promise((resolve, reject) =>{
+                        runArray().then(function(result) {
+                        console.log("Done with " + url.address);
+                        // sendSMSReport();
+                        // sendEmailReport();
+                        resolve('ok');
+                        })
+                    
+                });
+    });
+}
+
+
+exports.ScrapingNoTable = function ScrapingNoTable(url,data)
+{
+        //Convert Html tables to Json object
+        var exchangeJson = data;
+        
         if (exchangeJson === undefined)
         {
             console.log("There is a problem to parse " + url.address);
@@ -126,15 +187,20 @@ exports.Scraping = function scraping(url)
         var jsonOutput = {};
         var j = 0;
         
+        
         exchangeJson.forEach(function(rate)
         {
+            
             if (rate[url.buy] !== undefined)
             {
                 rate[url.buy] = checkRates(rate[url.buy]);
                 rate[url.sell] = checkRates(rate[url.sell]);
+                
+
                 if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                 {
-                    var isoCurrency = isoFix(rate[url.currency].replace(/(\r\n|\n|\r|\s)/gm,""));
+                    
+                    var isoCurrency = isoFix(rate[url.currency].trim());
                     
                     if (isoCurrency !== -2)
                     {
@@ -162,22 +228,16 @@ exports.Scraping = function scraping(url)
                     var promises = objMapToArr(jsonOutput,asyncFunc);
                     return Promise.all(promises);
                 }
-            runArray().then(function(result) {
-                    new Promise(function(resolve, reject) {
-                    console.log("Start creating a report");
-                    sendSMSReport();
-                    sendEmailReport();
-                     resolve('ok');
+            return new Promise((resolve, reject) =>{
+                    runArray().then(function(result) {
+                    console.log("Done with " + url.address);
+                    // sendSMSReport();
+                    // sendEmailReport();
+                    resolve('ok');
                     })
-                 
-            })
-            .catch(function(error) {
-                console.log(Report);
+                
             });
-    })
 }
-
-
 var asyncFunc = function(item) {
     
     var apigClient = apigClientFactory.default.newClient({
@@ -220,7 +280,7 @@ var asyncFunc = function(item) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
             console.log('\r\n--------------------------------------------');
-            console.log("Success: Updating => " + body.currency + '\r\n'+ body.buy + '\r\n' + item.address );
+            console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
             Report.numberOfSuccess++;
             console.log(JSON.stringify(result.data));
             console.log('--------------------------------------------');
@@ -244,14 +304,6 @@ function sendSMSReport()
         from: "+17868863180",
         body: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
     });
-    if (Report.numberOfFailed > 0)
-    {
-        fs.writeFile('Report.txt', timestamp('DD/MM/YYYY HH:mm:ss \r\n') + Report.reportList.map(function(v){ return v.join(', ') }).join('\n'), function (err) {
-        if (err)
-            throw err;
-        console.log('Report created');
-        });
-    }
 }
 function sendEmailReport()
 {
@@ -263,7 +315,7 @@ function sendEmailReport()
 
   var data = {
     from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-    to: 'dordanaa@cambiu.com',
+    to: 'dordanaa@gmail.com',
     subject: 'Cambiu - Update rates report',
     text: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
 
