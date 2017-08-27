@@ -121,7 +121,7 @@ exports.Scraping = function scraping(url)
                     {
                         resolve(data);
                     });
-            });
+                });
         });
         
         function scrape (tablesAsJson)
@@ -299,7 +299,7 @@ var asyncFunc = function(item) {
                 global.Report.numberOfFailed++;
                 console.log(JSON.stringify(result.data));
                 console.log('--------------------------------------------');
-                global.Report.failedReportList.push([body.chain , body.currency] + " reason ==> " + res);/// need to fix the chain name and id option.
+                global.Report.failedReportList.push(item.address + " => " + body.currency + ", reason ==> " + res);/// need to fix the chain name and id option.
                 resolve('error');
             }
             else
@@ -313,8 +313,10 @@ var asyncFunc = function(item) {
            
         }).catch(function (result) {
             console.log("failed: Updating => " + body.currency + '\r\n' + item.address );
+            console.log(JSON.stringify(result.data));
             global.Report.numberOfFailed++;
-            global.Report.failedReportList.push([body.chain , body.currency] + " reason ==> " + result);/// need to fix the chain name and id option.
+            console.log('--------------------------------------------');
+            global.Report.failedReportList.push([item.address ,"=>", body.currency] + ", reason ==> " + result);/// need to fix the chain name and id option.
             resolve('error');
         });
 
