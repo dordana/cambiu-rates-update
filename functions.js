@@ -2,6 +2,10 @@ var request = require('request');
 var cheerio = require('cheerio');
 var Promise = require("promise");
 var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
+
+
+
+
 exports.returnFunc = function returnFunc(url)
 {
   if (url.address === 'https://lacurrency.com/')
@@ -34,7 +38,7 @@ exports.returnFunc = function returnFunc(url)
             });
     });
   }
-}
+};
 
 
 
