@@ -67,23 +67,24 @@ const todoList = function todoList()
         
         //Running
             Promise.map(urlsToScrape,scraping).then(function(){
-            Promise.map(urlsToScrapeNoTable,returnFunc).then(function(data)
-            {
-                var temparr = [];
-                for (var x = 0; x < data[0].failedReportList.length; x++)
+                Promise.map(urlsToScrapeNoTable,returnFunc).then(function(data)
                 {
-                    temparr.push(data[0].failedReportList[x])
-                }
-                finalReport =
-                {
-                    failedReportList: temparr,
-                    numberOfSuccess: data[0].numberOfSuccess,
-                    numberOfFailed: data[0].numberOfFailed,
-                    date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
-                    time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
-                }
-                resolve(finalReport);
-            })})
+                    var temparr = [];
+                    for (var x = 0; x < data[0].failedReportList.length; x++)
+                    {
+                        temparr.push(data[0].failedReportList[x])
+                    }
+                    finalReport =
+                    {
+                        failedReportList: temparr,
+                        numberOfSuccess: data[0].numberOfSuccess,
+                        numberOfFailed: data[0].numberOfFailed,
+                        date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
+                        time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
+                    }
+                    resolve(finalReport);
+                })
+            })
     })
     
 }
