@@ -39,15 +39,34 @@ const todoList = function todoList()
         // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/changi-money-changer-s-pte-ltd/108',"","","Changi Money Changer",0,'0','WE BUY','WE SELL'));
         // urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/million-dollar-exchange/97',"","","Million Dollar Exchange",0,'0','WE BUY','WE SELL'));
         // urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"","luxor","",0,'1','2','3'));
-        //Running
-        Promise.map(urlsToScrape,scraping);
+        
         
         
         //<----------------------Urls without table---------------------->
         // urlsToScrapeNoTable.push(new UrlClass('https://lacurrency.com/',"","LAcurrency","",0,'currency','buy','sell'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.xchangeofamerica.com/home',"","Xchange of America","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"","eXchange","",0,'currency','buy','sell'));
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //Running
+        Promise.map(urlsToScrape,scraping);
         Promise.map(urlsToScrapeNoTable,returnFunc).then(function(data)
         {
             var temparr = [];
