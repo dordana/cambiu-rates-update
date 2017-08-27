@@ -18,5 +18,4 @@ request('https://www.exchange.cz/', function (error, response, html)
                 };
             });
             console.log(jsonData);
-    
     });
