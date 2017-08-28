@@ -28,8 +28,13 @@ global.Report =
     numberOfSuccess: 0,
     numberOfFailed: 0,
     date: ""
-}
-
+};
+var detailsPerUrl =
+{
+    _address: "",
+    _rate: "",
+    _reason: ""
+};
 //check in string value is float
 function isFloat(val) {
     if (typeof val == 'number')
@@ -131,6 +136,7 @@ exports.Scraping = function scraping(url)
             if (exchangeJson === undefined)
             {
                 console.log("There is a problem to parse " + url.address);
+                global.Report.failedReportList.push(url.address);
                 return null;
             }
             var jsonOutput = {};
@@ -191,6 +197,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
         if (exchangeJson === undefined)
         {
             console.log("There is a problem to parse " + url.address);
+            global.Report.failedReportList.push(url.address);
             return null;
         }
         var jsonOutput = {};
@@ -299,7 +306,7 @@ var asyncFunc = function(item) {
                 global.Report.numberOfFailed++;
                 console.log(JSON.stringify(result.data));
                 console.log('--------------------------------------------');
-                global.Report.failedReportList.push(item.address + " => " + body.currency + ", reason ==> " + res);/// need to fix the chain name and id option.
+                global.Report.failedReportList.push(item.address+"\r\n");
                 resolve('error');
             }
             else
@@ -316,7 +323,7 @@ var asyncFunc = function(item) {
             console.log(JSON.stringify(result.data));
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push([item.address ,"=>", body.currency] + ", reason ==> " + result);/// need to fix the chain name and id option.
+            global.Report.failedReportList.push(item.address);           
             resolve('error');
         });
 

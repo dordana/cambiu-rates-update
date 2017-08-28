@@ -6,10 +6,12 @@ var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
 
 
 
-exports.returnFunc = function returnFunc(url)
+exports.scrapeByUrl = function scrapeByUrl(url)
 {
-  if (url.address === 'https://lacurrency.com/')
+  switch (url.address)
   {
+    
+    case 'https://lacurrency.com/':
     return new Promise((resolve, reject) =>{
         lacurrency().then(function (data){
             scrapingNoTable(url,data).then(function (data){
@@ -17,8 +19,8 @@ exports.returnFunc = function returnFunc(url)
             });
           });
     });
-  }else if (url.address === 'https://www.xchangeofamerica.com/home')
-  {
+    
+    case 'https://www.xchangeofamerica.com/home':
     return new Promise((resolve, reject) =>{
         xchangeofamerica().then(function (data){
         
@@ -27,8 +29,9 @@ exports.returnFunc = function returnFunc(url)
               });
             });
     });
-  }else if (url.address === 'https://www.exchange.cz/')
-  {
+    
+    
+    case 'https://www.exchange.cz/':
     return new Promise((resolve, reject) =>{
         exchangecz().then(function (data){
         
@@ -36,7 +39,7 @@ exports.returnFunc = function returnFunc(url)
               resolve(data);
               });
             });
-    });
+    });  
   }
 };
 

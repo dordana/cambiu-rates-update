@@ -13,9 +13,10 @@ function UrlClass(address,exchangeId,chain,name,numberOfTable,currency,buy,sell)
 
 const   scraping = require("./scraping.js").Scraping,
         scrapingNoTable = require("./scraping.js").ScrapingNoTable,
-        returnFunc = require("./functions.js").returnFunc,
+        scrapeByUrl = require("./functions.js").scrapeByUrl,
         moment = require('moment-timezone'),
         Promise = require("bluebird");
+
 
 const todoList = function todoList()
 {
@@ -67,18 +68,18 @@ const todoList = function todoList()
         
         //Running
             Promise.map(urlsToScrape,scraping).then(function(){
-                Promise.map(urlsToScrapeNoTable,returnFunc).then(function(data)
+                Promise.map(urlsToScrapeNoTable,scrapeByUrl).then(function(report)
                 {
                     var temparr = [];
-                    for (var x = 0; x < data[0].failedReportList.length; x++)
+                    for (var x = 0; x < report[0].failedReportList.length; x++)
                     {
-                        temparr.push(data[0].failedReportList[x])
+                        temparr.push(report[0].failedReportList[x])
                     }
                     finalReport =
                     {
                         failedReportList: temparr,
-                        numberOfSuccess: data[0].numberOfSuccess,
-                        numberOfFailed: data[0].numberOfFailed,
+                        numberOfSuccess: report[0].numberOfSuccess,
+                        numberOfFailed: report[0].numberOfFailed,
                         date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
                         time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
                     }
@@ -90,25 +91,3 @@ const todoList = function todoList()
 }
 exports.todoList = todoList;
 
-
-// function sendEmailReport()
-// {
-
-//   console.log("Sending a email to dordanaa@gmail.com");
-//   var api_key = 'key-eef1b14f1229530c25fadbb64e12c8f6';
-//   var domain = 'sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org';
-//   var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-
-//   var data = {
-//     from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-//     to: 'dordanaa@gmail.com',
-//     subject: 'Cambiu - Update rates report',
-//     text: ' \r\n['+timestamp('DD/MM/YYYY HH:mm:ss')+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-
-//   };
-
-//   mailgun.messages().send(data, function (error, body) {
-//     console.log(body);
-//   });
-
-// }

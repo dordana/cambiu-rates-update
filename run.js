@@ -18,7 +18,7 @@ var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join
 
 var CronJob = require('cron').CronJob;
 
-    var job = new CronJob('*/15 * * * * 0-6', function() {
+    var job = new CronJob('*/30 * * * * 0-6', function() {
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
         console.log("******************************************************************************************************************************************")
@@ -28,10 +28,11 @@ var CronJob = require('cron').CronJob;
         var todoList = require('./TODO_list.js').todoList;
         todoList().then(function(data)
         {
-            sendSMSReport(data)
+            //sendSMSReport(data)
             console.log("Pushed into the daily report!");
             global.dailyReport.push(data);
             resetReport();
+            sendEmailReport(createmailreport());
             dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
             console.log("******************************************************************************************************************************************")
             console.log("******************************************************************************************************************************************")
@@ -43,14 +44,14 @@ var CronJob = require('cron').CronJob;
       },true).start();
 
 
-var dailyjob = new CronJob('00 00 09 * * 0-6', function()
-{
-    createmailreport();
-    sendEmailReport();
-},true).start();  
+// var dailyjob = new CronJob('00 00 09 * * 0-6', function()
+// {
+//     var rep = createmailreport();
+//     sendEmailReport(rep);
+// },true).start();  
 
 
-function sendEmailReport()
+function sendEmailReport(repText)
 {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
     console.log("Sending a email to dordanaa@gmail.com");
@@ -63,7 +64,7 @@ function sendEmailReport()
         from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
         to: 'dordanaa@gmail.com',
         subject: 'Cambiu - Update rates report - '+ dateNtime,
-        html: emailtemp
+        html: repText
     };
     
     mailgun.messages().send(data, function (error, body) {
@@ -76,7 +77,6 @@ function sendEmailReport()
         }
         
     });
-
 }
 
 function resetReport()
@@ -105,16 +105,32 @@ function sendSMSReport(Report)
 
 function createmailreport()
 {
+    var existelms = [];
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
-    var sumSuccess = 0;
-    var sumFailed = 0;
+    var failedRep = "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
     for (var i = 0; i< global.dailyReport.length; i++)
     {
-        sumSuccess += global.dailyReport[i].numberOfSuccess;
-        sumFailed += global.dailyReport[i].numberOfFailed;
+        var listOfError = global.dailyReport[i].failedReportList;
+        failedRep += "<h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\">"+global.dailyReport[i].time+"</span></h3>";
+        if (Object.keys(listOfError).length === 0)
+        {
+            failedRep += "<p style=\"text-align: center;\">Everything up to date</p>"; 
+        }else
+        {
+            var objMapToArr = require('object-map-to-array');
+            failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
+            failedRep += "<ol>"
+            objMapToArr(listOfError,function(element) {
+                if (existelms.indexOf(element) === -1)
+                {
+                    existelms.push(element);
+                    failedRep += "<li>"+element+"</li>";
+                }
+            });
+            failedRep += "</ol>"
+            
+        }
+        existelms = [];
     }
-    emailtemp=emailtemp.replace("dailymail.date",dateNtime);
-    emailtemp=emailtemp.replace("dailymail.AverageSuccess",sumSuccess/global.dailyReport.length);
-    emailtemp=emailtemp.replace("dailymail.AverageFailure",sumFailed/global.dailyReport.length);
-    
+    return failedRep;
 }
