@@ -18,7 +18,7 @@ var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join
 
 var CronJob = require('cron').CronJob;
 
-    var job = new CronJob('*/30 * * * * 0-6', function() {
+    // var job = new CronJob('*/30 * * * * 0-6', function() {
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
         console.log("******************************************************************************************************************************************")
@@ -41,7 +41,7 @@ var CronJob = require('cron').CronJob;
             console.log("******************************************************************************************************************************************")
             
         }); 
-      },true).start();
+    //   },true).start();
 
 
 // var dailyjob = new CronJob('00 00 09 * * 0-6', function()
@@ -62,7 +62,7 @@ function sendEmailReport(repText)
     var data = 
     {
         from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-        to: 'dordanaa@gmail.com',
+        to: 'dor@cambiu.com',
         subject: 'Cambiu - Update rates report - '+ dateNtime,
         html: repText
     };
@@ -107,18 +107,22 @@ function createmailreport()
 {
     var existelms = [];
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
-    var failedRep = "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
+    var failedRep = "<html> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">";
+    failedRep += "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
+
     for (var i = 0; i< global.dailyReport.length; i++)
     {
         var listOfError = global.dailyReport[i].failedReportList;
-        failedRep += "<h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\">"+global.dailyReport[i].time+"</span></h3>";
         if (Object.keys(listOfError).length === 0)
         {
             failedRep += "<p style=\"text-align: center;\">Everything up to date</p>"; 
         }else
         {
             var objMapToArr = require('object-map-to-array');
-            failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
+            if (failedRep.indexOf("<p style=\"text-align: center;\">There is a problem with the following urls:</p>") === -1)
+            {
+                failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
+            }
             failedRep += "<ol>"
             objMapToArr(listOfError,function(element) {
                 if (existelms.indexOf(element) === -1)
@@ -130,7 +134,7 @@ function createmailreport()
             failedRep += "</ol>"
             
         }
-        existelms = [];
+        failedRep+= "</html>";
     }
     return failedRep;
 }

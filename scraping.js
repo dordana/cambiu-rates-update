@@ -126,7 +126,7 @@ exports.Scraping = function scraping(url)
                     {
                         resolve(data);
                     });
-                });
+            });
         });
         
         function scrape (tablesAsJson)
@@ -136,7 +136,7 @@ exports.Scraping = function scraping(url)
             if (exchangeJson === undefined)
             {
                 console.log("There is a problem to parse " + url.address);
-                global.Report.failedReportList.push(url.address);
+                global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
                 return null;
             }
             var jsonOutput = {};
@@ -181,6 +181,7 @@ exports.Scraping = function scraping(url)
                 return new Promise((resolve, reject) =>{
                         runArray().then(function(result) {
                         console.log("Done with " + url.address);
+                        
                         resolve(global.Report);
                         })
                     
@@ -197,7 +198,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
         if (exchangeJson === undefined)
         {
             console.log("There is a problem to parse " + url.address);
-            global.Report.failedReportList.push(url.address);
+            global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
             return null;
         }
         var jsonOutput = {};
@@ -306,7 +307,7 @@ var asyncFunc = function(item) {
                 global.Report.numberOfFailed++;
                 console.log(JSON.stringify(result.data));
                 console.log('--------------------------------------------');
-                global.Report.failedReportList.push(item.address+"\r\n");
+                global.Report.failedReportList.push(item.address+"\treason => There is a problem with name/chain/id.");
                 resolve('error');
             }
             else
@@ -323,7 +324,7 @@ var asyncFunc = function(item) {
             console.log(JSON.stringify(result.data));
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push(item.address);           
+            global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request./id");          
             resolve('error');
         });
 
