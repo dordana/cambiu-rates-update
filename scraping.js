@@ -164,7 +164,7 @@ exports.Scraping = function scraping(url)
         {
             
             var exchangeJson = tablesAsJson[url.numberOfTable];
-            console.log(exchangeJson);
+            
             if (exchangeJson === undefined)
             {
                 console.log("There is a problem to parse " + url.address);
@@ -290,10 +290,12 @@ var asyncFunc = function(item) {
     var apigClient = apigClientFactory.default.newClient({
                 accessKey: 'AKIAIY6K5IKEXG7EGC6A',
                 secretKey: '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',
+                region: 'us-west-2',
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            var pathTemplate = '/staging/rates';
+            // var pathTemplate = '/staging/rates';
+            var pathTemplate = '/production/rates';
             var method = 'POST';
             var typeofexchange = "";
             if (item.name === "" && item.id === "")
@@ -356,7 +358,7 @@ var asyncFunc = function(item) {
             console.log(JSON.stringify(result.data));
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request./id");          
+            global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request.");          
             resolve('error');
         });
 
