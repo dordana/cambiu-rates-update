@@ -2,19 +2,18 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 
-request('https://www.otpbank.hu/portal/en/Rates/ForeignExchRates', function (error, response, html)
+request('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97', function (error, response, html)
     {
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
-            $('div.table-holder').first().children('table').children('tbody').children('tr').each(function(i, element){
-                var a = $(this).children('td');
-            
+            $('select.matbeot').children('option').each(function(i, element){
+                var a = $(this);
                 jsonData[i++] = 
                 {
-                  currency: a.eq(0).text().trim(),
-                  buy: a.eq(3).text().trim(),
-                  sell: a.eq(4).text().trim(),
+                  currency: a.text().trim(),
+                  buy: a.val(),
+                  sell: 0.0
                 };
             
             });

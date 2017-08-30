@@ -52,7 +52,9 @@ const todoList = function todoList()
         // urlsToScrapeNoTable.push(new UrlClass('https://bcrmobileapp.24banking.ro/bcrmobileapp/v3/anonymousServices.do?event=getBaseFx',"","BCR","",0,'currency','buy','sell'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01',"","","Česká spořitelna",0,'currency','buy','sell'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"","","Komerční banka",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.otpbank.hu/portal/en/Rates/ForeignExchRates',"","","OTP",0,'currency','buy','sell'));
+        // urlsToScrapeNoTable.push(new UrlClass('https://www.otpbank.hu/portal/en/Rates/ForeignExchRates',"","","OTP",0,'currency','buy','sell'));
+        // urlsToScrapeNoTable.push(new UrlClass('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97',"","","OTP",0,'currency','buy','sell'));
+        // urlsToScrapeNoTable.push(new UrlClass('https://www.raiffeisen.ru/en/currency_rates/#offices',"","","Raiffeisen Bank",0,'currency','buy','sell'));
        
         
         

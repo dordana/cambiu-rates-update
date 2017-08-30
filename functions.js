@@ -90,6 +90,26 @@ exports.scrapeByUrl = function scrapeByUrl(url)
               });
             });
     });
+    
+    case 'https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97':
+    return new Promise((resolve, reject) =>{
+        changeme().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://www.raiffeisen.ru/en/currency_rates/#offices':
+    return new Promise((resolve, reject) =>{
+        raiffeisen().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
   }
 };
 
@@ -300,6 +320,53 @@ var otpbank = function()
                   currency: a.eq(0).text().trim(),
                   buy: a.eq(3).text().trim(),
                   sell: a.eq(4).text().trim(),
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var changeme = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('select.matbeot').children('option').each(function(i, element){
+                var a = $(this);
+                jsonData[i++] = 
+                {
+                  currency: a.text().trim(),
+                  buy: a.val(),
+                  sell: 0.0
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var raiffeisen = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.raiffeisen.ru/en/currency_rates/#offices', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('div.offices_view').children('.table').children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children('td');
+            
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(5).text().trim(),
                 };
             
             });
