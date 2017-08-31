@@ -43,10 +43,13 @@ var detailsPerUrl =
 };
 //check in string value is float
 function isFloat(val) {
+    if (isNaN(val))
+        return false;
     if (typeof val == 'number')
     {
         return true;
     }
+
     var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
     if (!floatRegex.test(val))
         return false;
@@ -69,7 +72,7 @@ function checkRates(rate)
         {
             return rate;
         }
-        return rate;
+        return null;
     }
     
 }
@@ -245,7 +248,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
                 rate[url.buy] = checkRates(rate[url.buy]);
                 rate[url.sell] = checkRates(rate[url.sell]);
                 
-
+                
                 if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                 {
                     rate[url.currency] = rate[url.currency].replace(/\s|\r\n|\s\r\n|\r\n\s/g,'');
@@ -337,25 +340,25 @@ var asyncFunc = function(item) {
             var res = JSON.stringify(result.data);
             if (res !== '{"status":"ok"}')
             {
-                console.log("failed: Updating => " + body.currency + '\r\n' + item.address );
+                console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
                 global.Report.numberOfFailed++;
-                console.log(JSON.stringify(result.data));
+                console.log(res);
                 console.log('--------------------------------------------');
                 global.Report.failedReportList.push(item.address+"\treason => There is a problem with name/chain/id.");
                 resolve('error');
             }
             else
             {
-                console.log("Success: Updating => " + body.currency + '\r\n' + item.address );
+                console.log("Success: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
                 global.Report.numberOfSuccess++;
-                console.log(JSON.stringify(result.data));
+                console.log(res);
                 console.log('--------------------------------------------');
                 resolve('ok');
             }
            
         }).catch(function (result) {
-            console.log("failed: Updating => " + body.currency + '\r\n' + item.address );
-            console.log(JSON.stringify(result.data));
+            console.log(body.currency,body.buy,body.sell);
+            console.log("Server failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
             global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request.");          

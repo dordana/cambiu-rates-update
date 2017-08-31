@@ -21,10 +21,8 @@ var CronJob = require('cron').CronJob;
     // var job = new CronJob('*/30 * * * * 0-6', function() {
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
-        console.log("******************************************************************************************************************************************")
-        console.log("********************************************************Start working -"+dateNtime+"************************************************")
-        console.log("******************************************************************************************************************************************")
-        console.log("******************************************************************************************************************************************")
+        console.log("******************************************************** Start working - "+dateNtime+" ************************************************")
+        console.log("******************************************************************************************************************************************\r\n")
         var todoList = require('./TODO_list.js').todoList;
         todoList().then(function(data)
         {
@@ -32,13 +30,16 @@ var CronJob = require('cron').CronJob;
             console.log("Pushed into the daily report!");
             global.dailyReport.push(data);
             resetReport();
-            sendEmailReport(createmailreport());
-            dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
-            console.log("******************************************************************************************************************************************")
-            console.log("******************************************************************************************************************************************")
-            console.log("**************************************************Finished! - "+dateNtime+"*********************************************************")
-            console.log("******************************************************************************************************************************************")
-            console.log("******************************************************************************************************************************************")
+            sendEmailReport(createmailreport()).then(function(resEmail){
+                 dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
+                 console.log(resEmail);
+                console.log("******************************************************************************************************************************************")
+                console.log("************************************************** Finished! - "+dateNtime+" *********************************************************")
+                console.log("******************************************************************************************************************************************")
+            }).catch(function(resEmailerr){
+                console.log(resEmailerr);
+            })
+           
             
         }); 
     //   },true).start();
@@ -54,7 +55,6 @@ var CronJob = require('cron').CronJob;
 function sendEmailReport(repText)
 {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
-    console.log("Sending a email to dordanaa@gmail.com");
     var api_key = 'key-eef1b14f1229530c25fadbb64e12c8f6';
     var domain = 'sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org';
     var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
@@ -66,17 +66,20 @@ function sendEmailReport(repText)
         subject: 'Cambiu - Update rates report - '+ dateNtime,
         html: repText
     };
-    
-    mailgun.messages().send(data, function (error, body) {
-        if (error)
-        {
-            console.log("Error- email");
-        }
-        else{
-            console.log(body);
-        }
-        
+    return new Promise((resolve, reject) =>{
+        mailgun.messages().send(data, function (error, body) {
+            if (error)
+            {
+                reject("\r\nUnable to Send Email!");
+            }
+            else{
+                resolve('\r\nThe mail report has been sent successfully!');
+            }
+            
+        });
     });
+
+
 }
 
 function resetReport()
