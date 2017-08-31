@@ -110,6 +110,36 @@ exports.scrapeByUrl = function scrapeByUrl(url)
               });
             });
     });
+    
+    case 'https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page':
+    return new Promise((resolve, reject) =>{
+        posb().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/':
+    return new Promise((resolve, reject) =>{
+        banamex().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://www.mizuhobank.co.jp/rate/market/quote/index.html':
+    return new Promise((resolve, reject) =>{
+        mizuhobank().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
   }
 };
 
@@ -367,6 +397,80 @@ var raiffeisen = function()
                   currency: a.eq(0).text().trim(),
                   buy: a.eq(3).text().trim(),
                   sell: a.eq(5).text().trim(),
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var posb = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.margin-table').children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
+            
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(2).text().trim(),
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var banamex = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('table.metalesTable').children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
+            
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim()+a.eq(1).text().trim(),
+                  buy: a.eq(2).text().trim(),
+                  sell: a.eq(3).text().trim(),
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var mizuhobank = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.mizuhobank.co.jp/rate/market/quote/index.html', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('table.type1').first().children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
+            
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(2).text().trim(),
                 };
             
             });

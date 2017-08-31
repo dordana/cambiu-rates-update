@@ -1,19 +1,19 @@
 //Global vars
 const GBPlist = ['GBP/GBP','GBP','BritishPound',"GBPBritishPound","לירה שטרלינג (GBP)"];
-const USDlist = ['USDollar', 'USD', 'GBP/USD','Dollars-USA',"USDUSDollars","US",'דולר (USD)'];
+const USDlist = ['USDollar','US Dollar', 'USD', 'GBP/USD','Dollars-USA',"USDUSDollars","US",'דולר (USD)'];
 const ILSlist = ['ILS','NewIsraeliSheqel','GBP/ILS','Sheqel-Israel',"New"];
-const EURlist = ['EUR', 'GBP/EUR','Euro','EURO','Euro-Europe',"EUREuro","יורו (EUR)"];
-const AUDlist = ['AUD','AustralianDollar','GBP/AUD','Dollars-Australia','AUS',"דולר אוסטרלי (AUD)","AUDAustralianDollar","Australian"];
-const CADlist = ['CAD', 'GBP/CAD', 'CanadianDollar','Dollars-Canada','CAN',"Canadian","דולר קנדי (CAD)"];
-const JPYlist = ['JPY',"JPN", 'GBP/JPY','JapaneseYen','Yen-Japan',"JPYJapaneseYen","Japanese","יין יפני (JPY)"];
+const EURlist = ['CEEEuro','EUR', 'GBP/EUR','Euro','EURO','Euro-Europe',"EUREuro","יורו (EUR)"];
+const AUDlist = ['AustraliaDólar','AUD','Australian Dollar','AustralianDollar','GBP/AUD','Dollars-Australia','AUS',"דולר אוסטרלי (AUD)","AUDAustralianDollar","Australian"];
+const CADlist = ['CanadaDólar','CAD','Canadian Dollar', 'GBP/CAD', 'CanadianDollar','Dollars-Canada','CAN',"Canadian","דולר קנדי (CAD)"];
+const JPYlist = ['JapónYen','JPY','Japanese Yen',"JPN", 'GBP/JPY','JapaneseYen','Yen-Japan',"JPYJapaneseYen","Japanese","יין יפני (JPY)"];
 const CNYlist = ['CNY', 'ChineseYuanRenminbi','GBP/CNY',"יואן סיני (CNY)",'Yuan-China','CHN',"CNYChineseYuan(RMB)","Chinese"];
-const HKDlist = ['HKD', 'GBP/HKD','HongKongDollar',"דולר הונג קונגי (HKD)",'Dollars-Hongkong','HKG',"HKDHongKongDollar","Hong"];
-const NOKlist = ['NOK', 'GBP/NOK','NorwegianKrone',"כתר נוורוגי (NOK)",'Kroner-Norway',"Norwegian"];
+const HKDlist = ['Hong KongDólar','HKD','Hong Kong Dollar', 'GBP/HKD','HongKongDollar',"דולר הונג קונגי (HKD)",'Dollars-Hongkong','HKG',"HKDHongKongDollar","Hong"];
+const NOKlist = ['NOK','Norwegian Kroner', 'GBP/NOK','NorwegianKrone',"כתר נוורוגי (NOK)",'Kroner-Norway',"Norwegian"];
 const CZKlist = ['CZK','GBP/CZK','CzechRepublicKoruna',"כתר צ'כי"];
 const LEUlist = ['LEU','GBP/LEU',"RomanianLeu","RON"];
 const PLNlist = ['PLN','GBP/PLN',"PolishZloty","זלוטי פולני (PLN)"];
-const CHFlist = ['CHF',"SWF",'GBP/CHF',"SwissFranc","פרנק שוויצרי (CHF)"];
-const THBlist = ['THB',"THA",'GBP/THB',"ThaiBaht"];
+const CHFlist = ['SuizaFranco','CHF','Swiss Franc',"SWF",'GBP/CHF',"SwissFranc","פרנק שוויצרי (CHF)"];
+const THBlist = ['THB','Thai Baht',"THA",'GBP/THB',"ThaiBaht"];
 const PHPlist = ['PHP','GBP/PHP',"PhilippinePeso"];
 const currenciesList = {0:'GBP',1:'EUR',2:'USD',3:'AUD',4:'CAD',5:'JPY',6:'CNY',7:'HKD',8:'ILS',9:'NOK'};
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
@@ -248,7 +248,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
 
                 if(isFloat(rate[url.buy]) && isFloat(rate[url.sell]))
                 {
-                    
+                    rate[url.currency] = rate[url.currency].replace(/\s|\r\n|\s\r\n|\r\n\s/g,'');
                     var isoCurrency = isoFix(rate[url.currency].trim());
                     
                     if (isoCurrency !== -2)
@@ -294,8 +294,8 @@ var asyncFunc = function(item) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            // var pathTemplate = '/staging/rates';
-            var pathTemplate = '/production/rates';
+            var pathTemplate = '/staging/rates';
+            // var pathTemplate = '/production/rates';
             var method = 'POST';
             var typeofexchange = "";
             if (item.name === "" && item.id === "")

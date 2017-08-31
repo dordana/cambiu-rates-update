@@ -2,18 +2,20 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 
-request('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97', function (error, response, html)
+request('https://www.mizuhobank.co.jp/rate/market/quote/index.html', function (error, response, html)
     {
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
-            $('select.matbeot').children('option').each(function(i, element){
-                var a = $(this);
+            
+            $('table.type1').first().children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
+            
                 jsonData[i++] = 
                 {
-                  currency: a.text().trim(),
-                  buy: a.val(),
-                  sell: 0.0
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(2).text().trim(),
                 };
             
             });
