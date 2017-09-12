@@ -15,41 +15,51 @@ const   client = require("twilio")(acc,id),
         moment = require('moment-timezone');
 global.dailyReport = [];
 var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"304\" height=\"100\" /></strong></p><p style=\"text-align: center;\">&nbsp;</p><h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates - Daily report for dailymail.date</strong></span></h3><p style=\"text-align: center;\">Average of Success: dailymail.AverageSuccess&nbsp;</p><p style=\"text-align: center;\">Average of Failure: dailymail.AverageFailure&nbsp;</p><p style=\"text-align: center;\">&nbsp;</p>"
-
+var hours = 0;
+var existelms = [];
+var existelmsdone = [];
 var CronJob = require('cron').CronJob;
-
-    // var job = new CronJob('*/30 * * * * 0-6', function() {
-        var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
+var job = new CronJob('00 00 * * * 0-6', function() {
+    var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
+    
+    console.log("******************************************************************************************************************************************")
+    console.log("******************************************************** Start working - "+dateNtime+" ************************************************")
+    console.log("******************************************************************************************************************************************\r\n")
+    var todoList = require('./TODO_list.js').todoList;
+    todoList().then(function(data)
+    {
+        // sendSMSReport(data);
+        console.log("Pushed into the daily report!");
+        global.dailyReport.push(data);
+        resetReport();
+        hours++;
         console.log("******************************************************************************************************************************************")
-        console.log("******************************************************** Start working - "+dateNtime+" ************************************************")
-        console.log("******************************************************************************************************************************************\r\n")
-        var todoList = require('./TODO_list.js').todoList;
-        todoList().then(function(data)
-        {
-            //sendSMSReport(data)
-            console.log("Pushed into the daily report!");
-            global.dailyReport.push(data);
-            resetReport();
-            sendEmailReport(createmailreport()).then(function(resEmail){
-                 dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
-                 console.log(resEmail);
-                console.log("******************************************************************************************************************************************")
-                console.log("************************************************** Finished! - "+dateNtime+" *********************************************************")
-                console.log("******************************************************************************************************************************************")
-            }).catch(function(resEmailerr){
-                console.log(resEmailerr);
-            })
-           
-            
-        }); 
-    //   },true).start();
+        console.log("************************************************** Finished! - "+dateNtime+" *********************************************************")
+        console.log("******************************************************************************************************************************************")
+    sendEmailReport(createmailreport()).then(function(res){
+        console.log(res);
+    }).catch(function(res){
+        console.error(res);
+    })
+    existelms = [];
+    existelmsdone = [];
+        
+    }); 
+  },true).start();
+        
+    
+// var jobdaily = new CronJob('00 05 22 * * 0-6', function() {
+//     sendEmailReport(createmailreport()).then(function(res){
+//                 console.log(res);
+//             }).catch(function(res){
+//                 console.error(res);
+//             })
+//             existelms = [];
+//             existelmsdone = [];
+// },true).start();
 
 
-// var dailyjob = new CronJob('00 00 09 * * 0-6', function()
-// {
-//     var rep = createmailreport();
-//     sendEmailReport(rep);
-// },true).start();  
+
 
 
 function sendEmailReport(repText)
@@ -62,6 +72,7 @@ function sendEmailReport(repText)
     var data = 
     {
         from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
+        // to: 'dor@cambiu.com, dror@cambiu.com, eyal@cambiu.com, yonatan@cambiu.com',
         to: 'dor@cambiu.com',
         subject: 'Cambiu - Update rates report - '+ dateNtime,
         html: repText
@@ -73,13 +84,10 @@ function sendEmailReport(repText)
                 reject("\r\nUnable to Send Email!");
             }
             else{
-                resolve('\r\nThe mail report has been sent successfully!');
+                resolve('\r\nMail report has been sent successfully!');
             }
-            
         });
     });
-
-
 }
 
 function resetReport()
@@ -104,12 +112,19 @@ function sendSMSReport(Report)
         from: "+17868863180",
         body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
     });
+    // console.log("Sending a message to +972542343220");
+    // client.messages.create
+    // ({
+    //     to: "+972542343220",
+    //     from: "+17868863180",
+    //     body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+    // });
 }
 
 function createmailreport()
 {
-    var existelms = [];
-    var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
+    
+    var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     var failedRep = "<html> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">";
     failedRep += "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
 
@@ -118,7 +133,11 @@ function createmailreport()
         var listOfError = global.dailyReport[i].failedReportList;
         if (Object.keys(listOfError).length === 0)
         {
-            failedRep += "<p style=\"text-align: center;\">Everything up to date</p>"; 
+            if (existelmsdone.indexOf("Done") === -1)
+            {
+                existelmsdone.push("Done");
+                failedRep += "<p style=\"text-align: center;\">Everything is up to date</p>"; 
+            }
         }else
         {
             var objMapToArr = require('object-map-to-array');

@@ -1,6 +1,9 @@
 var request = require('request');
 var cheerio = require('cheerio');
+var Buffer = require('buffer').Buffer;
+var iconv  = require('iconv-lite');
 var Promise = require("promise");
+
 var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
 
 
@@ -101,6 +104,16 @@ exports.scrapeByUrl = function scrapeByUrl(url)
             });
     });
     
+    case 'http://bestexchange.co.uk/?q=exchange-rates':
+    return new Promise((resolve, reject) =>{
+        bestexchange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
     case 'https://www.raiffeisen.ru/en/currency_rates/#offices':
     return new Promise((resolve, reject) =>{
         raiffeisen().then(function (data){
@@ -140,6 +153,195 @@ exports.scrapeByUrl = function scrapeByUrl(url)
               });
             });
     });
+    
+    case 'https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal':
+    return new Promise((resolve, reject) =>{
+        bfcexchange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://cecltd.com/?q=exchange-rates':
+    return new Promise((resolve, reject) =>{
+        cecltd().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.natwest.com/tools/personal/currency_rates/':
+    return new Promise((resolve, reject) =>{
+        natwest().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.netdania.com/quotes/forex-sterling':
+    return new Promise((resolve, reject) =>{
+        netdania().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://www.ace-fx.com/exchange-rates/':
+    return new Promise((resolve, reject) =>{
+        acefx().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix=':
+    return new Promise((resolve, reject) =>{
+        bankleumi().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.sakura-currency.co.jp/roppongi/':
+    return new Promise((resolve, reject) =>{
+        sakura().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.ccsole.com.mx/':
+    return new Promise((resolve, reject) =>{
+        ccsole().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.huspak-exchange.cz/en/exchange-rates/':
+    return new Promise((resolve, reject) =>{
+        huspak().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.alfaprague.cz/web2/?site=1':
+    return new Promise((resolve, reject) =>{
+        alfaprague().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'https://www.exchange8.cz/en/#close':
+    return new Promise((resolve, reject) =>{
+        exchange8().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+    case 'http://www.auraaktiv.cz/exchange-rates.html':
+    return new Promise((resolve, reject) =>{
+        auraaktiv().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+     case 'http://www.nekazanka-exchange.cz/':
+    return new Promise((resolve, reject) =>{
+        nekazanka().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+      case 'http://www.goldenexchange.cz/kurzy.php':
+    return new Promise((resolve, reject) =>{
+        goldenexchange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+      case 'http://www.provaznickaexchange.cz/novy.php':
+    return new Promise((resolve, reject) =>{
+        provaznickaexchange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+       case 'http://www.cernaruze-exchange.cz/':
+    return new Promise((resolve, reject) =>{
+        cernaruze().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+       case 'http://www.top-exchange.cz/index.php':
+    return new Promise((resolve, reject) =>{
+        topexchange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+       case 'http://www.eurochange.cz/kurzy/':
+    return new Promise((resolve, reject) =>{
+        eurochange().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
+    
+        case 'http://www.changeoffice.wz.cz/kurzy.php':
+    return new Promise((resolve, reject) =>{
+        changeoffice().then(function (data){
+        
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            });
+    });
   }
 };
 
@@ -172,6 +374,7 @@ var lacurrency = function()
             var jsonData = [];
             var i = 0;
             $('a.table-row').each(function(i, element){
+              
                 var a = $(this).children('span');
                 jsonData[i++] = 
                 {
@@ -269,7 +472,7 @@ var bcr = function()
             var jsonData = [];
             var i = 0;
             var a = JSON.parse($.text())["fx"];
-            // console.log(a);
+            
             for (var x = 0; x < a.length; x++)
             {
                 jsonData[i++] = 
@@ -363,6 +566,7 @@ var changeme = function()
   return new Promise((resolve, reject) => {
     request('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97', function (error, response, html)
     {
+            
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -478,3 +682,593 @@ var mizuhobank = function()
     });
   });
 };
+
+var bfcexchange = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('div.bfc-currency-exchange-rates-wrapper').children('div.bfc-currency-exchange-rates-row').each(function(i, element){
+                var a = $(this);
+                
+                jsonData[i++] = 
+                {
+                  currency: a.children("span.bfc-country-img-code-wrapper").children("span.bfc-country-code-name").children("span.bfc-country-ccode").text().trim(),
+                  buy: a.children("span.bfc-country-main-buy-wrapper").children("span.bfc-currency-rates-buy").text().trim(),
+                  sell: a.children("span.bfc-country-main-sell-wrapper").children("span.bfc-currency-rates-sell").text().trim(),
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var cecltd = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://cecltd.com/?q=exchange-rates', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('table.views-table').children('tbody').children("tr").each(function(i, element){
+                var a = $(this).children("td");
+               
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(5).text().trim(),
+                  sell: a.eq(6).text().trim()
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+
+var natwest = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.natwest.com/tools/personal/currency_rates/', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('table.dataTable').first().children('tbody').children("tr").each(function(i, element){
+                var a = $(this).children("td");
+               
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(1).text().trim(),
+                  sell: a.eq(2).text().trim()
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var netdania = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.netdania.com/quotes/forex-sterling', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            
+            $('div.nd-ql-tbl-results').children("table").children('tbody').children("tr").each(function(i, element){
+                var a = $(this).children("td");
+               
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(4).text().trim()
+                };
+            
+            });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var bestexchange = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://bestexchange.co.uk/?q=exchange-rates', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.views-table').children('tbody').children("tr").each(function(i, element){
+                var a = $(this).children("td");
+                
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(4).text().trim()
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var acefx = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.ace-fx.com/exchange-rates/', function (error, response, html) /// need to be complete!
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('div.currency_exchange').children('table').children('tbody').children("tr").each(function(i, element){
+                var a = $(this).children("td");
+                
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(1).text().trim(),
+                  sell: a.eq(2).text().trim()
+                };
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var bankleumi = function()
+{
+  return new Promise((resolve, reject) => {
+    var requestOptions  = { encoding: null, method: "GET", uri: "http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix="};
+    request(requestOptions, function(error, response, html) {
+        html = iconv.decode(new Buffer(html), "iso-8859-8");
+        var $ = cheerio.load(html);
+        var jsonData = [];
+        var i = 0;
+        $('table[width="570"]').children('tbody').children("tr").each(function(i, element){
+            var a = $(this).children("td");
+    
+            jsonData[i++] = 
+            {
+              currency: a.eq(5).text().trim(),
+              buy: a.eq(3).text().trim(),
+              sell: a.eq(4).text().trim()
+            };
+        
+        });
+        resolve(jsonData);
+    });
+  });
+};
+
+var sakura = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.sakura-currency.co.jp/roppongi/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('dl#rate-list').children('dt').each(function(i, element){
+                var a = $(this);
+                var b = a.next("dd").first().contents().get(0).nodeValue;
+                jsonData[i++] = 
+                {
+                  currency: a.text().trim().replace(/\s|\r\n|\s\r\n|\r\n\s/g,''),
+                  buy: b,
+                  sell: 0.0
+                };
+            
+            });
+            resolve(jsonData);
+    });
+  });
+};
+
+var ccsole = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.ccsole.com.mx/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table[width="220"]').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            var fixedB;
+            var fixedS;
+            if (a.eq(1).text().trim()[0] === ".")
+            {
+                fixedB = "0"+a.eq(1).text().trim()
+                fixedS = "0"+a.eq(2).text().trim()
+            }else
+            {
+                fixedB = a.eq(1).text().trim()
+                fixedS = a.eq(2).text().trim()
+            }
+            jsonData[i++] = 
+            {
+              currency: a.eq(3).text().trim(),
+              buy: fixedB,
+              sell: fixedS
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var huspak = function()
+{
+  return new Promise((resolve, reject) => {
+   request('http://www.huspak-exchange.cz/en/exchange-rates/', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            var fixed;
+            if (a.eq(0).text().trim()[0] === "-")
+            {
+                fixed = a.eq(0).text().trim().slice(2);
+            }else
+            {
+                fixed = a.eq(0).text().trim()
+            }
+            jsonData[i++] = 
+            {
+              currency: fixed,
+              buy: a.eq(2).text().trim(),
+              sell: 0.0
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var alfaprague = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('http://www.alfaprague.cz/web2/?site=1', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table[width="550"]').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim(),
+              buy: a.eq(4).text().trim(),
+              sell: a.eq(5).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+
+  });
+};
+
+var exchange8 = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('https://www.exchange8.cz/en/#close', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $("div.exchange-list").children('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim(),
+              buy: a.eq(3).text().trim(),
+              sell: a.eq(4).text().trim()
+            };
+        
+        });
+           resolve(jsonData);
+    });
+
+
+  });
+};
+
+var auraaktiv = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('http://www.auraaktiv.cz/exchange-rates.html', function (error, response, html)
+    {
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.listek').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim(),
+              buy: a.eq(4).text().trim(),
+              sell: a.eq(5).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+
+  });
+};
+
+var nekazanka = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('http://www.nekazanka-exchange.cz/', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.kurzy').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim().replace(/\s|1|100|0/gi, ""),
+              buy: a.eq(2).text().trim(),
+              sell: a.eq(3).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+
+
+  });
+};
+
+
+var goldenexchange = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('http://www.goldenexchange.cz/kurzy.php', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.tabulka').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim(),
+              buy: a.eq(4).text().trim(),
+              sell: a.eq(5).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+
+
+
+  });
+};
+
+
+
+var provaznickaexchange = function()
+{
+  return new Promise((resolve, reject) => {
+   
+request('http://www.provaznickaexchange.cz/novy.php', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.tabulka').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim(),
+              buy: a.eq(4).text().trim(),
+              sell: a.eq(5).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+
+
+
+
+  });
+};
+
+
+var cernaruze = function()
+{
+  return new Promise((resolve, reject) => {
+   
+
+request('http://www.cernaruze-exchange.cz/', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.kurzy').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim().replace(/\s|1|100|0/gi, ""),
+              buy: a.eq(2).text().trim(),
+              sell: a.eq(3).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+  });
+};
+
+
+var topexchange = function()
+{
+  return new Promise((resolve, reject) => {
+   
+
+
+request('http://www.top-exchange.cz/index.php', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.tabulka').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim().replace(/\s|1|100|0/gi, ""),
+              buy: a.eq(4).text().trim().replace(/,/gi, "."),
+              sell: a.eq(5).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var eurochange = function()
+{
+  return new Promise((resolve, reject) => {
+   
+
+
+
+request('http://www.eurochange.cz/kurzy/', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.exchangetbl').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim(),
+              buy: a.eq(3).text().trim(),
+              sell: a.eq(4).text().trim()
+            };
+        
+        });
+            console.log(jsonData);
+    });
+  });
+};
+
+var changeoffice = function()
+{
+  return new Promise((resolve, reject) => {
+   
+
+
+
+request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, html)
+    {
+        // console.log(html)
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table[width="400"]').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim().replace(/\s|\(100\)/gi, ""),
+              buy: a.eq(3).text().trim().replace(/,/gi, ".").replace(/ (100)/gi, ""),
+              sell: 0.0
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

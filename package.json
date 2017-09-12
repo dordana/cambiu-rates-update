@@ -27,7 +27,8 @@
     "socket.io": "~0.9.14",
     "tabletojson": "^0.6.0",
     "time-stamp": "latest",
-    "twilio": "latest"
+    "twilio": "latest",
+    "xml-js": "^1.4.1"
   },
   "devDependencies": {
     "oust": "^0.4.0"
