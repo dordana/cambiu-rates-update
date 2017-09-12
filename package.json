@@ -9,6 +9,7 @@
     "async": "^0.2.10",
     "asyncawait": "^1.0.6",
     "aws-api-gateway-client": "latest",
+    "cron": "^1.2.1",
     "express": "~3.2.4",
     "fs": "latest",
     "jquery": "^3.2.1",
