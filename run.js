@@ -9,8 +9,8 @@
 └───────────────────────── second (0 - 59, OPTIONAL)
 */
 //CronJob(cronTime, callback, [args], [context], [repeating = true])
-const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
-const id = '03365315d1ca59368bc7b3b633bb801d';
+const acc = '******';
+const id = '******';
 const   client = require("twilio")(acc,id),
         moment = require('moment-timezone');
 global.dailyReport = [];
@@ -57,8 +57,8 @@ var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
 function sendEmailReport(repText)
 {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY');
-    var api_key = 'key-eef1b14f1229530c25fadbb64e12c8f6';
-    var domain = 'sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org';
+    var api_key = 'key-******';
+    var domain = '******.mailgun.org';
     var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
     
     var data = 

@@ -306,8 +306,8 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
 var asyncFunc = function(item) {
     
     var apigClient = apigClientFactory.default.newClient({
-                accessKey: 'AKIAIY6K5IKEXG7EGC6A',
-                secretKey: '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',
+                accessKey: '******',
+                secretKey: '******',
                 region: 'us-west-2',
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
