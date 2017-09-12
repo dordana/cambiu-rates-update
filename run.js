@@ -23,7 +23,7 @@ var hours = 0;
 var existelms = [];
 var existelmsdone = [];
 var CronJob = require('cron').CronJob;
-// var job = new CronJob('00 00 * * * 0-6', function() {
+var job = new CronJob('00 00 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     
     console.log("******************************************************************************************************************************************")
@@ -41,18 +41,18 @@ var CronJob = require('cron').CronJob;
         console.log("************************************************** Finished! - "+dateNtime+" *********************************************************")
         console.log("******************************************************************************************************************************************")
     }); 
-//   },true).start();
+  },true).start();
         
     
-// var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
-//     sendEmailReport(createmailreport()).then(function(res){
-//                 console.log(res);
-//             }).catch(function(res){
-//                 console.error(res);
-//             })
-//             existelms = [];
-//             existelmsdone = [];
-// },true).start();
+var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
+    sendEmailReport(createmailreport()).then(function(res){
+                console.log(res);
+            }).catch(function(res){
+                console.error(res);
+            })
+            existelms = [];
+            existelmsdone = [];
+},true).start();
 
 
 
@@ -108,13 +108,13 @@ function sendSMSReport(Report)
         from: "+17868863180",
         body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
     });
-    // console.log("Sending a message to +972542343220");
-    // client.messages.create
-    // ({
-    //     to: "+972542343220",
-    //     from: "+17868863180",
-    //     body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
-    // });
+    console.log("Sending a message to +972542343220");
+    client.messages.create
+    ({
+        to: "+972542343220",
+        from: "+17868863180",
+        body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+    });
 }
 
 function createmailreport()

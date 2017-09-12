@@ -1218,7 +1218,6 @@ var changeoffice = function()
 
 request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, html)
     {
-        // console.log(html)
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
