@@ -1,0 +1,5 @@
+#start
+heroku start --app cambiu-update-staging web
+
+#stop
+heroku stop --app cambiu-update-staging web
