@@ -1,5 +1,17 @@
 #start
 heroku start --app cambiu-update-staging web
 
+#restart
+heroku restart --app cambiu-update-staging web
+
 #stop
 heroku stop --app cambiu-update-staging web
+
+#see logs
+heroku logs --app cambiu-update-production -n 10
+
+#turn on the dyno
+heroku ps:scale web=1 --app cambiu-update-production 
+
+#turn off the dyno
+heroku ps:scale web=0 --app cambiu-update-production 
