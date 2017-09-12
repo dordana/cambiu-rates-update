@@ -241,7 +241,7 @@ exports.Scraping = function scraping(url)
 
 exports.ScrapingNoTable = function ScrapingNoTable(url,data)
 {
-        //Convert Html tables to Json object
+
         var exchangeJson = data;
         
         if (exchangeJson === undefined)
@@ -375,6 +375,8 @@ var asyncFunc = function(item) {
         }).catch(function (result) {
             console.log(body.currency,body.buy,body.sell);
             console.log("Server failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+            var res = JSON.stringify(result.data);
+            console.log(res);
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
             global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request.");          

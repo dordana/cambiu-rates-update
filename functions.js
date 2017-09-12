@@ -17,19 +17,26 @@ exports.scrapeByUrl = function scrapeByUrl(url)
     case 'https://lacurrency.com/':
     return new Promise((resolve, reject) =>{
         lacurrency().then(function (data){
+            console.log("get data for url: " + url.address );
             scrapingNoTable(url,data).then(function (data){
               resolve(data);
             });
-          });
+          }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
     });
     
     case 'https://www.xchangeofamerica.com/home':
     return new Promise((resolve, reject) =>{
         xchangeofamerica().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
@@ -37,309 +44,402 @@ exports.scrapeByUrl = function scrapeByUrl(url)
     case 'https://www.exchange.cz/':
     return new Promise((resolve, reject) =>{
         exchangecz().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });  
     
     case 'http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates':
     return new Promise((resolve, reject) =>{
         pnb().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     }); 
     
     case 'https://bcrmobileapp.24banking.ro/bcrmobileapp/v3/anonymousServices.do?event=getBaseFx':
     return new Promise((resolve, reject) =>{
         bcr().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     }); 
     
     case 'https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01':
     return new Promise((resolve, reject) =>{
         csas().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.kb.cz/kurzovni-listek/en/rl/index.x':
     return new Promise((resolve, reject) =>{
         kb().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.otpbank.hu/portal/en/Rates/ForeignExchRates':
     return new Promise((resolve, reject) =>{
         otpbank().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97':
     return new Promise((resolve, reject) =>{
         changeme().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://bestexchange.co.uk/?q=exchange-rates':
     return new Promise((resolve, reject) =>{
         bestexchange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.raiffeisen.ru/en/currency_rates/#offices':
     return new Promise((resolve, reject) =>{
         raiffeisen().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page':
     return new Promise((resolve, reject) =>{
         posb().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/':
     return new Promise((resolve, reject) =>{
         banamex().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.mizuhobank.co.jp/rate/market/quote/index.html':
     return new Promise((resolve, reject) =>{
         mizuhobank().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal':
     return new Promise((resolve, reject) =>{
         bfcexchange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://cecltd.com/?q=exchange-rates':
     return new Promise((resolve, reject) =>{
         cecltd().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.natwest.com/tools/personal/currency_rates/':
     return new Promise((resolve, reject) =>{
         natwest().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.netdania.com/quotes/forex-sterling':
     return new Promise((resolve, reject) =>{
         netdania().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.ace-fx.com/exchange-rates/':
     return new Promise((resolve, reject) =>{
         acefx().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix=':
     return new Promise((resolve, reject) =>{
         bankleumi().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.sakura-currency.co.jp/roppongi/':
     return new Promise((resolve, reject) =>{
         sakura().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.ccsole.com.mx/':
     return new Promise((resolve, reject) =>{
         ccsole().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.huspak-exchange.cz/en/exchange-rates/':
     return new Promise((resolve, reject) =>{
         huspak().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.alfaprague.cz/web2/?site=1':
     return new Promise((resolve, reject) =>{
         alfaprague().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'https://www.exchange8.cz/en/#close':
     return new Promise((resolve, reject) =>{
         exchange8().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
     case 'http://www.auraaktiv.cz/exchange-rates.html':
     return new Promise((resolve, reject) =>{
         auraaktiv().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
      case 'http://www.nekazanka-exchange.cz/':
     return new Promise((resolve, reject) =>{
         nekazanka().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
       case 'http://www.goldenexchange.cz/kurzy.php':
     return new Promise((resolve, reject) =>{
         goldenexchange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
       case 'http://www.provaznickaexchange.cz/novy.php':
     return new Promise((resolve, reject) =>{
         provaznickaexchange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
        case 'http://www.cernaruze-exchange.cz/':
     return new Promise((resolve, reject) =>{
         cernaruze().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
        case 'http://www.top-exchange.cz/index.php':
     return new Promise((resolve, reject) =>{
         topexchange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
        case 'http://www.eurochange.cz/kurzy/':
     return new Promise((resolve, reject) =>{
         eurochange().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
     
         case 'http://www.changeoffice.wz.cz/kurzy.php':
     return new Promise((resolve, reject) =>{
         changeoffice().then(function (data){
-        
+        console.log("get data for url: " + url.address );
               scrapingNoTable(url,data).then(function (data){
               resolve(data);
               });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
   }
@@ -370,6 +470,10 @@ var lacurrency = function()
   return new Promise((resolve, reject) => {
     request('https://lacurrency.com/', function (error, response, html)
     {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -393,6 +497,10 @@ var exchangecz = function()
   return new Promise((resolve, reject) => {
     request('https://www.exchange.cz/', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             //console.log(html);
             var jsonData = [];
@@ -416,6 +524,10 @@ var pnb = function()
   return new Promise((resolve, reject) => {
     request('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -440,6 +552,10 @@ var xchangeofamerica = function()
   return new Promise((resolve, reject) => {
     request('https://www.xchangeofamerica.com/home', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
       if (!error && response.statusCode == 200) {
         var $ = cheerio.load(html);
         
@@ -468,6 +584,10 @@ var bcr = function()
   return new Promise((resolve, reject) => {
     request('https://bcrmobileapp.24banking.ro/bcrmobileapp/v3/anonymousServices.do?event=getBaseFx', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -493,6 +613,10 @@ var csas = function()
   return new Promise((resolve, reject) => {
     request('https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
         var $ = cheerio.load(html);
         var jsonData = [];
         var i = 0;
@@ -518,6 +642,10 @@ var kb = function()
   return new Promise((resolve, reject) => {
     request('https://www.kb.cz/kurzovni-listek/en/rl/index.x', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -542,6 +670,10 @@ var otpbank = function()
   return new Promise((resolve, reject) => {
     request('https://www.otpbank.hu/portal/en/Rates/ForeignExchRates', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -566,7 +698,10 @@ var changeme = function()
   return new Promise((resolve, reject) => {
     request('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97', function (error, response, html)
     {
-            
+            if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -590,6 +725,10 @@ var raiffeisen = function()
   return new Promise((resolve, reject) => {
     request('https://www.raiffeisen.ru/en/currency_rates/#offices', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -614,6 +753,10 @@ var posb = function()
   return new Promise((resolve, reject) => {
     request('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -638,6 +781,10 @@ var banamex = function()
   return new Promise((resolve, reject) => {
     request('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -663,6 +810,10 @@ var mizuhobank = function()
   return new Promise((resolve, reject) => {
     request('https://www.mizuhobank.co.jp/rate/market/quote/index.html', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -688,6 +839,10 @@ var bfcexchange = function()
   return new Promise((resolve, reject) => {
     request('https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -713,6 +868,10 @@ var cecltd = function()
   return new Promise((resolve, reject) => {
     request('https://cecltd.com/?q=exchange-rates', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -739,6 +898,10 @@ var natwest = function()
   return new Promise((resolve, reject) => {
     request('http://www.natwest.com/tools/personal/currency_rates/', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -764,6 +927,10 @@ var netdania = function()
   return new Promise((resolve, reject) => {
     request('http://www.netdania.com/quotes/forex-sterling', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -790,6 +957,10 @@ var bestexchange = function()
   return new Promise((resolve, reject) => {
     request('http://bestexchange.co.uk/?q=exchange-rates', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -814,6 +985,10 @@ var acefx = function()
   return new Promise((resolve, reject) => {
     request('https://www.ace-fx.com/exchange-rates/', function (error, response, html) /// need to be complete!
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -837,6 +1012,10 @@ var bankleumi = function()
   return new Promise((resolve, reject) => {
     var requestOptions  = { encoding: null, method: "GET", uri: "http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix="};
     request(requestOptions, function(error, response, html) {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
         html = iconv.decode(new Buffer(html), "iso-8859-8");
         var $ = cheerio.load(html);
         var jsonData = [];
@@ -862,6 +1041,10 @@ var sakura = function()
   return new Promise((resolve, reject) => {
     request('http://www.sakura-currency.co.jp/roppongi/', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -886,6 +1069,10 @@ var ccsole = function()
   return new Promise((resolve, reject) => {
     request('http://www.ccsole.com.mx/', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -921,6 +1108,10 @@ var huspak = function()
   return new Promise((resolve, reject) => {
    request('http://www.huspak-exchange.cz/en/exchange-rates/', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -954,6 +1145,10 @@ var alfaprague = function()
    
 request('http://www.alfaprague.cz/web2/?site=1', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -981,6 +1176,10 @@ var exchange8 = function()
    
 request('https://www.exchange8.cz/en/#close', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1008,6 +1207,10 @@ var auraaktiv = function()
    
 request('http://www.auraaktiv.cz/exchange-rates.html', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1035,7 +1238,10 @@ var nekazanka = function()
    
 request('http://www.nekazanka-exchange.cz/', function (error, response, html)
     {
-        // console.log(html)
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1065,7 +1271,10 @@ var goldenexchange = function()
    
 request('http://www.goldenexchange.cz/kurzy.php', function (error, response, html)
     {
-        // console.log(html)
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1097,7 +1306,10 @@ var provaznickaexchange = function()
    
 request('http://www.provaznickaexchange.cz/novy.php', function (error, response, html)
     {
-        // console.log(html)
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1130,7 +1342,10 @@ var cernaruze = function()
 
 request('http://www.cernaruze-exchange.cz/', function (error, response, html)
     {
-        // console.log(html)
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1159,7 +1374,10 @@ var topexchange = function()
 
 request('http://www.top-exchange.cz/index.php', function (error, response, html)
     {
-        // console.log(html)
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1189,7 +1407,10 @@ var eurochange = function()
 
 request('http://www.eurochange.cz/kurzy/', function (error, response, html)
     {
-        // console.log(html)
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;
@@ -1218,6 +1439,10 @@ var changeoffice = function()
 
 request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, html)
     {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
             var $ = cheerio.load(html);
             var jsonData = [];
             var i = 0;

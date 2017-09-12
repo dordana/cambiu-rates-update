@@ -84,7 +84,6 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.provaznickaexchange.cz/novy.php',"4415","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.cernaruze-exchange.cz/',"4416","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4417","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4419","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.changeoffice.wz.cz/kurzy.php',"4420","","",0,'currency','buy','sell'));
 
         

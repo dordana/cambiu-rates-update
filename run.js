@@ -45,15 +45,15 @@ var job = new CronJob('00 00 * * * 0-6', function() {
   },true).start();
         
     
-var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
-    sendEmailReport(createmailreport()).then(function(res){
-                console.log(res);
-            }).catch(function(res){
-                console.error(res);
-            })
-            existelms = [];
-            existelmsdone = [];
-},true).start();
+// var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
+//     sendEmailReport(createmailreport()).then(function(res){
+//                 console.log(res);
+//             }).catch(function(res){
+//                 console.error(res);
+//             })
+//             existelms = [];
+//             existelmsdone = [];
+// },true).start();
 
 
 
