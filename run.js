@@ -19,7 +19,7 @@ var hours = 0;
 var existelms = [];
 var existelmsdone = [];
 var CronJob = require('cron').CronJob;
-var job = new CronJob('00 00 * * * 0-6', function() {
+// var job = new CronJob('00 00 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     
     console.log("******************************************************************************************************************************************")
@@ -45,7 +45,7 @@ var job = new CronJob('00 00 * * * 0-6', function() {
     existelmsdone = [];
         
     }); 
-  },true).start();
+//   },true).start();
         
     
 // var jobdaily = new CronJob('00 05 22 * * 0-6', function() {

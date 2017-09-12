@@ -312,8 +312,8 @@ var asyncFunc = function(item) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            // var pathTemplate = '/staging/rates';
-            var pathTemplate = '/production/rates';
+            var pathTemplate = '/staging/rates';
+            // var pathTemplate = '/production/rates';
             var method = 'POST';
             var typeofexchange = "";
             if (item.name === "" && item.id === "")
