@@ -44,7 +44,7 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('https://www.ppfbanka.cz/en/documents-and-important-information/currency-exchange-rates.html',"","","PPF banka",0,'0','5','6'));
         urlsToScrape.push(new UrlClass('https://www.uaeexchange.com/gbr-foreign-exchange',"385","","",0,'Code','Buy FC','Sell FC'));
         urlsToScrape.push(new UrlClass('https://www.iceplc.com/travel-money/exchange-rates',"567","","",5,'1','2',''));
-        urlsToScrape.push(new UrlClass('https://www.eurochange.co.uk/travel-money/exchange-rates',"","Eurochange PLC","",0,'Currency','Standard Rate',''));
+        // urlsToScrape.push(new UrlClass('https://www.eurochange.co.uk/travel-money/exchange-rates',"","Eurochange PLC","",0,'Currency','Standard Rate',''));
         urlsToScrape.push(new UrlClass('https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',"9","","",5,'1','2','3'));
         urlsToScrape.push(new UrlClass('https://www.thomasexchange.co.uk/i_banknote_rates.asp',"","","Thomas Exchange UK",0,'0','1','2'));
         urlsToScrape.push(new UrlClass('http://www.tokyo-card.co.jp/exchange/rate1.php',"","","world currency shop",0,'Foreign Currency    Yen\n(CASH)','1',''));

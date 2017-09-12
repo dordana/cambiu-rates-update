@@ -4,7 +4,7 @@ var Buffer = require('buffer').Buffer;
 var iconv  = require('iconv-lite');
     
 
-
+/////https://www.pottchange.com/en/exchange-rates/
 var requestOptions  = { encoding: null, method: "GET", uri: "http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix="};
     request(requestOptions, function(error, response, html) {
         html = iconv.decode(new Buffer(html), "iso-8859-8");
