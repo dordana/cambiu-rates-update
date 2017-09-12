@@ -160,8 +160,16 @@ exports.Scraping = function scraping(url)
                     scrape(tables).then(function (data)
                     {
                         resolve(data);
+                    }).catch(function(){
+                        console.log("There is a problem to parse " + url.address);
+                        global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
+                        reject();
                     });
                     
+            }).catch(function(res){
+                console.log("There is a problem to parse " + url.address);
+                global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
+                reject(res);
             })
         });
         
@@ -230,8 +238,9 @@ exports.Scraping = function scraping(url)
                 return new Promise((resolve, reject) =>{
                         runArray().then(function(result) {
                         console.log("Done with " + url.address);
-                        
                         resolve(global.Report);
+                        }).catch(function(){
+                            reject();
                         })
                     
                 });

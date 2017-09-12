@@ -34,6 +34,7 @@ var job = new CronJob('00 00 * * * 0-6', function() {
     {
         sendSMSReport(data);
         console.log("Pushed into the daily report!");
+        console.log(data);
         global.dailyReport.push(data);
         resetReport();
         hours++;
