@@ -575,8 +575,8 @@ var changeme = function()
                 jsonData[i++] = 
                 {
                   currency: a.text().trim(),
-                  buy: a.val(),
-                  sell: 0.0
+                  buy: 0.0,
+                  sell: a.val()
                 };
             
             });
