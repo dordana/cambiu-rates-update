@@ -84,18 +84,18 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4417","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4419","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.changeoffice.wz.cz/kurzy.php',"4420","","",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"","","sss",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.hanifachange.hu/',"","","HANIFA CHANGE",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.handmchange.hu/?uzlet=1',"","","sss",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('https://jokervaluta.hu/',"","","jolly joker",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://starchange-penzvalto.hu/',"","","star change",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://correctchange.hu/index.php?p=arf',"","","correct change",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.adamtravel.hu/',"","","Adam Travel Ltd",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.barari.hu/',"","","Bararee Trade KFTs",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.akkadbros.hu/index.php',"","","Bros Ltd Akkad",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.iblachange.hu/index.htm',"","","Ibla change",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"","","Kantor-change LTD",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('http://balintchange.hu/',"","","Bálint Change",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"","","sss",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.hanifachange.hu/',"","","HANIFA CHANGE",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.handmchange.hu/?uzlet=1',"","","sss",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('https://jokervaluta.hu/',"","","jolly joker",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://starchange-penzvalto.hu/',"","","star change",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://correctchange.hu/index.php?p=arf',"","","correct change",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.adamtravel.hu/',"","","Adam Travel Ltd",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.barari.hu/',"","","Bararee Trade KFTs",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.akkadbros.hu/index.php',"","","Bros Ltd Akkad",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.iblachange.hu/index.htm',"","","Ibla change",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"","","Kantor-change LTD",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://balintchange.hu/',"","","Bálint Change",0,'currency','buy','sell'));
 
         
         

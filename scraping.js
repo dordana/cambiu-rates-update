@@ -299,12 +299,8 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
                 {
                     console.log("Updating API: "+ url.address);
                     console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
-                    objMapToArr(jsonOutput,asyncFunc).then(function(promises){
-                        return Promise.all(promises); 
-                    }).catch(function(){
-                        return null;
-                    });
-                    
+                    var promises = objMapToArr(jsonOutput,asyncFunc);
+                    return Promise.all(promises);
                 }
             return new Promise((resolve, reject) =>{
                     runArray().then(function(result) {
@@ -363,7 +359,6 @@ var asyncFunc = function(item) {
                     sell: parseFloat(item.sell)
                 };
             }
-            console.log("OK");
     return new Promise(function(resolve, reject) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
