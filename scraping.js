@@ -307,6 +307,10 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
                     runArray().then(function(result) {
                     console.log("Done with " + url.address);
                     resolve(global.Report);
+                    }).catch(function(){
+                        console.log("There is a problem to parse " + url.address);
+                        global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
+                        resolve(global.Report);
                     })
                 
             });
