@@ -4,23 +4,26 @@ var Buffer = require('buffer').Buffer;
 var iconv  = require('iconv-lite');
     
 
-/////https://www.pottchange.com/en/exchange-rates/
-var requestOptions  = { encoding: null, method: "GET", uri: "http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix="};
-    request(requestOptions, function(error, response, html) {
-        html = iconv.decode(new Buffer(html), "iso-8859-8");
-        var $ = cheerio.load(html);
-        var jsonData = [];
-        var i = 0;
-        $('table[width="570"]').children('tbody').children("tr").each(function(i, element){
+
+request('http://balintchange.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          //reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
             var a = $(this).children("td");
-    
+
             jsonData[i++] = 
             {
-              currency: a.eq(5).text().trim(),
-              buy: a.eq(3).text().trim(),
-              sell: a.eq(4).text().trim()
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim().replace(/:/gi, "."),
+              sell: a.eq(4).text().trim().replace(/:/gi, ".")
             };
         
         });
-        console.log(jsonData);
+            console.log(jsonData);
     });

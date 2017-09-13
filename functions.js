@@ -442,6 +442,162 @@ exports.scrapeByUrl = function scrapeByUrl(url)
               global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
     });
+    
+        case 'https://www.pottchange.com/en/exchange-rates/':
+    return new Promise((resolve, reject) =>{
+        pottchange().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+        case 'http://www.hanifachange.hu/':
+    return new Promise((resolve, reject) =>{
+        hanifachange().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+        case 'http://www.handmchange.hu/?uzlet=1':
+    return new Promise((resolve, reject) =>{
+        handmchangehu().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+        case 'https://jokervaluta.hu/':
+    return new Promise((resolve, reject) =>{
+        jokervaluta().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+         case 'http://starchange-penzvalto.hu/':
+    return new Promise((resolve, reject) =>{
+        starchange().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+         case 'http://correctchange.hu/index.php?p=arf':
+    return new Promise((resolve, reject) =>{
+        correctchange().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+          case 'http://www.adamtravel.hu/':
+    return new Promise((resolve, reject) =>{
+        adamtravel().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+          case 'http://www.barari.hu/':
+    return new Promise((resolve, reject) =>{
+        barari().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+            case 'http://www.akkadbros.hu/index.php':
+    return new Promise((resolve, reject) =>{
+        akkadbros().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+             case 'http://www.iblachange.hu/index.htm':
+    return new Promise((resolve, reject) =>{
+        iblachange().then(function (data){
+        console.log("get data for url: " + url.address );
+              scrapingNoTable(url,data).then(function (data){
+              resolve(data);
+              });
+            }).catch(function(res){
+              console.log(url.address+"\treason => "+ res);
+              global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+    });
+    
+            case 'http://www.kantorchange.hu/':
+            return new Promise((resolve, reject) =>{
+              kantorchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://balintchange.hu/':
+            return new Promise((resolve, reject) =>{
+              balintchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
   }
 };
 
@@ -1425,7 +1581,7 @@ request('http://www.eurochange.cz/kurzy/', function (error, response, html)
             };
         
         });
-            console.log(jsonData);
+            resolve(jsonData);
     });
   });
 };
@@ -1433,10 +1589,6 @@ request('http://www.eurochange.cz/kurzy/', function (error, response, html)
 var changeoffice = function()
 {
   return new Promise((resolve, reject) => {
-   
-
-
-
 request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, html)
     {
       if (error)
@@ -1463,29 +1615,364 @@ request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, ht
   });
 };
 
+var pottchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('https://www.pottchange.com/en/exchange-rates/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.pott-rate-table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(4).text().trim().replace(/,/gi, "."),
+              sell: a.eq(5).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var hanifachange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://www.hanifachange.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim(),
+              buy: a.eq(3).text().trim().replace(/,/gi, "."),
+              sell: a.eq(4).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+
+var handmchangehu = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://www.handmchange.hu/?uzlet=1', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim().replace(/,/gi, "."),
+              sell: a.eq(3).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
 
 
 
 
+var jokervaluta = function()
+{
+  return new Promise((resolve, reject) => {
+request('https://jokervaluta.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim(),
+              buy: a.eq(3).text().trim(),
+              sell: a.eq(4).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var starchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://starchange-penzvalto.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim(),
+              sell: a.eq(3).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var correctchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://correctchange.hu/index.php?p=arf', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.mainpageTable').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim(),
+              sell: a.eq(3).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
 
 
+var adamtravel = function()
+{
+  return new Promise((resolve, reject) => {
+
+request('http://www.adamtravel.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(1).text().trim().replace(/\s|Ft/gi, ""),
+              sell: a.eq(2).text().trim().replace(/\s|Ft/gi, "")
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var barari = function()
+{
+  return new Promise((resolve, reject) => {
+
+request('http://www.barari.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table#arfolyamtable').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(3).text().trim(),
+              sell: a.eq(4).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
 
 
+var akkadbros = function()
+{
+  return new Promise((resolve, reject) => {
 
 
+request('http://www.akkadbros.hu/index.php', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.datagridmaintable').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim(),
+              sell: a.eq(3).text().trim()
+            };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var iblachange = function()
+{
+  return new Promise((resolve, reject) => {
 
 
+request('http://www.iblachange.hu/index.htm', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.MsoNormalTable').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
 
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim(),
+              buy: a.eq(2).text().trim().replace(/,/gi, "."),
+              sell: a.eq(3).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
 
+  });
+};
 
+var kantorchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://www.kantorchange.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
 
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(1).text().trim().replace(/,/gi, "."),
+              sell: a.eq(2).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
 
+  });
+};
 
+var balintchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://balintchange.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            $('table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
 
+            jsonData[i++] = 
+            {
+              currency: a.eq(0).text().trim(),
+              buy: a.eq(2).text().trim().replace(/:/gi, "."),
+              sell: a.eq(4).text().trim().replace(/:/gi, ".")
+            };
+        
+        });
+            resolve(jsonData);
+    });
 
-
-
-
+  });
+};
 
 
 

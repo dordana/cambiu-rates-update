@@ -26,7 +26,7 @@ var job = new CronJob('00 00 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     
     console.log("******************************************************************************************************************************************")
-    console.log("******************************************************** Start working - "+dateNtime+" version 1.1 ************************************************")
+    console.log("******************************************************** Start working - "+dateNtime+" version 1.2 ************************************************")
     console.log("******************************************************************************************************************************************\r\n")
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
@@ -37,22 +37,24 @@ var job = new CronJob('00 00 * * * 0-6', function() {
         resetReport();
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
-        console.log("************************************************** Finished! - "+dateNtime+" version 1.1 *********************************************************")
+        console.log("************************************************** Finished! - "+dateNtime+" version 1.2 *********************************************************")
         console.log("******************************************************************************************************************************************")
+        var hour = moment.tz("Asia/Jerusalem").format('HH');
+        if (hour === '20')
+        {
+            sendEmailReport(createmailreport()).then(function(res){
+                console.log(res);
+                existelms = [];
+                existelmsdone = [];
+            }).catch(function(res){
+                console.error(res);
+                existelms = [];
+                existelmsdone = [];
+            })
+        }
     }); 
   },true).start();
         
-    
-// var jobdaily = new CronJob('00 05 20 * * 0-6', function() {
-//     sendEmailReport(createmailreport()).then(function(res){
-//                 console.log(res);
-//             }).catch(function(res){
-//                 console.error(res);
-//             })
-//             existelms = [];
-//             existelmsdone = [];
-// },true).start();
-
 
 
 

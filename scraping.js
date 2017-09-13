@@ -163,13 +163,13 @@ exports.Scraping = function scraping(url)
                     }).catch(function(){
                         console.log("There is a problem to parse " + url.address);
                         global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
-                        reject();
+                        resolve();
                     });
                     
             }).catch(function(res){
                 console.log("There is a problem to parse " + url.address);
                 global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
-                reject(res);
+                resolve(res);
             })
         });
         
