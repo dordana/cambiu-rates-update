@@ -840,7 +840,7 @@ var otpbank = function()
                 {
                   currency: a.eq(0).text().trim(),
                   buy: a.eq(3).text().trim(),
-                  sell: a.eq(4).text().trim(),
+                  sell: a.eq(4).text().trim()
                 };
             
             });
@@ -895,7 +895,7 @@ var raiffeisen = function()
                 {
                   currency: a.eq(0).text().trim(),
                   buy: a.eq(3).text().trim(),
-                  sell: a.eq(5).text().trim(),
+                  sell: a.eq(5).text().trim()
                 };
             
             });
@@ -923,7 +923,7 @@ var posb = function()
                 {
                   currency: a.eq(0).text().trim(),
                   buy: a.eq(3).text().trim(),
-                  sell: a.eq(2).text().trim(),
+                  sell: a.eq(2).text().trim()
                 };
             
             });
@@ -952,7 +952,7 @@ var banamex = function()
                 {
                   currency: a.eq(0).text().trim()+a.eq(1).text().trim(),
                   buy: a.eq(2).text().trim(),
-                  sell: a.eq(3).text().trim(),
+                  sell: a.eq(3).text().trim()
                 };
             
             });
@@ -981,7 +981,7 @@ var mizuhobank = function()
                 {
                   currency: a.eq(1).text().trim(),
                   buy: a.eq(3).text().trim(),
-                  sell: a.eq(2).text().trim(),
+                  sell: a.eq(2).text().trim()
                 };
             
             });
@@ -1010,7 +1010,7 @@ var bfcexchange = function()
                 {
                   currency: a.children("span.bfc-country-img-code-wrapper").children("span.bfc-country-code-name").children("span.bfc-country-ccode").text().trim(),
                   buy: a.children("span.bfc-country-main-buy-wrapper").children("span.bfc-currency-rates-buy").text().trim(),
-                  sell: a.children("span.bfc-country-main-sell-wrapper").children("span.bfc-currency-rates-sell").text().trim(),
+                  sell: a.children("span.bfc-country-main-sell-wrapper").children("span.bfc-currency-rates-sell").text().trim()
                 };
             
             });
@@ -1285,7 +1285,7 @@ var huspak = function()
             {
               currency: fixed,
               buy: a.eq(2).text().trim(),
-              sell: a.eq(3).text().trim(),
+              sell: a.eq(3).text().trim()
             };
         
         });
