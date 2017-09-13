@@ -180,7 +180,6 @@ exports.Scraping = function scraping(url)
             
             if (exchangeJson === undefined)
             {
-               
                 console.log("There is a problem to parse " + url.address);
                 global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
                 return null;
