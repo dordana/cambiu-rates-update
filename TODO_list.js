@@ -56,8 +56,8 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"4386","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates',"","","PNB",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://bcrmobileapp.24banking.ro/bcrmobileapp/v3/anonymousServices.do?event=getBaseFx',"","BCR","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01',"","","Česká spořitelna",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"","","Komerční banka",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01',"","","sss",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"","","sss",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.otpbank.hu/portal/en/Rates/ForeignExchRates',"","","OTP",0,'currency','buy','sell'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97',"700","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.raiffeisen.ru/en/currency_rates/#offices',"","","Raiffeisen Bank",0,'currency','buy','sell'));
@@ -86,15 +86,15 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.changeoffice.wz.cz/kurzy.php',"4420","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"","","sss",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.hanifachange.hu/',"","","HANIFA CHANGE",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.handmchange.hu/?uzlet=1',"","","H & M Ltd. CHANGE",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.handmchange.hu/?uzlet=1',"","","sss",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://jokervaluta.hu/',"","","jolly joker",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://starchange-penzvalto.hu/',"","","star change",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://correctchange.hu/index.php?p=arf',"","","correct change",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.adamtravel.hu/',"","","Adam Travel Ltd.",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.adamtravel.hu/',"","","Adam Travel Ltd",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.barari.hu/',"","","Bararee Trade KFTs",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.akkadbros.hu/index.php',"","","Bros Ltd Akkad.",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.akkadbros.hu/index.php',"","","Bros Ltd Akkad",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.iblachange.hu/index.htm',"","","Ibla change",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"","","Kantor-change LTD.",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"","","Kantor-change LTD",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://balintchange.hu/',"","","Bálint Change",0,'currency','buy','sell'));
 
         

@@ -297,8 +297,7 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
             var objMapToArr = require('object-map-to-array');
                 function runArray ()
                 {
-                    console.log("Updating API");
-                    console.log("URL: "+ url.address);
+                    console.log("Updating API: "+ url.address);
                     console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
                     var promises = objMapToArr(jsonOutput,asyncFunc);
                     return Promise.all(promises);
@@ -360,7 +359,7 @@ var asyncFunc = function(item) {
                     sell: parseFloat(item.sell)
                 };
             }
-            
+            console.log("OK");
     return new Promise(function(resolve, reject) {
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
