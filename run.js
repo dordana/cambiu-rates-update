@@ -12,14 +12,13 @@
 
 
 var http = require('http');
-http.createServer(function (request, response) {}).listen(process.env.PORT || 5000);
+// http.createServer(function (request, response) {}).listen(process.env.PORT || 5000);
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
 const id = '03365315d1ca59368bc7b3b633bb801d';
 const   client = require("twilio")(acc,id),
         moment = require('moment-timezone');
 global.dailyReport = [];
 var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"304\" height=\"100\" /></strong></p><p style=\"text-align: center;\">&nbsp;</p><h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates - Daily report for dailymail.date</strong></span></h3><p style=\"text-align: center;\">Average of Success: dailymail.AverageSuccess&nbsp;</p><p style=\"text-align: center;\">Average of Failure: dailymail.AverageFailure&nbsp;</p><p style=\"text-align: center;\">&nbsp;</p>"
-var hours = 0;
 var existelms = [];
 var existelmsdone = [];
 var CronJob = require('cron').CronJob;
@@ -32,12 +31,10 @@ var job = new CronJob('00 00 * * * 0-6', function() {
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
     {
-        sendSMSReport(data);
+        sendSMSReport(createSMSreport(data));
         console.log("Pushed into the daily report!");
-        console.log(data);
         global.dailyReport.push(data);
         resetReport();
-        hours++;
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
         console.log("************************************************** Finished! - "+dateNtime+" version 1.1 *********************************************************")
@@ -108,16 +105,41 @@ function sendSMSReport(Report)
     ({
         to: "+972549325932",
         from: "+17868863180",
-        body: ' \r\n['+dateNtime+']\r\n *Test - Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+        body: '['+dateNtime+']\r\n *Update report*\r\n' + Report
     });
     console.log("Sending a message to +972542343220");
     client.messages.create
     ({
         to: "+972542343220",
         from: "+17868863180",
-        body: ' \r\n['+dateNtime+']\r\n *Update report*\r\n' + 'Number of success: ' + Report.numberOfSuccess  + '\r\nNumber of failed: ' + Report.numberOfFailed
+        body: '['+dateNtime+']\r\n *Update report*\r\n' + Report
     });
 }
+
+function createSMSreport(report){
+    var existSMSurl = [];
+    var numOfFalied = 0;
+    var SMSreport = "";
+    var listOfError = report.failedReportList;
+    if (Object.keys(listOfError).length === 0)
+    {
+        SMSreport += "Everything is up to date"; 
+    }
+    else
+    {
+        var objMapToArr = require('object-map-to-array');
+        objMapToArr(listOfError,function(element) {
+            if (existSMSurl.indexOf(element) === -1)
+            {
+                existSMSurl.push(element);
+                numOfFalied++;
+            }
+        });
+        SMSreport += "There is a problem with "+numOfFalied+" urls";
+    }
+    return SMSreport;
+}
+
 
 function createmailreport()
 {

@@ -108,41 +108,24 @@ const todoList = function todoList()
             Promise.map(urlsToScrape,scraping).then(function(report_sc){
                 Promise.map(urlsToScrapeNoTable,scrapeByUrl).then(function(report)
                 {
-                    
-                    if (report.length !== 0)
+                    var temparr = [];
+                    for (var x = 0; x < report_sc[0].failedReportList.length; x++)
                     {
-                        var temparr = [];
-                        for (var x = 0; x < report[0].failedReportList.length; x++)
-                        {
-                            temparr.push(report[0].failedReportList[x])
-                        }
-                        finalReport =
-                        {
-                            failedReportList: temparr,
-                            numberOfSuccess: report[0].numberOfSuccess,
-                            numberOfFailed: report[0].numberOfFailed,
-                            date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
-                            time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
-                        }
-                        resolve(finalReport);
-                    }else
-                    {
-                        var temparr = [];
-                        for (var x = 0; x < report_sc[0].failedReportList.length; x++)
-                        {
-                            temparr.push(report_sc[0].failedReportList[x])
-                        }
-                        finalReport =
-                        {
-                            failedReportList: temparr,
-                            numberOfSuccess: report_sc[0].numberOfSuccess,
-                            numberOfFailed: report_sc[0].numberOfFailed,
-                            date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
-                            time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
-                        }
-                        resolve(finalReport);
+                        temparr.push(report_sc[0].failedReportList[x])
                     }
-                    resolve();
+                    for (x = 0; x < report[0].failedReportList.length; x++)
+                    {
+                        temparr.push(report[0].failedReportList[x])
+                    }
+                    finalReport =
+                    {
+                        failedReportList: temparr,
+                        numberOfSuccess: report[0].numberOfSuccess,
+                        numberOfFailed: report[0].numberOfFailed,
+                        date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
+                        time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
+                    }
+                    resolve(finalReport);
                 }).catch(function(){
                     console.log("Problem with the process 2");
                 })
