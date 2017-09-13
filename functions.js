@@ -1285,7 +1285,7 @@ var huspak = function()
             {
               currency: fixed,
               buy: a.eq(2).text().trim(),
-              sell: 0.0
+              sell: a.eq(3).text().trim(),
             };
         
         });
@@ -1604,8 +1604,8 @@ request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, ht
             jsonData[i++] = 
             {
               currency: a.eq(2).text().trim().replace(/\s|\(100\)/gi, ""),
-              buy: a.eq(3).text().trim().replace(/,/gi, ".").replace(/ (100)/gi, ""),
-              sell: 0.0
+              buy: 0.0,
+              sell: a.eq(3).text().trim().replace(/,/gi, ".").replace(/ (100)/gi, "")
             };
         
         });

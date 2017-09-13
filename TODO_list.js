@@ -26,11 +26,11 @@ const todoList = function todoList()
     return new Promise((resolve, reject) =>{
        
         //<----------------------Urls table---------------------->
-        urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"566","","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
+        urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"16","","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
         urlsToScrape.push(new UrlClass('http://interafrica.webalytics.co.za/customcontent/Rates.php',"99","","",0,'Currency','Buy Rate','Sell Rate'));
         urlsToScrape.push(new UrlClass('http://www.mastercurrency.co.za/rates.aspx',"1625","","",0,'Code','We Buy','We Sell'));
         urlsToScrape.push(new UrlClass('http://www.towerfx.co.za/index.php/rate-board',"102","","",0,'2','3','4'));
-        // urlsToScrape.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"","JC Money Change","",0,'0','2','3'));
+        // urlsToScrape.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"4435","","",0,'0','2','3'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/iban-express/4',"1518","","",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/razack-custom-clothiers-rcc-exchange/76',"1544","","",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/silver-river-money-changer/63',"1546","","",0,'0','WE BUY','WE SELL'));
@@ -43,12 +43,12 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"85","","",0,'1','2','3'));
         urlsToScrape.push(new UrlClass('https://www.ppfbanka.cz/en/documents-and-important-information/currency-exchange-rates.html',"","","PPF banka",0,'0','5','6'));
         urlsToScrape.push(new UrlClass('https://www.uaeexchange.com/gbr-foreign-exchange',"385","","",0,'Code','Buy FC','Sell FC'));
-        urlsToScrape.push(new UrlClass('https://www.iceplc.com/travel-money/exchange-rates',"567","","",5,'1','2',''));
+        urlsToScrape.push(new UrlClass('https://www.iceplc.com/travel-money/exchange-rates',"6","","",5,'1','2',''));
         // urlsToScrape.push(new UrlClass('https://www.eurochange.co.uk/travel-money/exchange-rates',"","Eurochange PLC","",0,'Currency','Standard Rate',''));
         urlsToScrape.push(new UrlClass('https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',"9","","",5,'1','2','3'));
         urlsToScrape.push(new UrlClass('https://www.thomasexchange.co.uk/i_banknote_rates.asp',"","","Thomas Exchange UK",0,'0','1','2'));
-        urlsToScrape.push(new UrlClass('http://www.tokyo-card.co.jp/exchange/rate1.php',"","","world currency shop",0,'Foreign Currency    Yen\n(CASH)','1',''));
-        urlsToScrape.push(new UrlClass('http://www.nailasmoneychanger.com/',"","","Nailas Money Changer",0,'0','2',''));
+        urlsToScrape.push(new UrlClass('http://www.tokyo-card.co.jp/exchange/rate1.php',"90","","",0,'Foreign Currency    Yen\n(CASH)','1',''));
+        urlsToScrape.push(new UrlClass('http://www.nailasmoneychanger.com/',"274","","",0,'0','2',''));
        
         //<----------------------Urls without table---------------------->
         urlsToScrapeNoTable.push(new UrlClass('https://lacurrency.com/',"157","","",0,'currency','buy','sell'));
@@ -68,11 +68,11 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://cecltd.com/?q=exchange-rates',"","CEC","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.natwest.com/tools/personal/currency_rates/',"409","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.netdania.com/quotes/forex-sterling',"570","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"477","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"30","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.ace-fx.com/exchange-rates/',"6","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix=',"4375","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.sakura-currency.co.jp/roppongi/',"","","sakura currency service",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.ccsole.com.mx/',"","","CCSOLE",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.sakura-currency.co.jp/roppongi/',"92","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.ccsole.com.mx/',"4132","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.alfaprague.cz/web2/?site=1',"","Exchanges ALFA PRAGUE","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange8.cz/en/#close',"4390","","",0,'currency','buy','sell'));
