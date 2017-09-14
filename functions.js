@@ -1195,8 +1195,8 @@ var bankleumi = function()
             jsonData[i++] = 
             {
               currency: a.eq(5).text().trim(),
-              buy: a.eq(3).text().trim(),
-              sell: a.eq(4).text().trim()
+              buy: a.eq(1).text().trim(),
+              sell: a.eq(0).text().trim()
             };
         
         });
