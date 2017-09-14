@@ -598,6 +598,19 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
+          
+          case 'http://jcmoneychange.com/our-services/exchange-rate/':
+            return new Promise((resolve, reject) =>{
+              jcmoneychange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
   }
 };
 
@@ -1966,6 +1979,37 @@ request('http://balintchange.hu/', function (error, response, html)
               buy: a.eq(2).text().trim().replace(/:/gi, "."),
               sell: a.eq(4).text().trim().replace(/:/gi, ".")
             };
+        
+        });
+            resolve(jsonData);
+    });
+
+  });
+};
+
+var jcmoneychange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://jcmoneychange.com/our-services/exchange-rate/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.easy-table').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(0).text().trim() !== "")
+            {
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim().replace(/USA/gi, "USD"),
+                  buy: a.eq(2).text().trim(),
+                  sell: a.eq(3).text().trim()
+                };
+            }
         
         });
             resolve(jsonData);

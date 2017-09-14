@@ -30,7 +30,6 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('http://interafrica.webalytics.co.za/customcontent/Rates.php',"99","","",0,'Currency','Buy Rate','Sell Rate'));
         urlsToScrape.push(new UrlClass('http://www.mastercurrency.co.za/rates.aspx',"1625","","",0,'Code','We Buy','We Sell'));
         urlsToScrape.push(new UrlClass('http://www.towerfx.co.za/index.php/rate-board',"102","","",0,'2','3','4'));
-        // urlsToScrape.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"4435","","",0,'0','2','3'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/iban-express/4',"1518","","",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/razack-custom-clothiers-rcc-exchange/76',"1544","","",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/silver-river-money-changer/63',"1546","","",0,'0','WE BUY','WE SELL'));
@@ -95,6 +94,7 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.iblachange.hu/index.htm',"","","Ibla change",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"","","Kantor-change LTD",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://balintchange.hu/',"","","Bálint Change",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"4435","","",0,'currency','buy','sell'));
 
         
         

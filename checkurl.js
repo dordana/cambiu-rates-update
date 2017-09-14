@@ -5,25 +5,34 @@ var iconv  = require('iconv-lite');
     
 
 
-request('http://balintchange.hu/', function (error, response, html)
+request('http://jcmoneychange.com/our-services/exchange-rate/', function (error, response, html)
     {
         if (error)
         {
           //reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
-            var jsonData = [];
-            var i = 0;
-            $('table').children("tbody").children("tr").each(function(i, element){
-            var a = $(this).children("td");
-
-            jsonData[i++] = 
-            {
-              currency: a.eq(0).text().trim(),
-              buy: a.eq(2).text().trim().replace(/:/gi, "."),
-              sell: a.eq(4).text().trim().replace(/:/gi, ".")
-            };
+        try {
+          cheerio.load("sdsdsdd")
+        } catch (err) {
+            console.log(err);
+        }
+            console.log("hey");
         
-        });
-            console.log(jsonData);
+           
+            // var jsonData = [];
+            // var i = 0;
+            // $('table.easy-table').children("tbody").children("tr").each(function(i, element){
+            // var a = $(this).children("td");
+            // if (a.eq(0).text().trim() !== "")
+            // {
+            //     jsonData[i++] = 
+            //     {
+            //       currency: a.eq(0).text().trim().replace(/USA/gi, "USD"),
+            //       buy: a.eq(2).text().trim(),
+            //       sell: a.eq(3).text().trim()
+            //     };
+            // }
+        
+        // });
+        //     console.log(jsonData);
     });
