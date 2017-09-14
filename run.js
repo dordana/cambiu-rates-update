@@ -22,7 +22,7 @@ var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join
 var existelms = [];
 var existelmsdone = [];
 var CronJob = require('cron').CronJob;
-var job = new CronJob('0 */5 * * * 0-6', function() {
+var job = new CronJob('0 0 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
     console.log("******************************************************** Start working - "+dateNtime+" version 1.2 ************************************************")
