@@ -366,12 +366,24 @@ var asyncFunc = function(item) {
             var res = JSON.stringify(result.data);
             if (res !== '{"status":"ok"}')
             {
-                console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
-                global.Report.numberOfFailed++;
-                console.log(res);
-                console.log('--------------------------------------------');
-                global.Report.failedReportList.push(item.address+"\treason => There is a problem with name/chain/id.");
-                resolve('error');
+                if (res === "{\"errors\":{\"exchange\":[\"no rates defined for that exchange\"]}}")
+                {
+                    console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+                    global.Report.numberOfFailed++;
+                    console.log(res);
+                    console.log('--------------------------------------------');
+                    global.Report.failedReportList.push(item.address+"\treason => No rates defined for that exchange.");
+                    resolve('error');
+                }
+                else
+                {
+                    console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+                    global.Report.numberOfFailed++;
+                    console.log(res);
+                    console.log('--------------------------------------------');
+                    global.Report.failedReportList.push(item.address+"\treason => There is a problem with name/chain/id.");
+                    resolve('error');
+                }
             }
             else
             {
