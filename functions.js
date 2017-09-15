@@ -748,34 +748,6 @@ var xchangeofamerica = function()
   });
 };
 
-var bcr = function()
-{
-  return new Promise((resolve, reject) => {
-    request('https://bcrmobileapp.24banking.ro/bcrmobileapp/v3/anonymousServices.do?event=getBaseFx', function (error, response, html)
-    {
-      if (error)
-        {
-          reject("There is a problem to parse");
-        }
-            var $ = cheerio.load(html);
-            var jsonData = [];
-            var i = 0;
-            var a = JSON.parse($.text())["fx"];
-            
-            for (var x = 0; x < a.length; x++)
-            {
-                jsonData[i++] = 
-                {
-                  currency: a[x].currency,
-                  buy: a[x].exchangeRate["buy"],
-                  sell: a[x].exchangeRate["sell"]
-                };
-            }
-           
-            resolve(jsonData);
-    });
-  });
-};
 
 var csas = function()
 {

@@ -25,7 +25,7 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob('0 0 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
-    console.log("******************************************************** Start working - "+dateNtime+" version 1.2 ************************************************")
+    console.log("******************************************************** Start working - "+dateNtime+" version 1.6.1 ************************************************")
     console.log("******************************************************************************************************************************************\r\n")
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
@@ -36,7 +36,7 @@ var job = new CronJob('0 0 * * * 0-6', function() {
         resetReport();
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
-        console.log("************************************************** Finished! - "+dateNtime+" version 1.2 *********************************************************")
+        console.log("************************************************** Finished! - "+dateNtime+" version 1.6.1 *********************************************************")
         console.log("******************************************************************************************************************************************")
         var hour = moment.tz("Asia/Jerusalem").format('HH');
         if (hour === '20')
@@ -70,7 +70,7 @@ function sendEmailReport(repText)
         from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
         to: 'dor@cambiu.com, dror@cambiu.com, eyal@cambiu.com, yonatan@cambiu.com',
         // to: 'dor@cambiu.com',
-        subject: 'Cambiu - Update rates report - '+ dateNtime,
+        subject: 'Cambiu - Update rates - daily report - '+ dateNtime,
         html: repText
     };
     return new Promise((resolve, reject) =>{
@@ -143,37 +143,37 @@ function createmailreport()
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     var failedRep = "<html> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">";
     failedRep += "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
-
-    for (var i = 0; i< global.dailyReport.length; i++)
+    if (global.dailyReport.length === 0)
     {
-        var listOfError = global.dailyReport[i].failedReportList;
-        if (Object.keys(listOfError).length === 0)
-        {
-            if (existelmsdone.indexOf("Done") === -1)
-            {
-                existelmsdone.push("Done");
-                failedRep += "<p style=\"text-align: center;\">Everything is up to date</p>"; 
-            }
-        }else
-        {
-            var objMapToArr = require('object-map-to-array');
-            if (failedRep.indexOf("<p style=\"text-align: center;\">There is a problem with the following urls:</p>") === -1)
-            {
-                failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
-            }
-            failedRep += "<ol>"
-            objMapToArr(listOfError,function(element) {
-                if (existelms.indexOf(element) === -1)
-                {
-                    existelms.push(element);
-                    failedRep += "<li>"+element+"</li>";
-                }
-            });
-            failedRep += "</ol>"
-            
-        }
-        failedRep+= "</html>";
+        failedRep += "<p style=\"text-align: center;\">Everything is up to date</p>"; 
     }
+    else{
+        for (var i = 0; i< global.dailyReport.length; i++)
+        {
+            var listOfError = global.dailyReport[i].failedReportList;
+            if (Object.keys(listOfError).length === 0)
+            {
+                continue;
+            }else
+            {
+                var objMapToArr = require('object-map-to-array');
+                if (failedRep.indexOf("<p style=\"text-align: center;\">There is a problem with the following urls:</p>") === -1)
+                {
+                    failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
+                }
+                failedRep += "<ul>"
+                objMapToArr(listOfError,function(element) {
+                    if (existelms.indexOf(element) === -1)
+                    {
+                        existelms.push(element);
+                        failedRep += "<li>"+element+"</li>";
+                    }
+                });
+                failedRep += "</ul>"
+            }
+        }
+    }
+    failedRep+= "</html>";
     return failedRep;
 }
 
