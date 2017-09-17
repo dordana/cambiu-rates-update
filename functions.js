@@ -611,6 +611,84 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
+          
+          case 'http://asmi.hu/?uzlet=3':
+            return new Promise((resolve, reject) =>{
+              asmi().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://bspenzvalto.hu/':
+            return new Promise((resolve, reject) =>{
+              bspenzvalto().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://www.centrumchange.hu/':
+            return new Promise((resolve, reject) =>{
+              centrumchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+           case 'http://dunachange.hu/en/':
+            return new Promise((resolve, reject) =>{
+              dunachange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://users.atw.hu/kaadanchange/':
+            return new Promise((resolve, reject) =>{
+              kaadanchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://kiralypenzvalto.hu/':
+            return new Promise((resolve, reject) =>{
+              kiralypenzvalto().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
   }
 };
 
@@ -1991,11 +2069,278 @@ request('http://jcmoneychange.com/our-services/exchange-rate/', function (error,
 };
 
 
+var asmi = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://asmi.hu/php/jel.php', function (error, response, html)
+    {
+            if (error)
+            {
+              reject("There is a problem to parse");
+            }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var h = 0;
+            $('body').first().each(function(i, element){
+                var a = $(this);
+                // console.log(a.html());
+                var arr = a.html().replace(/<br>/gi, ",");
+                var tmp = "";
+                var curs = [];
+                for (var i = 0; i< arr.length; i++)
+                {
+                    if (arr[i] !== ",")
+                    {
+                        tmp += arr[i];
+                    }else
+                    {
+                        curs.push(tmp);
+                        tmp ="";
+                    }
+                }
+                
+                
+                request('http://asmi.hu/php/eladas.php', function (error, response, html)
+                {
+                  if (error)
+                  {
+                    reject("There is a problem to parse");
+                  }
+                    var $ = cheerio.load(html);
+                    var jsonData = [];
+                    var i = 0;
+                    $('body').first().each(function(i, element){
+                        var a = $(this);
+                        var arr = a.html().replace(/,/gi, ".");
+                        arr = arr.replace(/<br>/gi, ",");
+                        var tmp = "";
+                        var buys = [];
+                        for (var i = 0; i< arr.length; i++)
+                        {
+                            if (arr[i] !== ",")
+                            {
+                                tmp += arr[i];
+                            }else
+                            {
+                                buys.push(tmp);
+                                tmp ="";
+                            }
+                        }
+                        request('http://asmi.hu/php/vetel.php', function (error, response, html)
+                        {
+                          if (error)
+                          {
+                            reject("There is a problem to parse");
+                          }
+                            var $ = cheerio.load(html);
+                            var jsonData = [];
+                            var i = 0;
+                            $('body').first().each(function(i, element){
+                                var a = $(this);
+                                var arr = a.html().replace(/,/gi, ".");
+                                arr = arr.replace(/<br>/gi, ",");
+                                var tmp = "";
+                                var sales = [];
+                                for (var i = 0; i< arr.length; i++)
+                                {
+                                    if (arr[i] !== ",")
+                                    {
+                                        tmp += arr[i];
+                                    }else
+                                    {
+                                        sales.push(tmp);
+                                        tmp ="";
+                                    }
+                                }
+                                
+                                for (var i = 0; i< curs.length; i++)
+                                {
+                                    jsonData[h++] = 
+                                    {
+                                      currency: curs[i],
+                                      buy: buys[i],
+                                      sell: sales[i]
+                                    }; 
+                                }
+                                resolve(jsonData);
+                        });
+                        
+                        });
+                
+                    });
+                
+                
+            
+            });
+        });
+            
+    });
 
+  });
+};
 
+var bspenzvalto = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://bspenzvalto.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.MsoNormalTable').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(0).text().trim() !== "")
+            {
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(2).text().trim().replace(/,/gi, "."),
+                  sell: a.eq(3).text().trim().replace(/,/gi, ".")
+                };
+            }
+        
+        });
+            resolve(jsonData);
+    });
 
+  });
+};
 
+var centrumchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://www.centrumchange.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table#arfolyamok').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(0).children("img").attr("alt") !== "")
+            {
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).children("img").attr("alt"),
+                  buy: a.eq(3).text().trim().replace(/,/gi, "."),
+                  sell: a.eq(4).text().trim().replace(/,/gi, ".")
+                };
+            }
+        
+        });
+            resolve(jsonData);
+    });
 
+  });
+};
 
+var dunachange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://dunachange.hu/en/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table#wp-table-reloaded-id-1-no-1').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(1).text().trim() !== "")
+            {
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: a.eq(3).text().trim().replace(/,/gi, "."),
+                  sell: a.eq(4).text().trim().replace(/,/gi, ".")
+                };
+            }
+        
+        });
+            resolve(jsonData);
+    });
+  });
+};
 
+var kaadanchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://users.atw.hu/kaadanchange/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('table.MsoTableWeb1').children("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(1).text().trim() !== "")
+            {
+                var buy = a.eq(3).text().trim().replace(/�/gi, "")
+                var sell = a.eq(4).text().trim().replace(/�/gi, "")
+                jsonData[i++] = 
+                {
+                  currency: a.eq(1).text().trim(),
+                  buy: buy.replace(/,/gi, "."),
+                  sell: sell.replace(/,/gi, ".")
+                };
+            }
+        
+        });
+            resolve(jsonData);
+    });
+  });
+};
 
+var kiralypenzvalto = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://kiralypenzvalto.hu/', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('div.style17').parent().parent("tr").parent("tbody").children("tr").each(function(i, element){
+            var a = $(this).children("td");
+            if (a.eq(1).text().trim() !== "")
+            {
+                var cur = a.eq(1).text().trim();
+                var tmp = "";
+                for (var j = 0; j < cur.length; j++)
+                {
+                    if (cur[j] === "(")
+                    {
+                        tmp += cur[j+1];
+                        tmp += cur[j+2];
+                        tmp += cur[j+3];
+                    }
+                }
+                
+                jsonData[i++] = 
+                {
+                  currency: tmp,
+                  buy: a.eq(3).text().trim().replace(/,/gi, "."),
+                  sell: a.eq(4).text().trim().replace(/,/gi, ".")
+                };
+            }
+        
+        });
+            resolve(jsonData);
+    });
+  });
+};

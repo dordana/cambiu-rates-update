@@ -16,7 +16,9 @@ http.createServer(function (request, response) {}).listen(process.env.PORT || 50
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
 const id = '03365315d1ca59368bc7b3b633bb801d';
 const   client = require("twilio")(acc,id),
-        moment = require('moment-timezone');
+        moment = require('moment-timezone'),
+        Sleep = require('sleep');
+        //sleep.sleep(n): sleep for n seconds
 global.dailyReport = [];
 var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"304\" height=\"100\" /></strong></p><p style=\"text-align: center;\">&nbsp;</p><h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates - Daily report for dailymail.date</strong></span></h3><p style=\"text-align: center;\">Average of Success: dailymail.AverageSuccess&nbsp;</p><p style=\"text-align: center;\">Average of Failure: dailymail.AverageFailure&nbsp;</p><p style=\"text-align: center;\">&nbsp;</p>"
 var existelms = [];
@@ -25,7 +27,7 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob('0 0 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
-    console.log("******************************************************** Start working - "+dateNtime+" version 1.6.1 ************************************************")
+    console.log("******************************************************** Start working - "+dateNtime+" version 1.6.1 *************************************")
     console.log("******************************************************************************************************************************************\r\n")
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
@@ -36,7 +38,7 @@ var job = new CronJob('0 0 * * * 0-6', function() {
         resetReport();
         var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
         console.log("******************************************************************************************************************************************")
-        console.log("************************************************** Finished! - "+dateNtime+" version 1.6.1 *********************************************************")
+        console.log("************************************************** Finished! - "+dateNtime+" version 1.6.1 ***********************************************")
         console.log("******************************************************************************************************************************************")
         var hour = moment.tz("Asia/Jerusalem").format('HH');
         if (hour === '20')
