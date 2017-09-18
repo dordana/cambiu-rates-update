@@ -16,14 +16,15 @@ http.createServer(function (request, response) {}).listen(process.env.PORT || 50
 const acc = 'AC30f9cba26999974ebfc6a3bac2cf82b7';
 const id = '03365315d1ca59368bc7b3b633bb801d';
 const   client = require("twilio")(acc,id),
-        moment = require('moment-timezone'),
-        Sleep = require('sleep');
-        //sleep.sleep(n): sleep for n seconds
+        moment = require('moment-timezone');
 global.dailyReport = [];
 var emailtemp = "<p style=\"text-align: center;\"><strong><img src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"304\" height=\"100\" /></strong></p><p style=\"text-align: center;\">&nbsp;</p><h3 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates - Daily report for dailymail.date</strong></span></h3><p style=\"text-align: center;\">Average of Success: dailymail.AverageSuccess&nbsp;</p><p style=\"text-align: center;\">Average of Failure: dailymail.AverageFailure&nbsp;</p><p style=\"text-align: center;\">&nbsp;</p>"
 var existelms = [];
 var existelmsdone = [];
 var CronJob = require('cron').CronJob;
+
+
+
 var job = new CronJob('0 0 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
@@ -159,7 +160,7 @@ function createmailreport()
             }else
             {
                 var objMapToArr = require('object-map-to-array');
-                if (failedRep.indexOf("<p style=\"text-align: center;\">There is a problem with the following urls:</p>") === -1)
+                if (failedRep.indexOf("<p style=\"text-align: center;\">There are problems problem with the following urls:</p>") === -1)
                 {
                     failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
                 }

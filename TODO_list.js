@@ -86,7 +86,6 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.hanifachange.hu/',"","","HANIFA CHANGE",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.handmchange.hu/?uzlet=1',"1080","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://jokervaluta.hu/',"72","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://starchange-penzvalto.hu/',"","","star change",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://correctchange.hu/index.php?p=arf',"73","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.adamtravel.hu/',"74","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.barari.hu/',"","","Bararee Trade KFTs",0,'currency','buy','sell'));
@@ -95,12 +94,12 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.kantorchange.hu/',"1129","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://balintchange.hu/',"77","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://jcmoneychange.com/our-services/exchange-rate/',"4435","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://asmi.hu/?uzlet=3',"","","city change",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://bspenzvalto.hu/',"","","BS EXCHANGE",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.centrumchange.hu/',"","","centrum change",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://dunachange.hu/en/',"","","Dunachange",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://users.atw.hu/kaadanchange/',"","","Kaadan CO Kft.",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://kiralypenzvalto.hu/',"","","king and co.",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://asmi.hu/?uzlet=3',"78","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://bspenzvalto.hu/',"1166","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.centrumchange.hu/',"81","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://dunachange.hu/en/',"1170","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://users.atw.hu/kaadanchange/',"1186","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://kiralypenzvalto.hu/',"83","","",0,'currency','buy','sell'));
 
         
         
@@ -114,39 +113,89 @@ const todoList = function todoList()
         
         
         
-        
-        
-        
+        var n = 300;
+        var sleep = require('sleep');
         var finalReport;
-        
         //Running
-            Promise.map(urlsToScrape,scraping).then(function(report_sc){
-                Promise.map(urlsToScrapeNoTable,scrapeByUrl).then(function(report)
-                {
-                    var temparr = [];
-                    for (var x = 0; x < report_sc[0].failedReportList.length; x++)
-                    {
-                        temparr.push(report_sc[0].failedReportList[x])
-                    }
-                    for (x = 0; x < report[0].failedReportList.length; x++)
-                    {
-                        temparr.push(report[0].failedReportList[x])
-                    }
-                    finalReport =
-                    {
-                        failedReportList: temparr,
-                        numberOfSuccess: report[0].numberOfSuccess,
-                        numberOfFailed: report[0].numberOfFailed,
-                        date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
-                        time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
-                    }
-                    resolve(finalReport);
+            Promise.map(urlsToScrape.slice(0,10),scraping).then(function(report1){
+                console.log("finished with report1\r\nHibernate, wake up in 5 minutes");
+                sleep.sleep(n)
+                Promise.map(urlsToScrape.slice(10,urlsToScrape.length),scraping).then(function(report2){
+                    console.log("finished with report2\r\nHibernate, wake up in 5 minutes");
+                    sleep.sleep(n)
+                    Promise.map(urlsToScrapeNoTable.slice(0,10),scrapeByUrl).then(function(report3){
+                        console.log("finished with report3\r\nHibernate, wake up in 5 minutes");
+                        sleep.sleep(n)
+                        Promise.map(urlsToScrapeNoTable.slice(10,20),scrapeByUrl).then(function(report4){ 
+                            console.log("finished with report4\r\nHibernate, wake up in 5 minutes");
+                            sleep.sleep(n)
+                            Promise.map(urlsToScrapeNoTable.slice(20,30),scrapeByUrl).then(function(report5){
+                                console.log("finished with report5\r\nHibernate, wake up in 5 minutes");
+                                sleep.sleep(n)
+                                Promise.map(urlsToScrapeNoTable.slice(30,40),scrapeByUrl).then(function(report6){ 
+                                    console.log("finished with report6\r\nHibernate, wake up in 5 minutes");
+                                    sleep.sleep(n)
+                                    Promise.map(urlsToScrapeNoTable.slice(40,urlsToScrapeNoTable.length),scrapeByUrl).then(function(report7){ 
+                                            console.log("finished with report7\r\nPreparing the final report to send");
+                                            var temparr = [];
+                                            for (var x = 0; x < report1[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report1[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report2[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report2[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report3[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report3[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report4[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report4[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report5[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report5[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report6[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report6[0].failedReportList[x])
+                                            }
+                                            for (x = 0; x < report7[0].failedReportList.length; x++)
+                                            {
+                                                temparr.push(report7[0].failedReportList[x])
+                                            }
+                                            finalReport =
+                                            {
+                                                failedReportList: temparr,
+                                                numberOfSuccess: report1[0].numberOfSuccess,
+                                                numberOfFailed: report1[0].numberOfFailed,
+                                                date: moment.tz("Asia/Jerusalem").format('DD/MM/YYYY'),
+                                                time: moment.tz("Asia/Jerusalem").format('HH:mm:ss')
+                                            }
+                                            resolve(finalReport);
+                                    }).catch(function(){
+                                        console.log("Problem with the report 7");
+                                    }) 
+                                }).catch(function(){
+                                    console.log("Problem with the report 6");
+                                })                  
+                            }).catch(function(){
+                                console.log("Problem with the report 5");
+                            }) 
+                        }).catch(function(){
+                            console.log("Problem with the report 4");
+                        })                  
+                    }).catch(function(){
+                        console.log("Problem with the report 3");
+                    })                    
                 }).catch(function(){
-                    console.log("Problem with the process 2");
-                })
+                    console.log("Problem with the report 2");
+                })        
             }).catch(function(){
-                    console.log("Problem with the process 1");
-                })
+                console.log("Problem with the report 1");
+            })
     })
     
 }
