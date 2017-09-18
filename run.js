@@ -48,10 +48,12 @@ var job = new CronJob('0 0 * * * 0-6', function() {
                 console.log(res);
                 existelms = [];
                 existelmsdone = [];
+                global.dailyReport = [];
             }).catch(function(res){
                 console.error(res);
                 existelms = [];
                 existelmsdone = [];
+                global.dailyReport = [];
             })
         }
     }); 
@@ -142,15 +144,10 @@ function createSMSreport(report){
 
 function createmailreport()
 {
-    
+    var flag = true;
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     var failedRep = "<html> <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">";
     failedRep += "<h2 style=\"text-align: center;\"><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://join.cambiu.com/wp-content/uploads/2017/03/cropped-logo.png\" alt=\"\" width=\"359\" height=\"118\" /></h2><h2 style=\"text-align: center;\"><span style=\"text-decoration: underline;\"><strong>Update rates for "+dateNtime+"</strong></span></h2>";
-    if (global.dailyReport.length === 0)
-    {
-        failedRep += "<p style=\"text-align: center;\">Everything is up to date</p>"; 
-    }
-    else{
         for (var i = 0; i< global.dailyReport.length; i++)
         {
             var listOfError = global.dailyReport[i].failedReportList;
@@ -159,10 +156,11 @@ function createmailreport()
                 continue;
             }else
             {
+                flag = false;
                 var objMapToArr = require('object-map-to-array');
-                if (failedRep.indexOf("<p style=\"text-align: center;\">There are problems problem with the following urls:</p>") === -1)
+                if (failedRep.indexOf("<p style=\"text-align: center;\">There are problems with the following urls:</p>") === -1)
                 {
-                    failedRep += "<p style=\"text-align: center;\">There is a problem with the following urls:</p>";
+                    failedRep += "<p style=\"text-align: center;\">There are problems with the following urls:</p>";
                 }
                 failedRep += "<ul>"
                 objMapToArr(listOfError,function(element) {
@@ -175,6 +173,9 @@ function createmailreport()
                 failedRep += "</ul>"
             }
         }
+    if (flag)
+    {
+        failedRep += "<p style=\"text-align: center;\">All urls were successfully processed!</p>";
     }
     failedRep+= "</html>";
     return failedRep;
