@@ -1241,14 +1241,22 @@ var bankleumi = function()
         var i = 0;
         $('table[width="570"]').children('tbody').children("tr").each(function(i, element){
             var a = $(this).children("td");
-    
-            jsonData[i++] = 
+            if (a.eq(5).text().trim() === 'ין יפני')
             {
-              currency: a.eq(5).text().trim(),
-              buy: a.eq(1).text().trim(),
-              sell: a.eq(0).text().trim()
-            };
-        
+                jsonData[i++] ={ 
+                  currency: a.eq(5).text().trim(),
+                  buy: a.eq(1).text().trim()/100,
+                  sell: a.eq(0).text().trim()/100
+                };
+            }
+            else
+            {
+                jsonData[i++] ={ 
+                  currency: a.eq(5).text().trim(),
+                  buy: a.eq(1).text().trim(),
+                  sell: a.eq(0).text().trim()
+                };
+            }
         });
         resolve(jsonData);
     });
