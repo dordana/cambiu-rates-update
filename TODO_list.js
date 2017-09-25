@@ -100,6 +100,10 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://dunachange.hu/en/',"1170","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://users.atw.hu/kaadanchange/',"1186","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://kiralypenzvalto.hu/',"83","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('https://www.forexchange.it/l-azienda/valute/',"292","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.euro-change.de/index_en.php',"297","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('www.exchange-ag.de/Wechselkurse.html?design=n2013',"298","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://romeexchange.com/',"4478","","",0,'currency','buy','sell'));
 
         
         
@@ -113,7 +117,7 @@ const todoList = function todoList()
         
         
         
-        var n = 300;
+        var n = 3;
         var sleep = require('sleep');
         var finalReport;
         //Running

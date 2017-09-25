@@ -689,6 +689,58 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
+          
+           case 'https://www.forexchange.it/l-azienda/valute/':
+            return new Promise((resolve, reject) =>{
+              forexchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+           case 'http://www.euro-change.de/index_en.php':
+            return new Promise((resolve, reject) =>{
+              eurochange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'www.exchange-ag.de/Wechselkurse.html?design=n2013':
+            return new Promise((resolve, reject) =>{
+              exchangeag().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://romeexchange.com/':
+            return new Promise((resolve, reject) =>{
+              romeexchange().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
   }
 };
 
@@ -702,7 +754,33 @@ exports.scrapeByUrl = function scrapeByUrl(url)
 
 
 
-
+var romeexchange = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://romeexchange.com/api.php', function (error, response, html)
+    {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
+        var $ = cheerio.load(html);
+        var jsonData = [];
+        var i = 0;
+        $('table.list_table').children('tbody').children('tr').each(function(i, element){
+            var a = $(this).children('td');
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim().replace(/EUR\//gi,""),
+              buy: a.eq(2).text().trim().replace(/,/gi, "."),
+              sell: a.eq(3).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+        resolve(jsonData);
+      
+    });
+  });
+};
 
 
 
@@ -761,6 +839,37 @@ var exchangecz = function()
                   sell: a.eq(3).text()
                 };
             });
+            resolve(jsonData);
+    });
+  });
+};
+
+var eurochange = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.euro-change.de/index_en.php', function (error, response, html)
+    {
+      
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var index = 0;
+            console.log("checkerr");
+            $("div.tab-content").children('div.tab-pane').each(function(i, element){
+              
+              $(this).children("table").children("tbody").children("tr").each(function(i1, element){
+                var a = $(this).children('td');
+                jsonData[index++] = 
+                {
+                  currency: a.eq(3).text().trim().replace(/\.|\s|[0-9]/g,''),
+                  buy: a.eq(3).text().trim().replace(/\s|[a-z]|[A-Z]|\/€|:|/g,''),
+                  sell: a.eq(4).text().trim().replace(/\s|[a-z]|[A-Z]|\/€|:|/g,'')
+                };
+              });
+        });
             resolve(jsonData);
     });
   });
@@ -2218,6 +2327,36 @@ request('http://bspenzvalto.hu/', function (error, response, html)
   });
 };
 
+var exchangeag = function()
+{
+  return new Promise((resolve, reject) => {
+request('http://www.exchange-ag.de/Wechselkurse.html?design=n2013', function (error, response, html)
+    {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
+        var $ = cheerio.load(html);
+        var jsonData = [];
+        var i = 0;
+        $('table#Table_01').children('tbody').children('tr').each(function(i, element){
+            var a = $(this).children('td');
+        
+            jsonData[i++] = 
+            {
+              currency: a.eq(2).text().trim(),
+              buy: a.eq(3).text().trim().replace(/,/gi, "."),
+              sell: a.eq(4).text().trim().replace(/,/gi, ".")
+            };
+        
+        });
+        resolve(jsonData);
+      
+    });
+
+  });
+};
+
 var centrumchange = function()
 {
   return new Promise((resolve, reject) => {
@@ -2346,6 +2485,35 @@ request('http://kiralypenzvalto.hu/', function (error, response, html)
                   sell: a.eq(4).text().trim().replace(/,/gi, ".")
                 };
             }
+        
+        });
+            resolve(jsonData);
+    });
+  });
+};
+
+
+var forexchange = function()
+{
+  return new Promise((resolve, reject) => {
+request('https://www.forexchange.it/l-azienda/valute/', function (error, response, html)
+    {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('div#exposer_29').children("div").each(function(i, element){
+            var a = $(this).children("table").children("tbody").children("tr").children("td").children("p");
+            
+            jsonData[i++] = 
+            {
+              currency: a.eq(1).text().trim().replace(/\s|[a-z]|[0-9]|\/€|:|\./g,''),
+              buy: a.eq(1).text().trim().replace(/\s|[a-z]|[A-Z]|\/€|:|/g,''),
+              sell: 0.0
+            };
         
         });
             resolve(jsonData);
