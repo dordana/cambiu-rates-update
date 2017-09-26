@@ -11,6 +11,7 @@ var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
 
 exports.scrapeByUrl = function scrapeByUrl(url)
 {
+  try{
   switch (url.address)
   {
     
@@ -741,7 +742,11 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
-  }
+      }
+  }catch (e) {
+  console.log(e);
+  return null;
+}
 };
 
 
