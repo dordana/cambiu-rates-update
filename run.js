@@ -49,12 +49,12 @@ var job = new CronJob('0 0 * * * 0-6', function() {
             sendEmailReport(createmailreport(final_report)).then(function(res){
                 console.log(res);
                 existelms = [];
-                // existelmsdone = [];
+                
                 global.dailyReport = [];
             }).catch(function(res){
                 console.error(res);
                 existelms = [];
-                // existelmsdone = [];
+               
                 global.dailyReport = [];
             })
         }
