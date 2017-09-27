@@ -11,13 +11,11 @@ request('http://romeexchange.com/api.php', function (error, response, html)
         {
           // reject("There is a problem to parse");
         }
-        // console.log(html);
         var $ = cheerio.load(html);
         var jsonData = [];
         var i = 0;
         $('table.list_table').children('tbody').children('tr').each(function(i, element){
             var a = $(this).children('td');
-            // console.log(a.text());
             jsonData[i++] = 
             {
               currency: a.eq(1).text().trim().replace(/EUR\//gi,""),
