@@ -32,6 +32,7 @@
     "tabletojson": "^0.6.0",
     "time-stamp": "latest",
     "twilio": "latest",
+    "urljson": "^1.0.1",
     "xml-js": "^1.4.1"
   },
   "devDependencies": {

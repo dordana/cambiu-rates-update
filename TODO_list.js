@@ -104,6 +104,8 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.euro-change.de/index_en.php',"297","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('www.exchange-ag.de/Wechselkurse.html?design=n2013',"298","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://romeexchange.com/',"4478","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://travelmatemoney.com.au/Money-Exchange.php',"4627","","",0,'currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.travelmoneyoz.com/foreign-currency',"4628","","",0,'currency','buy','sell'));
 
         
         

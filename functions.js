@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 var Buffer = require('buffer').Buffer;
 var iconv  = require('iconv-lite');
 var Promise = require("promise");
-
+var urljson = require('urljson');
 var scrapingNoTable = require("./scraping.js").ScrapingNoTable;
 
 
@@ -742,6 +742,31 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
+          case 'http://travelmatemoney.com.au/Money-Exchange.php':
+            return new Promise((resolve, reject) =>{
+              travelmatemoney().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
+          case 'http://www.travelmoneyoz.com/foreign-currency':
+            return new Promise((resolve, reject) =>{
+              travelmoneyoz().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
       }
   }catch (e) {
   console.log(e);
@@ -862,7 +887,6 @@ var eurochange = function()
             var $ = cheerio.load(html);
             var jsonData = [];
             var index = 0;
-            console.log("checkerr");
             $("div.tab-content").children('div.tab-pane').each(function(i, element){
               
               $(this).children("table").children("tbody").children("tr").each(function(i1, element){
@@ -2521,6 +2545,75 @@ request('https://www.forexchange.it/l-azienda/valute/', function (error, respons
             };
         
         });
+            resolve(jsonData);
+    });
+  });
+};
+
+var travelmatemoney = function()
+{
+  return new Promise((resolve, reject) => {
+    urljson.get('http://travelmatemoney.com.au/money_exchange_ajax.php', false).then(function(result) {
+        urljson.to_array(result).then(function(arrayData) {
+          var jsonData = [];
+          var index = 0;
+          arrayData.forEach(function(element) {
+            jsonData[index++] = 
+            {
+              currency: element['2'],
+              buy: element['3'],
+              sell: element['4']
+            };
+        });
+          resolve(jsonData);
+        }, function(err) {
+            reject("There is a problem to parse");
+        });
+    }, function(error) {
+        reject("There is a problem to parse");
+    });
+  });
+};
+
+var travelmoneyoz = function()
+{
+  return new Promise((resolve, reject) => {
+    request('http://www.travelmoneyoz.com/foreign-currency', function (error, response, html)
+    {
+      if (error)
+        {
+          reject("There is a problem to parse");
+        }
+            var $ = cheerio.load(html);
+            var jsonData = [];
+            var i = 0;
+            $('div.view-content').children("div.views-row").each(function(i, element){
+              var a = $(this).children().children("span.details");
+              var text = a.eq(0).text().trim();
+              var buy = a.eq(0).text().trim();
+              buy = buy.replace(/\s|[a-z]|[A-Z]|\/€|\^|\=|\:/g,'');
+              jsonData[i++] = 
+              {
+                currency: text.slice(text.length-3,text.length),
+                buy: buy.slice(1),
+                sell: 0.0
+              };
+            });
+
+            // $('ul.other-currencies--list').children("li.other-currencies--list-item").each(function(element1){
+            //   var a = $(this).children().children("span.other-currencies--list--info");
+            //   var text = a.eq(0).text().trim();
+            //   var buy = a.eq(0).text().trim();
+            //   buy = buy.replace(/\s|[a-z]|[A-Z]|\/€|\^|\=|\:/g,'');
+            //   jsonData[i++] = 
+            //   {
+            //   currency: text.slice(text.length-3,text.length),
+            //   buy: buy.slice(1),
+            //   sell: 0.0
+            //   };
+            // });
+            
+            
             resolve(jsonData);
     });
   });
