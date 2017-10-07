@@ -33,8 +33,8 @@ var job = new CronJob('0 0 * * * 0-6', function() {
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
     {
-        // sendSMSReport(createSMSreport(data));
-        console.log(data);
+        sendSMSReport(createSMSreport(data));
+        // console.log(data);
         console.log("Pushed into the daily report!");
         global.dailyReport.push(data);
         var final_report = data;
@@ -44,19 +44,19 @@ var job = new CronJob('0 0 * * * 0-6', function() {
         console.log("************************************************** Finished! - "+dateNtime+" version 1.6.1 ***********************************************")
         console.log("******************************************************************************************************************************************")
         var hour = moment.tz("Asia/Jerusalem").format('HH');
-        // if (hour === '20')
-        // {
-        //     sendEmailReport(createmailreport(final_report)).then(function(res){
-        //         console.log(res);
-        //         existelms = [];
-        //         global.dailyReport = [];
-        //     }).catch(function(res){
-        //         console.error(res);
-        //         existelms = [];
+        if (hour === '20')
+        {
+            sendEmailReport(createmailreport(final_report)).then(function(res){
+                console.log(res);
+                existelms = [];
+                global.dailyReport = [];
+            }).catch(function(res){
+                console.error(res);
+                existelms = [];
                
-        //         global.dailyReport = [];
-        //     })
-        // }
+                global.dailyReport = [];
+            })
+        }
     }); 
   },true).start();
         

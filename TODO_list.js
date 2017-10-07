@@ -71,16 +71,15 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix=',"4375","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.sakura-currency.co.jp/roppongi/',"92","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.ccsole.com.mx/',"4132","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","","",0,'currency','buy','sell'));
+        // urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.alfaprague.cz/web2/?site=1',"","Exchanges ALFA PRAGUE","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange8.cz/en/#close',"4390","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.auraaktiv.cz/exchange-rates.html',"","AuraAktiv","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.nekazanka-exchange.cz/',"4412","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.goldenexchange.cz/kurzy.php',"4413","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.provaznickaexchange.cz/novy.php',"4415","","",0,'currency','buy','sell'));
+        // urlsToScrapeNoTable.push(new UrlClass('http://www.provaznickaexchange.cz/novy.php',"4415","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.cernaruze-exchange.cz/',"4416","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4417","","",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4419","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.changeoffice.wz.cz/kurzy.php',"4420","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.pottchange.com/en/exchange-rates/',"1691","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.hanifachange.hu/',"","","HANIFA CHANGE",0,'currency','buy','sell'));

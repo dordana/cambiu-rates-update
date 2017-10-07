@@ -312,6 +312,7 @@ exports.scrapeByUrl = function scrapeByUrl(url)
             }).catch(function(res){
               console.log(url.address+"\treason => "+ res);
               global.Report.failedReportList.push(url.address+"\treason => "+ res);
+              reject();
             });
     });
     
@@ -789,11 +790,17 @@ var romeexchange = function()
   return new Promise((resolve, reject) => {
     request('http://romeexchange.com/api.php', function (error, response, html)
     {
-      if (error)
+        if (error)
         {
           reject("There is a problem to parse");
         }
-        var $ = cheerio.load(html);
+        
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
+        
         var jsonData = [];
         var i = 0;
         $('table.list_table').children('tbody').children('tr').each(function(i, element){
@@ -829,7 +836,11 @@ var lacurrency = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('a.table-row').each(function(i, element){
@@ -856,8 +867,11 @@ var exchangecz = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
-            //console.log(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table#ratelist').children('tbody').children('tr').each(function(i, element){
@@ -884,7 +898,11 @@ var eurochange = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var index = 0;
             $("div.tab-content").children('div.tab-pane').each(function(i, element){
@@ -913,7 +931,11 @@ var pnb = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $("tr[bgcolor=\"#666666\"]").parent().children('tr').each(function(i, element){
@@ -942,7 +964,11 @@ var xchangeofamerica = function()
           reject("There is a problem to parse");
         }
       if (!error && response.statusCode == 200) {
-        var $ = cheerio.load(html);
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
         
         var jsonData = [];
         var i = 0;
@@ -974,7 +1000,11 @@ var csas = function()
         {
           reject("There is a problem to parse");
         }
-        var $ = cheerio.load(html);
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
         var jsonData = [];
         var i = 0;
         $('table.tabular').children('tbody').children('tr').each(function(i, element){
@@ -1003,7 +1033,11 @@ var kb = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div#collapse-card-transactions').children().children('table.exchange-rate-table').children('tbody').children('tr').each(function(i, element){
@@ -1031,7 +1065,11 @@ var otpbank = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div.table-holder').first().children('table').children('tbody').children('tr').each(function(i, element){
@@ -1059,7 +1097,11 @@ var changeme = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('select.matbeot').children('option').each(function(i, element){
@@ -1086,7 +1128,11 @@ var raiffeisen = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div.offices_view').children('.table').children('tbody').children('tr').each(function(i, element){
@@ -1114,7 +1160,11 @@ var posb = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.margin-table').children('tbody').children('tr').each(function(i, element){
@@ -1142,7 +1192,11 @@ var banamex = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1171,7 +1225,11 @@ var mizuhobank = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1200,7 +1258,11 @@ var bfcexchange = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1229,7 +1291,11 @@ var cecltd = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1259,7 +1325,11 @@ var natwest = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1288,7 +1358,11 @@ var netdania = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             
@@ -1318,7 +1392,11 @@ var bestexchange = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.views-table').children('tbody').children("tr").each(function(i, element){
@@ -1346,7 +1424,11 @@ var acefx = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+           if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div.currency_exchange').children('table').children('tbody').children("tr").each(function(i, element){
@@ -1374,7 +1456,11 @@ var bankleumi = function()
           reject("There is a problem to parse");
         }
         html = iconv.decode(new Buffer(html), "iso-8859-8");
-        var $ = cheerio.load(html);
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
         var jsonData = [];
         var i = 0;
         $('table[width="570"]').children('tbody').children("tr").each(function(i, element){
@@ -1410,7 +1496,11 @@ var sakura = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('dl#rate-list').children('dt').each(function(i, element){
@@ -1438,7 +1528,11 @@ var ccsole = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table[width="220"]').children("tbody").children("tr").each(function(i, element){
@@ -1477,9 +1571,17 @@ var huspak = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+        if (html){
+          console.log("hey");
+          var $ = cheerio.load(html);
+        }else{
+          console.log("hey2");
+          reject("There is a problem to parse this site");
+          return;
+        }
             var jsonData = [];
             var i = 0;
+           
             $('table').children("tbody").children("tr").each(function(i, element){
             var a = $(this).children("td");
             var fixed;
@@ -1514,7 +1616,11 @@ request('http://www.alfaprague.cz/web2/?site=1', function (error, response, html
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table[width="550"]').children("tbody").children("tr").each(function(i, element){
@@ -1545,7 +1651,11 @@ request('https://www.exchange8.cz/en/#close', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $("div.exchange-list").children('table').children("tbody").children("tr").each(function(i, element){
@@ -1576,7 +1686,11 @@ request('http://www.auraaktiv.cz/exchange-rates.html', function (error, response
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.listek').children("tbody").children("tr").each(function(i, element){
@@ -1607,7 +1721,11 @@ request('http://www.nekazanka-exchange.cz/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+           if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.kurzy').children("tbody").children("tr").each(function(i, element){
@@ -1640,7 +1758,11 @@ request('http://www.goldenexchange.cz/kurzy.php', function (error, response, htm
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.tabulka').children("tbody").children("tr").each(function(i, element){
@@ -1675,7 +1797,11 @@ request('http://www.provaznickaexchange.cz/novy.php', function (error, response,
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.tabulka').children("tbody").children("tr").each(function(i, element){
@@ -1711,7 +1837,11 @@ request('http://www.cernaruze-exchange.cz/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.kurzy').children("tbody").children("tr").each(function(i, element){
@@ -1743,7 +1873,11 @@ request('http://www.top-exchange.cz/index.php', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.tabulka').children("tbody").children("tr").each(function(i, element){
@@ -1776,7 +1910,11 @@ request('http://www.eurochange.cz/kurzy/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.exchangetbl').children("tbody").children("tr").each(function(i, element){
@@ -1804,7 +1942,11 @@ request('http://www.changeoffice.wz.cz/kurzy.php', function (error, response, ht
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table[width="400"]').children("tbody").children("tr").each(function(i, element){
@@ -1833,7 +1975,11 @@ request('https://www.pottchange.com/en/exchange-rates/', function (error, respon
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.pott-rate-table').children("tbody").children("tr").each(function(i, element){
@@ -1862,7 +2008,11 @@ request('http://www.hanifachange.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table').children("tbody").children("tr").each(function(i, element){
@@ -1892,7 +2042,11 @@ request('http://www.handmchange.hu/?uzlet=1', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table').children("tbody").children("tr").each(function(i, element){
@@ -1924,7 +2078,11 @@ request('https://jokervaluta.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.table').children("tbody").children("tr").each(function(i, element){
@@ -1953,7 +2111,11 @@ request('http://starchange-penzvalto.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table').children("tbody").children("tr").each(function(i, element){
@@ -1982,7 +2144,11 @@ request('http://correctchange.hu/index.php?p=arf', function (error, response, ht
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.mainpageTable').children("tbody").children("tr").each(function(i, element){
@@ -2013,7 +2179,11 @@ request('http://www.adamtravel.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table').children("tbody").children("tr").each(function(i, element){
@@ -2043,7 +2213,11 @@ request('http://www.barari.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table#arfolyamtable').children("tbody").children("tr").each(function(i, element){
@@ -2075,7 +2249,11 @@ request('http://www.akkadbros.hu/index.php', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.datagridmaintable').children("tbody").children("tr").each(function(i, element){
@@ -2106,7 +2284,11 @@ request('http://www.iblachange.hu/index.htm', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+           if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.MsoNormalTable').children("tbody").children("tr").each(function(i, element){
@@ -2135,7 +2317,11 @@ request('http://www.kantorchange.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table').children("tbody").children("tr").each(function(i, element){
@@ -2164,7 +2350,11 @@ request('http://balintchange.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             $('table').children("tbody").children("tr").each(function(i, element){
             var a = $(this).children("td");
@@ -2192,7 +2382,11 @@ request('http://jcmoneychange.com/our-services/exchange-rate/', function (error,
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.easy-table').children("tbody").children("tr").each(function(i, element){
@@ -2224,7 +2418,11 @@ request('http://asmi.hu/php/jel.php', function (error, response, html)
             {
               reject("There is a problem to parse");
             }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var h = 0;
             $('body').first().each(function(i, element){
@@ -2252,7 +2450,11 @@ request('http://asmi.hu/php/jel.php', function (error, response, html)
                   {
                     reject("There is a problem to parse");
                   }
-                    var $ = cheerio.load(html);
+                    if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
                     var jsonData = [];
                     var i = 0;
                     $('body').first().each(function(i, element){
@@ -2278,7 +2480,11 @@ request('http://asmi.hu/php/jel.php', function (error, response, html)
                           {
                             reject("There is a problem to parse");
                           }
-                            var $ = cheerio.load(html);
+                            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
                             var jsonData = [];
                             var i = 0;
                             $('body').first().each(function(i, element){
@@ -2334,7 +2540,11 @@ request('http://bspenzvalto.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.MsoNormalTable').children("tbody").children("tr").each(function(i, element){
@@ -2365,7 +2575,11 @@ request('http://www.exchange-ag.de/Wechselkurse.html?design=n2013', function (er
         {
           reject("There is a problem to parse");
         }
-        var $ = cheerio.load(html);
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
         var jsonData = [];
         var i = 0;
         $('table#Table_01').children('tbody').children('tr').each(function(i, element){
@@ -2395,7 +2609,11 @@ request('http://www.centrumchange.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table#arfolyamok').children("tbody").children("tr").each(function(i, element){
@@ -2426,7 +2644,11 @@ request('http://dunachange.hu/en/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table#wp-table-reloaded-id-1-no-1').children("tbody").children("tr").each(function(i, element){
@@ -2456,7 +2678,11 @@ request('http://users.atw.hu/kaadanchange/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('table.MsoTableWeb1').children("tbody").children("tr").each(function(i, element){
@@ -2488,7 +2714,11 @@ request('http://kiralypenzvalto.hu/', function (error, response, html)
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div.style17').parent().parent("tr").parent("tbody").children("tr").each(function(i, element){
@@ -2531,7 +2761,11 @@ request('https://www.forexchange.it/l-azienda/valute/', function (error, respons
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div#exposer_29').children("div").each(function(i, element){
@@ -2566,7 +2800,7 @@ var travelmatemoney = function()
             };
         });
           resolve(jsonData);
-        }, function(err) {
+        },function(err) {
             reject("There is a problem to parse");
         });
     }, function(error) {
@@ -2584,7 +2818,11 @@ var travelmoneyoz = function()
         {
           reject("There is a problem to parse");
         }
-            var $ = cheerio.load(html);
+            if (html){
+          var $ = cheerio.load(html);
+        }else{
+          reject("There is a problem to parse this site");
+        }
             var jsonData = [];
             var i = 0;
             $('div.view-content').children("div.views-row").each(function(i, element){
