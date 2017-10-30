@@ -25,7 +25,7 @@ var CronJob = require('cron').CronJob;
 
 
 
-var job = new CronJob('0 0 * * * 0-6', function() {
+var job = new CronJob('0 0 2 * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
     console.log("******************************************************** Start working - "+dateNtime+" version 1.6.1 *************************************")
@@ -33,7 +33,7 @@ var job = new CronJob('0 0 * * * 0-6', function() {
     var todoList = require('./TODO_list.js').todoList;
     todoList().then(function(data)
     {
-        sendSMSReport(createSMSreport(data));
+        // sendSMSReport(createSMSreport(data));
         // console.log(data);
         console.log("Pushed into the daily report!");
         global.dailyReport.push(data);

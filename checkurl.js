@@ -4,7 +4,7 @@ var Buffer = require('buffer').Buffer;
 var iconv  = require('iconv-lite');
 var urljson = require('urljson');
 
-console.log("hello333");
+
   request('http://www.provaznickaexchange.cz/novy.php', function (error, response, html)
     {
       console.log("hello");
@@ -16,7 +16,7 @@ console.log("hello333");
         if (html){
           var $ = cheerio.load(html);
         }else{
-          // reject("There is a problem to parse this site");
+          return("There is a problem to parse this site");
         }
             var jsonData = [];
             var i = 0;
@@ -33,5 +33,4 @@ console.log("hello333");
         });
             console.log(jsonData);
     });
-    
-    console.log("hello2");
+ 
