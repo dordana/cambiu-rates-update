@@ -5,10 +5,8 @@ var iconv  = require('iconv-lite');
 var urljson = require('urljson');
 
 
-  request('http://www.provaznickaexchange.cz/novy.php', function (error, response, html)
+  request('https://www.ppfbanka.cz/en/exchange-rates', function (error, response, html)
     {
-      console.log("hello");
-      console.log(html)
         if (error)
         {
           // reject("There is a problem to parse");
@@ -16,19 +14,19 @@ var urljson = require('urljson');
         if (html){
           var $ = cheerio.load(html);
         }else{
-          return("There is a problem to parse this site");
+          return "There is a problem to parse this site";
         }
-            var jsonData = [];
-            var i = 0;
-            $('table.tabulka').children("tbody").children("tr").each(function(i, element){
-            var a = $(this).children("td");
+        var jsonData = [];
+        var i = 0;
+        $('table.exchange-rates').children("tbody").children("tr").each(function(i, element){
+        var a = $(this).children("td");
 
-            jsonData[i++] = 
-            {
-              currency: a.eq(2).text().trim(),
-              buy: a.eq(4).text().trim(),
-              sell: a.eq(5).text().trim()
-            };
+        jsonData[i++] = 
+        {
+          currency: a.eq(0).text().trim(),
+          buy: a.eq(4).text().trim(),
+          sell: a.eq(5).text().trim()
+        };
         
         });
             console.log(jsonData);

@@ -743,6 +743,20 @@ exports.scrapeByUrl = function scrapeByUrl(url)
                     global.Report.failedReportList.push(url.address+"\treason => "+ res);
             });
           });
+          
+          case 'https://www.ppfbanka.cz/en/exchange-rates':
+            return new Promise((resolve, reject) =>{
+              ppfbanka().then(function (data){
+              console.log("get data for url: " + url.address );
+                    scrapingNoTable(url,data).then(function (data){
+                    resolve(data);
+                    });
+                  }).catch(function(res){
+                    console.log(url.address+"\treason => "+ res);
+                    global.Report.failedReportList.push(url.address+"\treason => "+ res);
+            });
+          });
+          
           case 'http://travelmatemoney.com.au/Money-Exchange.php':
             return new Promise((resolve, reject) =>{
               travelmatemoney().then(function (data){
@@ -2837,21 +2851,38 @@ var travelmoneyoz = function()
                 sell: 0.0
               };
             });
+            resolve(jsonData);
+    });
+  });
+};
 
-            // $('ul.other-currencies--list').children("li.other-currencies--list-item").each(function(element1){
-            //   var a = $(this).children().children("span.other-currencies--list--info");
-            //   var text = a.eq(0).text().trim();
-            //   var buy = a.eq(0).text().trim();
-            //   buy = buy.replace(/\s|[a-z]|[A-Z]|\/€|\^|\=|\:/g,'');
-            //   jsonData[i++] = 
-            //   {
-            //   currency: text.slice(text.length-3,text.length),
-            //   buy: buy.slice(1),
-            //   sell: 0.0
-            //   };
-            // });
-            
-            
+var ppfbanka = function()
+{
+  return new Promise((resolve, reject) => {
+    request('https://www.ppfbanka.cz/en/exchange-rates', function (error, response, html)
+    {
+        if (error)
+        {
+          reject("There is a problem to parse");
+        }
+        if (html){
+          var $ = cheerio.load(html);
+        }else{
+          return "There is a problem to parse this site";
+        }
+        var jsonData = [];
+        var i = 0;
+        $('table.exchange-rates').children("tbody").children("tr").each(function(i, element){
+        var a = $(this).children("td");
+
+        jsonData[i++] = 
+        {
+          currency: a.eq(0).text().trim(),
+          buy: a.eq(4).text().trim(),
+          sell: a.eq(5).text().trim()
+        };
+        
+        });
             resolve(jsonData);
     });
   });

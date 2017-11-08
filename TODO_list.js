@@ -25,7 +25,7 @@ const todoList = function todoList()
     
     return new Promise((resolve, reject) =>{
        
-        //<----------------------Urls table---------------------->
+        // //<----------------------Urls table---------------------->
         urlsToScrape.push(new UrlClass('http://finance.debenhams.com/travel-money/exchange-rates/',"16","","",0,'Currency','Standard Buy Rate','Standard Sell Rate'));
         urlsToScrape.push(new UrlClass('http://interafrica.webalytics.co.za/customcontent/Rates.php',"99","","",0,'Currency','Buy Rate','Sell Rate'));
         urlsToScrape.push(new UrlClass('http://www.mastercurrency.co.za/rates.aspx',"1625","","",0,'Code','We Buy','We Sell'));
@@ -40,7 +40,6 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/changi-money-changer-s-pte-ltd/108',"1584","","",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('https://cashchanger.co/singapore/mc/million-dollar-exchange/97',"","","Million Dollar Exchange",0,'0','WE BUY','WE SELL'));
         urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"85","","",0,'1','2','3'));
-        urlsToScrape.push(new UrlClass('https://www.ppfbanka.cz/en/documents-and-important-information/currency-exchange-rates.html',"4436","","",0,'0','5','6'));
         urlsToScrape.push(new UrlClass('https://www.uaeexchange.com/gbr-foreign-exchange',"385","","",0,'Code','Buy FC','Sell FC'));
         urlsToScrape.push(new UrlClass('https://www.iceplc.com/travel-money/exchange-rates',"6","","",5,'1','2',''));
         // urlsToScrape.push(new UrlClass('https://www.eurochange.co.uk/travel-money/exchange-rates',"","Eurochange PLC","",0,'Currency','Standard Rate',''));
@@ -49,7 +48,8 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('http://www.tokyo-card.co.jp/exchange/rate1.php',"90","","",0,'Foreign Currency    Yen\n(CASH)','1',''));
         urlsToScrape.push(new UrlClass('http://www.nailasmoneychanger.com/',"274","","",0,'0','2',''));
        
-        //<----------------------Urls without table---------------------->
+        // //<----------------------Urls without table---------------------->
+        urlsToScrapeNoTable.push(new UrlClass('https://www.ppfbanka.cz/en/exchange-rates',"4436","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://lacurrency.com/',"157","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.xchangeofamerica.com/home',"161","","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"4386","","",0,'currency','buy','sell'));
