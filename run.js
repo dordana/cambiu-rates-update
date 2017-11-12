@@ -34,7 +34,7 @@ var job = new CronJob('0 0 * * * 0-6', function() {
     todoList().then(function(data)
     {
         sendSMSReport(createSMSreport(data));
-        // console.log(data);
+        console.log(data);
         console.log("Pushed into the daily report!");
         global.dailyReport.push(data);
         var final_report = data;

@@ -15,3 +15,6 @@ heroku ps:scale web=1 --app cambiu-update-production
 
 #turn off the dyno
 heroku ps:scale web=0 --app cambiu-update-production 
+
+#push production
+git push production production:master

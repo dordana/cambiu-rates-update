@@ -175,7 +175,7 @@ exports.Scraping = function scraping(url)
         
         function scrape (tablesAsJson)
         {
-            
+            console.log(url.numberOfTable);
             var exchangeJson = tablesAsJson[url.numberOfTable];
             
             if (exchangeJson === undefined)
@@ -212,10 +212,6 @@ exports.Scraping = function scraping(url)
                         {
                             jsonOutput[j++] =
                             {
-                                address: url.address,
-                                name: url.name,
-                                id: url.exchangeId,
-                                chain: url.chain,
                                 buy: rate[url.buy],
                                 sell: rate[url.sell],
                                 currency: isoCurrency
@@ -231,7 +227,8 @@ exports.Scraping = function scraping(url)
                         console.log("Updating API");
                         console.log("URL: "+ url.address);
                         console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
-                        var promises = objMapToArr(jsonOutput,asyncFunc);
+                        var promises = asyncFunc(jsonOutput, url);
+                        
                         return Promise.all(promises);
                     }
                 return new Promise((resolve, reject) =>{
@@ -281,10 +278,6 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
                     {
                         jsonOutput[j++] =
                         {
-                            address: url.address,
-                            name: url.name,
-                            id: url.exchangeId,
-                            chain: url.chain,
                             buy: rate[url.buy],
                             sell: rate[url.sell],
                             currency: isoCurrency
@@ -294,12 +287,12 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
             }
         })
            
-            var objMapToArr = require('object-map-to-array');
+            
                 function runArray ()
                 {
                     console.log("Updating API: "+ url.address);
                     console.log("Number of rows to update: "+ Object.keys(jsonOutput).length);
-                    var promises = objMapToArr(jsonOutput,asyncFunc);
+                    var promises = asyncFunc(jsonOutput, url);
                     return Promise.all(promises);
                 }
             return new Promise((resolve, reject) =>{
@@ -307,15 +300,16 @@ exports.ScrapingNoTable = function ScrapingNoTable(url,data)
                     console.log("Done with " + url.address);
                     resolve(global.Report);
                     }).catch(function(){
-                        console.log("There is a problem to parse " + url.address);
-                        global.Report.failedReportList.push(url.address+"\treason => There is a problem to parse this site.");
                         resolve(global.Report);
                     })
                 
             });
 }
-var asyncFunc = function(item) {
+var asyncFunc = function(items, url) {
     
+    var body = buildbodyforapi(items, url);
+    console.log(body);
+
     var apigClient = apigClientFactory.default.newClient({
                 accessKey: 'AKIAIY6K5IKEXG7EGC6A',
                 secretKey: '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',
@@ -323,71 +317,41 @@ var asyncFunc = function(item) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            // var pathTemplate = '/staging/rates';
-            var pathTemplate = '/production/rates';
-            
+            // var pathTemplate = '/staging2/rates';
+            var pathTemplate = '/production2/rates';
             var method = 'POST';
-            var typeofexchange = "";
-            if (item.name === "" && item.id === "")
-            {
-                typeofexchange = "chain";
-                var body =
-                {
-                    currency: item.currency,
-                    chain: item.chain,
-                    buy: parseFloat(item.buy),
-                    sell: parseFloat(item.sell)
-                };
-            }else if (item.name === "" && item.chain === "")
-            {
-                typeofexchange = "id";
-                var body =
-                {
-                    currency: item.currency,
-                    id: item.id,
-                    buy: parseFloat(item.buy),
-                    sell: parseFloat(item.sell)
-                };
-            }else
-            {
-                typeofexchange = "name";
-                var body =
-                {
-                    currency: item.currency,
-                    name: item.name,
-                    buy: parseFloat(item.buy),
-                    sell: parseFloat(item.sell)
-                };
-            }
+            
     return new Promise(function(resolve, reject) {
+       
         apigClient.invokeApi({}, pathTemplate, method, {}, body)
         .then(function (result) {
+             
             console.log('\r\n--------------------------------------------');
             var res = JSON.stringify(result.data);
             if (res !== '{"status":"ok"}')
             {
                 if (res === "{\"errors\":{\"exchange\":[\"no rates defined for that exchange\"]}}")
                 {
-                    console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+                    console.log("failed: Updating => " + url.address );
                     global.Report.numberOfFailed++;
                     console.log(res);
                     console.log('--------------------------------------------');
-                    global.Report.failedReportList.push(item.address+"\treason => No rates defined for that exchange.");
-                    resolve('error');
+                    global.Report.failedReportList.push(url.address+"\treason => No rates defined for that exchange.");
+                    reject('error');
                 }
                 else
                 {
-                    console.log("failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+                    console.log("failed: Updating => " + url.address );
                     global.Report.numberOfFailed++;
                     console.log(res);
                     console.log('--------------------------------------------');
-                    global.Report.failedReportList.push(item.address+"\treason => There is a problem with name/chain/id.");
-                    resolve('error');
+                    global.Report.failedReportList.push(url.address+"\treason => There is a problem with name/chain/id.");
+                    reject('error');
                 }
             }
             else
             {
-                console.log("Success: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+                console.log("Success: Updating => " + url.address );
                 global.Report.numberOfSuccess++;
                 console.log(res);
                 console.log('--------------------------------------------');
@@ -395,14 +359,13 @@ var asyncFunc = function(item) {
             }
            
         }).catch(function (result) {
-            console.log(body.currency,body.buy,body.sell);
-            console.log("Server failed: Updating => " + body.currency,body.buy,body.sell + '\r\n' + item.address );
+            console.log("Server failed: Updating => " + url.address);
             var res = JSON.stringify(result.data);
-            console.log(res);
+            // console.log(res);
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push(item.address+"\treason => There is a problem with the server request.");          
-            resolve('error');
+            global.Report.failedReportList.push(url.address+"\treason => There is a problem with the server request.");          
+            reject('error');
         });
 
     })
@@ -410,3 +373,30 @@ var asyncFunc = function(item) {
 
 ////run => source app-env
 ////commits => heroku releases --app cambiu-update | grep -om 1 "[0-9a-f]\{7\}" | xargs git show
+
+
+function buildbodyforapi (arr ,url){
+    var objMapToArr = require('object-map-to-array');
+    var body = {};
+    body.source = 'scraping';
+    body.country = url.base_currency;
+    body.ratable_type = (url.name === '' ? 'Chain' : 'Exchange');
+    body.ratable_id = parseInt(url.exchangeId);
+    body.quote = (url.type === '' ? 'direct' : url.type);
+    var currencies = [];
+    var i = 0;
+    objMapToArr(arr,function(item)
+    {
+        currencies.push(
+        {
+            currency: item.currency,
+            buy_rate: parseFloat(item.buy),
+            sell_rate: parseFloat(item.sell),
+            buy_markup: null,
+            sell_markup: null
+        });
+    });
+    body.currencies = currencies;
+
+    return body;
+}
