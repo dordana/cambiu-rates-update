@@ -40,7 +40,6 @@ const todoList = function todoList()
         urlsToScrape.push(new UrlClass('http://www.luxor-exchange.ro/bucuresti',"85","Cheque Centre","",0,'GBP','1','2','3','direct'));
         urlsToScrape.push(new UrlClass('https://www.uaeexchange.com/gbr-foreign-exchange',"385","","UAE Exchange",0,'GBP','Code','Buy FC','Sell FC','indirect'));
         urlsToScrape.push(new UrlClass('https://www.iceplc.com/travel-money/exchange-rates',"6","International Currency Exchange","",5,'GBP','1','2','','indirect'));
-        // urlsToScrape.push(new UrlClass('https://www.eurochange.co.uk/travel-money/exchange-rates',"","Eurochange PLC","",0,'Currency','Standard Rate',''));
         urlsToScrape.push(new UrlClass('https://www.thomasexchangeglobal.co.uk/exchange-rates-check-exchange-rates.php',"9","Thomas exchange global","",5,'GBP','1','2','3','indirect'));
         urlsToScrape.push(new UrlClass('https://www.thomasexchange.co.uk/i_banknote_rates.asp',"361","","Thomas Exchange UK",0,'GBP','0','1','2','indirect'));
         urlsToScrape.push(new UrlClass('http://www.tokyo-card.co.jp/exchange/rate1.php',"90","world currency shop","",0,'JPY','Foreign Currency    Yen\n(CASH)','1','','direct'));
@@ -53,11 +52,8 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"4386","","eXchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates',"4443","","PNB",0,'PHP','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"4437","","Komerční banka",0,'CZK','currency','buy','sell','direct'));
-        // urlsToScrapeNoTable.push(new UrlClass('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97',"700","","",0,'currency','buy','sell'));
-        // urlsToScrapeNoTable.push(new UrlClass('https://www.raiffeisen.ru/en/currency_rates/#offices',"","","Raiffeisen Bank",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/',"4439","","Banamex",0,'MXN','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.mizuhobank.co.jp/rate/market/quote/index.html',"4440","","Mizuho",0,'JPY','currency','buy','sell','direct'));
-        // urlsToScrapeNoTable.push(new UrlClass('https://cecltd.com/?q=exchange-rates',"","CEC","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.natwest.com/tools/personal/currency_rates/',"409","","Natwest",0,'GBP','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.netdania.com/quotes/forex-sterling',"570","","netdania",0,'GBP','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://bestexchange.co.uk/?q=exchange-rates',"30","Best Exchange","",0,'GBP','currency','buy','sell','indirect'));
@@ -129,7 +125,9 @@ const todoList = function todoList()
                                 Promise.map(urlsToScrapeNoTable.slice(30,40),scrapeByUrl).then(function(report6){ 
                                     console.log("finished with report6\r\nHibernate, wake up in 5 minutes");
                                     sleep.sleep(n)
-                                    Promise.map(urlsToScrapeNoTable.slice(40,urlsToScrapeNoTable.length),scrapeByUrl).then(function(report7){ 
+                                    Promise.map(urlsToScrapeNoTable.slice(41,urlsToScrapeNoTable.length),scrapeByUrl).then(function(report7){ 
+                                        console.log(urlsToScrapeNoTable.length + " " +urlsToScrape.length);
+                                        
                                             console.log("finished with report7\r\nPreparing the final report to send");
                                             var temparr = [];
                                             for (var x = 0; x < report1[0].failedReportList.length; x++)
