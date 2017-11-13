@@ -1,5 +1,5 @@
 //Global vars
-const GBPlist = ['GBP/GBP','GBP','BritishPound',"לירהשטרלינג(GBP)","לירהשטרלינג","GBPBritishPound","לירה שטרלינג (GBP)"];
+const GBPlist = ['GBP/GBP','GBP','SterlingPound','BritishPound',"לירהשטרלינג(GBP)","לירהשטרלינג","GBPBritishPound","לירה שטרלינג (GBP)"];
 const USDlist = ['UNITEDSTATESDOLLAR','USDOLLARS',"דולר(USD)",'דולרארה"ב','U.S.ADollar','USDollar(USD)','USDollar','US Dollar', 'USD', 'GBP/USD','Dollars-USA',"USDUSDollars","US",'דולר (USD)'];
 const ILSlist = ['ISRAELNEWSHEKEL','ISRAELINEWSHEQELS','IsraelShekel','IsraeliShekel(ILS)','IsraeliNewShekel','ILS','NewIsraeliSheqel','GBP/ILS','Sheqel-Israel',"New"];
 const EURlist = ['EUROEuro','Euro(EUR)','CEEEuro','EUR',"יורו(EUR)",'אירו', 'GBP/EUR','Euro','EURO','Euro-Europe',"EUREuro","יורו (EUR)"];
@@ -317,8 +317,8 @@ var asyncFunc = function(items, url) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            var pathTemplate = '/staging2/rates';
-            // var pathTemplate = '/production2/rates';
+            // var pathTemplate = '/staging2/rates';
+            var pathTemplate = '/production2/rates';
             var method = 'POST';
             
     return new Promise(function(resolve, reject) {

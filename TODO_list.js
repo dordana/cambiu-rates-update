@@ -52,14 +52,11 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://www.xchangeofamerica.com/home',"161","Xchange of America","",0,'USD','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"4386","","eXchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates',"4443","","PNB",0,'PHP','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.csas.cz/banka/appmanager/portal/banka?_nfpb=true&_pageLabel=exchangerates_subportal01',"4438","","Česká spořitelna",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"4437","","Komerční banka",0,'CZK','currency','buy','sell','direct'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.changeme.co.il/index.php/%D7%94%D7%96%D7%9E%D7%A0%D7%AA-%D7%9E%D7%98%D7%B4%D7%97',"700","","",0,'currency','buy','sell'));
         // urlsToScrapeNoTable.push(new UrlClass('https://www.raiffeisen.ru/en/currency_rates/#offices',"","","Raiffeisen Bank",0,'currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page',"4442","","POSB",0,'SGD','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/',"4439","","Banamex",0,'MXN','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.mizuhobank.co.jp/rate/market/quote/index.html',"4440","","Mizuho",0,'JPY','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal',"","BFC","",0,'GBP','currency','buy','sell','indirect'));
         // urlsToScrapeNoTable.push(new UrlClass('https://cecltd.com/?q=exchange-rates',"","CEC","",0,'currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.natwest.com/tools/personal/currency_rates/',"409","","Natwest",0,'GBP','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.netdania.com/quotes/forex-sterling',"570","","netdania",0,'GBP','currency','buy','sell','indirect'));
@@ -68,13 +65,9 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.bankleumi.co.il/vgnprod/shearim.asp?sitePrefix=',"4375","","Leumi",0,'ILS','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.sakura-currency.co.jp/roppongi/',"92","sakura currency service","",0,'JPY','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.ccsole.com.mx/',"4132","","Centro Cambiario Sole",0,'MXN','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","dd","",0,'CZK','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.alfaprague.cz/web2/?site=1',"","Exchanges ALFA PRAGUE","",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange8.cz/en/#close',"4390","","Exchange 8",0,'CZK','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.auraaktiv.cz/exchange-rates.html',"","AuraAktiv","",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.nekazanka-exchange.cz/',"4412","","Nekazanka Exchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.goldenexchange.cz/kurzy.php',"4413","","Golden Exchange",0,'CZK','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.provaznickaexchange.cz/novy.php',"4415","","Provaznická Exchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.cernaruze-exchange.cz/',"4416","","Černá Růže Exchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.top-exchange.cz/index.php',"4417","","TOPEXchange",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.changeoffice.wz.cz/kurzy.php',"4420","","Abraham Exchange",0,'CZK','currency','buy','sell','direct'));
@@ -95,19 +88,18 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('http://www.centrumchange.hu/',"81","centrum change","",0,'HUF','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://dunachange.hu/en/',"1170","","Dunachange",0,'HUF','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://users.atw.hu/kaadanchange/',"1186","","Kaadan CO Kft.",0,'HUF','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://kiralypenzvalto.hu/',"83","king and co.","",0,'HUF','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.forexchange.it/l-azienda/valute/',"292","Forexchange","",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.euro-change.de/index_en.php',"297","Euro Change Wechselstuben AG","",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.exchange-ag.de/Wechselkurse.html?design=n2013',"298","298","",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://romeexchange.com/',"4478","","Rome exchange",0,'EUR','currency','buy','sell','indirect'));
-        urlsToScrapeNoTable.push(new UrlClass('http://travelmatemoney.com.au/Money-Exchange.php',"4627","Travelmate Money Exchange","",0,'AUD','currency','buy','sell'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.travelmoneyoz.com/foreign-currency',"4628","Travel Money Oz","",0,'AUD','currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://travelmatemoney.com.au/Money-Exchange.php',"4627","","Travelmate Money Exchange",0,'AUD','currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","","dd",0,'CZK','currency','buy','sell','direct'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.travelmoneyoz.com/foreign-currency',"4628","","Travel Money Oz",0,'AUD','currency','buy','sell'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.auraaktiv.cz/exchange-rates.html',"289","AuraAktiv","",0,'CZK','currency','buy','sell','direct'));
+        urlsToScrapeNoTable.push(new UrlClass('http://www.alfaprague.cz/web2/?site=1',"288","Exchanges ALFA PRAGUE","",0,'CZK','currency','buy','sell','direct'));        
+        urlsToScrapeNoTable.push(new UrlClass('https://www.bfcexchange.co.uk/currency-exchange-rates?atype=exchange&continent=europe#animatedModal',"1","BFC","",0,'GBP','currency','buy','sell','indirect'));
+        urlsToScrapeNoTable.push(new UrlClass('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page',"4442","","POSB",0,'SGD','currency','buy','sell','indirect'));
 
-        
-        
-        
-        
-        
         
         
         

@@ -1181,7 +1181,7 @@ var posb = function()
         }
             var jsonData = [];
             var i = 0;
-            $('table.margin-table').children('tbody').children('tr').each(function(i, element){
+            $('table.tbl-primary').children('tbody').children('tr').each(function(i, element){
                 var a = $(this).children();
             
                 jsonData[i++] = 
@@ -1272,7 +1272,7 @@ var bfcexchange = function()
         {
           reject("There is a problem to parse");
         }
-            if (html){
+        if (html){
           var $ = cheerio.load(html);
         }else{
           reject("There is a problem to parse this site");
@@ -1280,14 +1280,14 @@ var bfcexchange = function()
             var jsonData = [];
             var i = 0;
             
-            $('div.bfc-currency-exchange-rates-wrapper').children('div.bfc-currency-exchange-rates-row').each(function(i, element){
-                var a = $(this);
+            $('table.currency-row').eq(1).children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
                 
                 jsonData[i++] = 
                 {
-                  currency: a.children("span.bfc-country-img-code-wrapper").children("span.bfc-country-code-name").children("span.bfc-country-ccode").text().trim(),
-                  buy: a.children("span.bfc-country-main-buy-wrapper").children("span.bfc-currency-rates-buy").text().trim(),
-                  sell: a.children("span.bfc-country-main-sell-wrapper").children("span.bfc-currency-rates-sell").text().trim()
+                  currency: a.eq(1).children(".bfc-country-code").text().trim(),
+                  buy: a.eq(2).text().trim(),
+                  sell: a.eq(3).text().trim()
                 };
             
             });

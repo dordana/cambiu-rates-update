@@ -5,30 +5,29 @@ var iconv  = require('iconv-lite');
 var urljson = require('urljson');
 
 
-  request('https://www.ppfbanka.cz/en/exchange-rates', function (error, response, html)
+ request('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page', function (error, response, html)
     {
-        if (error)
+      if (error)
         {
           // reject("There is a problem to parse");
         }
-        if (html){
+            if (html){
           var $ = cheerio.load(html);
         }else{
-          return "There is a problem to parse this site";
+          // reject("There is a problem to parse this site");
         }
-        var jsonData = [];
-        var i = 0;
-        $('table.exchange-rates').children("tbody").children("tr").each(function(i, element){
-        var a = $(this).children("td");
-
-        jsonData[i++] = 
-        {
-          currency: a.eq(0).text().trim(),
-          buy: a.eq(4).text().trim(),
-          sell: a.eq(5).text().trim()
-        };
-        
-        });
+            var jsonData = [];
+            var i = 0;
+            $('table.tbl-primary').children('tbody').children('tr').each(function(i, element){
+                var a = $(this).children();
+            
+                jsonData[i++] = 
+                {
+                  currency: a.eq(0).text().trim(),
+                  buy: a.eq(3).text().trim(),
+                  sell: a.eq(2).text().trim()
+                };
+            
+            });
             console.log(jsonData);
     });
- 
