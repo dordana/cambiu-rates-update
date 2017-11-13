@@ -317,8 +317,8 @@ var asyncFunc = function(items, url) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            // var pathTemplate = '/staging2/rates';
-            var pathTemplate = '/production2/rates';
+            var pathTemplate = '/staging2/rates';
+            // var pathTemplate = '/production2/rates';
             var method = 'POST';
             
     return new Promise(function(resolve, reject) {
