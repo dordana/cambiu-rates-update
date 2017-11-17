@@ -25,7 +25,7 @@ var CronJob = require('cron').CronJob;
 
 
 
-var job = new CronJob('00 00 02 * * 0-6', function() {
+var job = new CronJob('0 0 * * * 0-6', function() {
     var dateNtime= moment.tz("Asia/Jerusalem").format('DD/MM/YYYY HH:mm:ss');
     console.log("******************************************************************************************************************************************")
     console.log("******************************************************** Start working - "+dateNtime+" version 1.7 *************************************")
@@ -74,7 +74,7 @@ function sendEmailReport(repText)
     var data = 
     {
         from: 'Cambiu - Update rates report <postmaster@sandbox3fc985a1f4274f558f5239547f7a9c33.mailgun.org>',
-        to: 'dor@cambiu.com, dror@cambiu.com, eyal@cambiu.com, yonatan@cambiu.com',
+        to: 'dor@cambiu.com, dror@cambiu.com, eyal@cambiu.com',
         // to: 'dor@cambiu.com',
         subject: 'Cambiu - Update rates - daily report - '+ dateNtime,
         html: repText

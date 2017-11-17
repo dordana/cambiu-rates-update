@@ -317,8 +317,8 @@ var asyncFunc = function(items, url) {
                 invokeUrl: 'https://cz471val2d.execute-api.us-west-2.amazonaws.com'
             });
 
-            var pathTemplate = '/staging2/rates';
-            // var pathTemplate = '/production2/rates';
+            // var pathTemplate = '/staging2/rates';
+            var pathTemplate = '/production2/rates';
             var method = 'POST';
             
     return new Promise(function(resolve, reject) {
@@ -330,24 +330,12 @@ var asyncFunc = function(items, url) {
             var res = JSON.stringify(result.data);
             if (res !== '{"status":"ok"}')
             {
-                if (res === "{\"errors\":{\"exchange\":[\"no rates defined for that exchange\"]}}")
-                {
-                    console.log("failed: Updating => " + url.address );
-                    global.Report.numberOfFailed++;
-                    console.log(res);
-                    console.log('--------------------------------------------');
-                    global.Report.failedReportList.push(url.address+"\treason => No rates defined for that exchange.");
-                    reject('error');
-                }
-                else
-                {
-                    console.log("failed: Updating => " + url.address );
-                    global.Report.numberOfFailed++;
-                    console.log(res);
-                    console.log('--------------------------------------------');
-                    global.Report.failedReportList.push(url.address+"\treason => There is a problem with name/chain/id.");
-                    reject('error');
-                }
+                console.log("failed: Updating => " + url.address );
+                global.Report.numberOfFailed++;
+                console.log(res);
+                console.log('--------------------------------------------');
+                global.Report.failedReportList.push(url.address+"\treason =>" +res);
+                reject('error');
             }
             else
             {
@@ -361,10 +349,10 @@ var asyncFunc = function(items, url) {
         }).catch(function (result) {
             console.log("Server failed: Updating => " + url.address);
             var res = JSON.stringify(result.data);
-            // console.log(res);
+            console.log(res);
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push(url.address+"\treason => There is a problem with the server request.");          
+            global.Report.failedReportList.push(url.address+"\treason =>"+ res);          
             reject('error');
         });
 
