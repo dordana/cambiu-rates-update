@@ -112,7 +112,7 @@ function sendSMSReport(Report)
     ({
         to: "+972549325932",
         from: "+17868863180",
-        body: '['+dateNtime+']\r\n *Update report*\r\n' + Report
+        body: '[ '+dateNtime+']' +'\r\n *Update report*\r\n' + Report
     });
 }
 

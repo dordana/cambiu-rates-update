@@ -331,10 +331,19 @@ var asyncFunc = function(items, url) {
             if (res !== '{"status":"ok"}')
             {
                 console.log("failed: Updating => " + url.address );
+                if(body.currencies.length == 0)
+                {
+                    console.log("**No currencies**");
+                }
                 global.Report.numberOfFailed++;
                 console.log(res);
                 console.log('--------------------------------------------');
-                global.Report.failedReportList.push(url.address+"\treason =>" +res);
+                if(body.currencies.length == 0)
+                {
+                    global.Report.failedReportList.push(url.address+"\treason =>"+ res+'\r\n**No currencies**');
+                }else{
+                    global.Report.failedReportList.push(url.address+"\treason =>"+ res); 
+                }
                 reject('error');
             }
             else
@@ -348,11 +357,20 @@ var asyncFunc = function(items, url) {
            
         }).catch(function (result) {
             console.log("Server failed: Updating => " + url.address);
+            if(body.currencies.length == 0)
+            {
+                console.log("**No currencies**");
+            }
             var res = JSON.stringify(result.data);
             console.log(res);
             global.Report.numberOfFailed++;
             console.log('--------------------------------------------');
-            global.Report.failedReportList.push(url.address+"\treason =>"+ res);          
+            if(body.currencies.length == 0)
+            {
+                global.Report.failedReportList.push(url.address+"\treason =>"+ res+'\r\n**No currencies**');
+            }else{
+                global.Report.failedReportList.push(url.address+"\treason =>"+ res); 
+            }
             reject('error');
         });
 

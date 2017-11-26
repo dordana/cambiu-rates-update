@@ -5,7 +5,7 @@ var iconv  = require('iconv-lite');
 var urljson = require('urljson');
 
 
- request('https://www.posb.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page', function (error, response, html)
+ request('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/', function (error, response, html)
     {
       if (error)
         {
@@ -18,14 +18,15 @@ var urljson = require('urljson');
         }
             var jsonData = [];
             var i = 0;
-            $('table.tbl-primary').children('tbody').children('tr').each(function(i, element){
+            
+            $('table.metalesTable').children('tbody').children('tr').each(function(i, element){
                 var a = $(this).children();
             
                 jsonData[i++] = 
                 {
-                  currency: a.eq(0).text().trim(),
-                  buy: a.eq(3).text().trim(),
-                  sell: a.eq(2).text().trim()
+                  currency: a.eq(0).text().trim()+a.eq(1).text().trim(),
+                  buy: a.eq(2).text().trim(),
+                  sell: a.eq(3).text().trim()
                 };
             
             });

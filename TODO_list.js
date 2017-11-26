@@ -50,7 +50,7 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://lacurrency.com/',"157","lacurrency","",0,'USD','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.xchangeofamerica.com/home',"161","Xchange of America","",0,'USD','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.exchange.cz/',"4386","","eXchange",0,'CZK','currency','buy','sell','direct'));
-        urlsToScrapeNoTable.push(new UrlClass('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates',"4443","","PNB",0,'PHP','currency','buy','sell','direct'));
+        // urlsToScrapeNoTable.push(new UrlClass('http://www.pnb.com.ph/index.php/personal-banking/foreign-exchange-rates',"4443","","PNB",0,'PHP','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.kb.cz/kurzovni-listek/en/rl/index.x',"4437","","Komerční banka",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://portal.banamex.com.mx/c719_004/divisasMetales/es/divisas?xhost=https://www.banamex.com/',"4439","","Banamex",0,'MXN','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('https://www.mizuhobank.co.jp/rate/market/quote/index.html',"4440","","Mizuho",0,'JPY','currency','buy','sell','direct'));
@@ -87,7 +87,7 @@ const todoList = function todoList()
         urlsToScrapeNoTable.push(new UrlClass('https://www.forexchange.it/l-azienda/valute/',"292","Forexchange","",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.euro-change.de/index_en.php',"297","Euro Change Wechselstuben AG","",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.exchange-ag.de/Wechselkurse.html?design=n2013',"298","298","",0,'EUR','currency','buy','sell','indirect'));
-        urlsToScrapeNoTable.push(new UrlClass('http://romeexchange.com/',"4478","","Rome exchange",0,'EUR','currency','buy','sell','indirect'));
+        // urlsToScrapeNoTable.push(new UrlClass('http://romeexchange.com/',"4478","","Rome exchange",0,'EUR','currency','buy','sell','indirect'));
         urlsToScrapeNoTable.push(new UrlClass('http://travelmatemoney.com.au/Money-Exchange.php',"4627","","Travelmate Money Exchange",0,'AUD','currency','buy','sell'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.huspak-exchange.cz/en/exchange-rates/',"4387","","dd",0,'CZK','currency','buy','sell','direct'));
         urlsToScrapeNoTable.push(new UrlClass('http://www.travelmoneyoz.com/foreign-currency',"4628","","Travel Money Oz",0,'AUD','currency','buy','sell'));
@@ -126,8 +126,6 @@ const todoList = function todoList()
                                     console.log("finished with report6\r\nHibernate, wake up in 5 minutes");
                                     sleep.sleep(n)
                                     Promise.map(urlsToScrapeNoTable.slice(41,urlsToScrapeNoTable.length),scrapeByUrl).then(function(report7){ 
-                                        console.log(urlsToScrapeNoTable.length + " " +urlsToScrape.length);
-                                        
                                             console.log("finished with report7\r\nPreparing the final report to send");
                                             var temparr = [];
                                             for (var x = 0; x < report1[0].failedReportList.length; x++)
